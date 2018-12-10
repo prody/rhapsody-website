@@ -1,0 +1,159 @@
+<!!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+.titlebar{
+    background-color:white;
+    color:blue;
+    padding: 2px 20px;
+}
+
+.tooltip {
+    display:none;
+    position:absolute;
+    border:1px solid #333;
+    background-color:#161616;
+    border-radius:5px;
+    padding:10px;
+    color:#fff;
+    font-size:12px Arial;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 20;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 33.3333%;
+}
+
+.tablink:hover {
+    background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: black;
+    display: none;
+    padding: 60px 40px;
+    height: 100%;
+}
+
+#Home {background-color: white;}
+#FAQs {background-color: white;}
+#Download {background-color: white;}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<!-- JAVASCRIPT -->
+<script type="text/javascript">
+
+
+  $(document).ready(function() {
+    // Tooltip only Text
+    $('.masterTooltip').hover(function(){
+            // Hover over code
+            var title = $(this).attr('title');
+            $(this).data('tipText', title).removeAttr('title');
+            $('<p class="tooltip"></p>')
+            .html(title)
+            .appendTo('body')
+            .fadeIn('fast');
+    }, function() {
+            // Hover out code
+            $(this).attr('title', $(this).data('tipText'));
+            $('.tooltip').remove();
+    }).mousemove(function(e) {
+            var mousex = e.pageX + 20; //Get X coordinates
+            var mousey = e.pageY + 10; //Get Y coordinates
+            $('.tooltip')
+            .css({ top: mousey, left: mousex })
+    });
+    });
+</script>
+
+<title> RAPSODY </title>
+</head>
+
+
+<body>
+
+
+<div class="titlebar"> 
+     <h1> RAPSODY </h1>
+     <h2><i> Re-Assessment of Pathogenicity of SAVs based On Dynamics </i></h2>
+
+     <button class="tablink" onclick="window.location.href='index.html'" id="HomeButton">Home</button>
+     <button class="tablink" onclick="window.location.href='FAQs.html'" id="FAQButton">FAQs</button>
+     <button class="tablink" onclick="openPage('Download', this, 'green')" id="defaultOpen">Download</button>
+</div>
+
+
+<div id="Download" class="tabcontent">
+  <p><a href="./objects/Integrated_Dataset.txt">Integrated Dataset</a></p>
+  <p><a href="./objects/rapsody_v0.2/rapsody.tar.gz">RAPSODY_v0.2 source code (Python 2.7)</a> [400MB]</p>
+  <p><a href="./objects/rapsody_v0.1/rapsody.tar.gz">RAPSODY_v0.1 source code (Python 2.7)</a> [deprecated - 500MB] </p> 
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+<div class="footer"> 
+  Contact: 
+  <SCRIPT TYPE="text/javascript">
+    emailE = 'pitt.edu'
+    emailE = ('lponzoni' + '@' + emailE)
+    document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')
+  </script>
+</div>
+
+
+
+
+</body>
+</html> 

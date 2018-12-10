@@ -1,0 +1,355 @@
+<!!DOCTYPE html>
+<html>
+<head>
+
+<!--
+<style>
+  ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+  }
+  
+  li {
+      float: left;
+      border-right: 1px solid #bbb;
+  }
+  
+  li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+  }
+  
+  li a:hover:not(.active) {
+      background-color: #111;
+  }
+  
+  .active {
+      background-color: #4CAF50;
+  }
+</style>
+
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="SHORTCUT ICON" href="spec_icon.png">
+-->
+
+<style>
+
+.titlebar{
+    background-color:white;
+    color:blue;
+    padding: 2px 20px;
+}
+
+.tooltip {
+    display:none;
+    position:absolute;
+    border:1px solid #333;
+    background-color:#161616;
+    border-radius:5px;
+    padding:10px;
+    color:#fff;
+    font-size:12px Arial;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 20;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 33.3333%;
+}
+
+.tablink:hover {
+    background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: black;
+    display: none;
+    padding: 60px 40px;
+    height: 100%;
+}
+
+#Home {background-color: white;}
+#FAQs {background-color: white;}
+#Download {background-color: white;}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<!-- JAVASCRIPT -->
+<script type="text/javascript">
+
+  <!-- FUNCTIONS -->
+
+  function validateEmail() { 
+    str = document.getElementById("email").value.trim()
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var ok =  re.test(str) || ( str.length == 0) ;
+    if (!ok) document.getElementById("email").style.border = "solid 2px red";
+    else document.getElementById("email").style.border = "";     
+  }
+
+  function validate_SNP_query(){
+    var ok = true; 
+    var str = document.getElementById("SNP_query").value;
+    var len = str.match(/\b(\w+)\b/g).length
+    if ( str.match(/[^A-Za-z0-9_\- ]/) ) ok = false;
+    if ( len != 4 ) ok = false; 
+    if (!ok) document.getElementById("SNP_query").style.border = "solid 2px red";
+    else document.getElementById("SNP_query").style.border = "";
+  }
+
+  function validate(){
+    if( document.getElementById('pp2_radio').checked == true && document.getElementById("pp2_file").value.length == 0 ){
+      alert ("Please select a file.");
+      return false;
+    }
+    if( document.getElementById('batch_radio').checked == true && document.getElementById("batch_file").value.length == 0 ){
+      alert ("Please select a file.");
+      return false;
+    }
+    if( document.getElementById('SNP_radio').checked == true ){
+      var ok = true; 
+      var str = document.getElementById("SNP_query").value;
+      var len = str.match(/\b(\w+)\b/g).length
+      if ( str.match(/[^A-Za-z0-9_\- ]/) ) ok = false;
+      if ( len != 4 ) ok = false; 
+      if ( ! ok ) {
+        alert('Invalid SNP query format (ex. "P17516 135 G E" or "SUN2_HUMAN 671 G R")');
+        return false;
+      }
+    }
+  }
+
+<!-- END FUNCTIONS -->
+
+
+  $(document).ready(function() {
+    // Tooltip only Text
+    $('.masterTooltip').hover(function(){
+            // Hover over code
+            var title = $(this).attr('title');
+            $(this).data('tipText', title).removeAttr('title');
+            $('<p class="tooltip"></p>')
+            .html(title)
+            .appendTo('body')
+            .fadeIn('fast');
+    }, function() {
+            // Hover out code
+            $(this).attr('title', $(this).data('tipText'));
+            $('.tooltip').remove();
+    }).mousemove(function(e) {
+            var mousex = e.pageX + 20; //Get X coordinates
+            var mousey = e.pageY + 10; //Get Y coordinates
+            $('.tooltip')
+            .css({ top: mousey, left: mousex })
+    });
+    });
+</script>
+
+<title> RAPSODY </title>
+</head>
+
+
+<body>
+
+<!--
+  <div id="wrapper">
+    <div id="logoimgdiv"><img id="logoimg" src="navab_spectrus_black_thin.jpg"></div>
+
+    <div id="content_box">
+    <ul>
+      <li><a class="active" href="#home">Quasi-rigid domains</a></li>
+      <li><a href="spectrus-evo_webserver/index.html">Evolutionary domains</a></li>
+    </ul>
+    </div>
+  </div>
+-->
+
+<div class="titlebar"> 
+     <h1> RAPSODY </h1>
+     <h2><i> Re-Assessment of Pathogenicity of SAVs based On Dynamics </i></h2>
+
+     <button class="tablink" onclick="openPage('Home', this, 'green')" id="defaultOpen">Home</button>
+     <button class="tablink" onclick="window.location.href='FAQs.html'" id="FAQButton">FAQs</button>
+     <button class="tablink" onclick="window.location.href='download.html'" id="DownloadButton">Download</button>
+</div>
+
+
+<div id="Home" class="tabcontent">
+
+<p> This tool provides a prediction of pathogenicity for Single Amino acid Variants (SAVs) by employing a Random Forest classifier trained on both sequence-based and structural/dynamical features. </b>
+Please cite: <a href="http://www.pnas.org/content/early/2018/03/29/1715896115.short">Ponzoni Luca and Ivet Bahar, "Structural dynamics is a determinant of the functional significance of missense variants." PNAS (2018): 201715896.
+</a> 
+</p>
+
+<hr class="midhr">
+
+<form id="jobform" action="submit_job.php" method="post" enctype="multipart/form-data">
+<div id="inputdiv">
+<table class="inptable">
+
+<tr>
+  <td></td>
+  <td> 
+    <b>Option 1:</b> Get predictions based on both <br> 
+    sequence-based and structural/dynamical features, <br>
+    by uploading a: 
+    <a href="javascript:;" class="masterTooltip" title="Sequence-based conservation features are extracted from 
+    the output of PolyPhen-2, <br>
+    which can be obtained by submitting a batch query at the given link." style="text-decoration:none">&#9432;</a>
+  </td>
+</tr>
+
+<tr>
+  <td class="radiotd">
+    <input type="radio" name="input_type" value="pp2_file" id="pp2_radio" checked>
+  </td>
+  <td>
+    <a href="http://genetics.bwh.harvard.edu/pph2/bgi.shtml" target="_blank">PolyPhen-2</a> output file 
+    (see <a id="FAQlink" href="#" onclick="window.location.href='FAQs.html'">instructions</a> - 25MB max) 
+  </td>
+  <td>
+    <input type="file" name="pp2_file" id="pp2_file" onchange="javascript:document.getElementById('pp2_radio').checked = true;">
+  </td>
+</tr>
+
+<tr>
+  <td></td>
+  <td>
+    <br>
+    <br>
+    <b>Option 2:</b> Alternatively, you can get predictions <br>
+    based only on structural/dynamical features. 
+      <a href="javascript:;" class="masterTooltip" title="
+      If a PolyPhen-2 output file is not provided, only structural/dynamical features <br>
+      will be employed, resulting in a lower prediction accuracy. <br> 
+      Only Uniprot coordinates are accepted. Examples of accepted formats: <br> 
+      P17516 135 G E <br> 
+      SUN2_HUMAN 671 G R <br> 
+      Multiple variants can be submitted as separate lines in a text file (option 2.2) <br>" 
+      style="text-decoration:none">&#9432;</a>
+  </td>
+</tr>
+
+<tr>
+  <td class="radiotd">
+    <input type="radio" name="input_type" value="single_SNP" id="SNP_radio">
+  </td>
+  <td>
+   <b>2.1:</b> single query (e.g.: P17516 135 G E)
+  </td>
+  <td>
+    <input type="text" name="SNP_query" id="SNP_query" oninput="javascript:document.getElementById('SNP_radio').checked = true; validate_SNP_query();">
+  </td>
+</tr>
+
+<tr>
+  <td class="radiotd">
+    <input type="radio" name="input_type" value="batch_file" id="batch_radio" >
+  </td>
+  <td>
+    <b>2.2:</b> batch query  
+  </td>
+  <td>
+    <input type="file" name="batch_file" id="batch_file" onchange="javascript:document.getElementById('batch_radio').checked = true;">
+  </td>
+</tr>
+
+</table>
+</div>
+
+<hr class="midhr">
+
+<table class="inptable">
+  <tr>
+    <td>
+      email (optional): 
+      <a href="javascript:;" class="masterTooltip" title="
+      an email will be send to you after your job has completed, <br> 
+      with a link where you can download the final predictions" style="text-decoration:none">&#9432;</a>
+    </td>
+    <td width="50%">
+      <input type="text" name="email" id="email" oninput="validateEmail();">
+    </td>
+    <td>
+      <input class="sendbutton" type="submit" value="Submit job">
+    </td>
+  </tr>
+</table>
+
+
+<hr class="midhr">
+
+</form>
+
+</div>
+
+
+<script>
+function openPage(pageName,elmnt,color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+
+}
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+<div class="footer"> 
+  Contact: 
+  <SCRIPT TYPE="text/javascript">
+    emailE = 'pitt.edu'
+    emailE = ('lponzoni' + '@' + emailE)
+    document.write('<A href="mailto:' + emailE + '">' + emailE + '</a>')
+  </script>
+</div>
+
+
+
+
+</body>
+</html> 
