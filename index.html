@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>rhapsody</title>
   <meta charset="utf-8">
@@ -8,12 +9,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
     }
-    
+
     /* Add a gray background color and some padding to the footer */
     footer {
       background-color: #f2f2f2;
@@ -21,69 +22,71 @@
     }
   </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-<!--
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--
       <a class="navbar-brand" href="index.html">Rhapsody</a>
 -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="saturation_mutagenesis.html"><i>In silico</i> saturation mutagenesis</a></li>
+          <li><a href="#">Batch query</a></li>
+          <li><a href="#">Uniprot2PDB mapping</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> Tutorials</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-star"></span> Links</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">Home</a></li>
-	<li><a href="sat_mut.html"><i>In silico</i> saturation mutagenesis</a></li>
-        <li><a href="#">Batch query</a></li>
-        <li><a href="#">Uniprot2PDB mapping</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-info-sign"></span> Tutorials</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-star"></span> Links</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-download-alt"></span> Download</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  </nav>
 
-<div class="jumbotron">
-  <div class="container text-center">
-    <h1>Rhapsody</h1>      
-    <p>Pathogenicity prediction of human missense variants based on sequence, structure and dynamics of proteins.</p>
-  </div>
-</div>
-  
-<div class="container-fluid bg-3 text-center">    
-  <h3>Examples</h3><br>
-  <div class="row">
-    <div class="col-sm-3">
-      <p><i>In silico</i> saturation mutagenesis of DAT</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-3"> 
-      <p>Query batch of mixed variants</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-3"> 
-      <p>Mapping of sequence on custom PDB</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-3"> 
-      <p>Something else...</p>
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+  <div class="jumbotron">
+    <div class="container text-center">
+      <h1>Rhapsody</h1>
+      <p>Pathogenicity prediction of human missense variants based on sequence, structure and dynamics of proteins.</p>
     </div>
   </div>
-</div><br>
 
-<footer class="container-fluid text-center">
-  <p>lponzoni@pitt.edu - Bahar lab, University of Pittsburgh, Dept. of Computational & Systems Biology</p>
-</footer>
+  <div class="container-fluid bg-3 text-center">
+    <h3>Examples</h3><br>
+    <div class="row">
+      <div class="col-sm-3">
+        <p><i>In silico</i> saturation mutagenesis of DAT</p>
+        <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3">
+        <p>Query batch of mixed variants</p>
+        <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3">
+        <p>Mapping of sequence on custom PDB</p>
+        <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3">
+        <p>Something else...</p>
+        <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+    </div>
+  </div><br>
+
+  <footer class="container-fluid text-center">
+    <p>lponzoni@pitt.edu - Bahar lab, University of Pittsburgh, Dept. of Computational & Systems Biology</p>
+  </footer>
 
 </body>
+
 </html>
