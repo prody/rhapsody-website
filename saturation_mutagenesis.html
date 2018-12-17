@@ -43,22 +43,23 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2><i>In silico</i> saturation mutagenesis</a></h2>
+      <h2><i>In silico</i> saturation mutagenesis</h2>
       <p>Short description.</p>
     </div>
   </div>
 
   <div class="container">
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" novalidate action="submit_job.php" method="post">
       <div class="form-row">
         <div class="col-md">
           <div class="form-group">
             <label for="sm_query">query</label>
-            <input type="text" class="form-control" id="sm_query" placeholder="P12345" value="" required>
+            <input type="text" class="form-control" name="sm_query" id="sm_query"
+                   placeholder="P12345" value="" required>
             <small id="jobIDHelp" class="form-text text-muted">Uniprot accession
               number (optional: add a specific position for single-site scanning)</small>
             <div class="invalid-feedback">
-              Invalid query.
+              Invalid query
             </div>
           </div>
         </div>
@@ -67,9 +68,14 @@
 
           <div class="form-group">
             <label for="sm_email">email</label>
-            <input type="email" class="form-control" id="sm_email" aria-describedby="emailHelp" placeholder="(optional)">
+            <input type="email" class="form-control" name="sm_email" id="sm_email"
+                   aria-describedby="emailHelp" placeholder="(optional)" value="">
             <small id="emailHelp" class="form-text text-muted">We'll notify you
-              when results are ready</small>
+              when results are ready
+            </small>
+            <div class="invalid-feedback">
+              Invalid email address
+            </div>
           </div>
         </div>
       </div>
@@ -78,7 +84,8 @@
       <div class="col-md">
         <label for="sm_custom_jobID">job name</label>
         <div class="form-group">
-          <input type="text" class="form-control" id="sm_custom_jobID" placeholder="(optional)" value="">
+          <input type="text" class="form-control" name="sm_custom_jobID"
+                 id="sm_custom_jobID" placeholder="(optional)" value="">
           <small id="jobIDHelp" class="form-text text-muted">Helps retrieve
             your job later</small>
         </div>
@@ -86,7 +93,8 @@
       <div class="col-md">
         <label for="sm_email">email</label>
         <div class="form-group">
-          <input type="email" class="form-control" id="sm_email" aria-describedby="emailHelp" placeholder="(optional)">
+          <input type="email" class="form-control" name="sm_email" id="sm_email"
+                 aria-describedby="emailHelp" placeholder="(optional)">
           <small id="emailHelp" class="form-text text-muted">A notification will be sent
             at this address when results are ready</small>
         </div>
@@ -101,34 +109,32 @@
       </div>
 
       <div id="collapse1" class="panel-collapse collapse">
-        <div class="form-group">
-          <div class="form-row">
-            <div class="col-md">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBID_radio" value="" checked>
-                <div class="form-group">
-                  <input class="form-control" type="text" id="customPDBID" placeholder="type a PDB code..." value="" onfocus="document.getElementById('customPDBID_radio').checked=true">
-                  <!-- <small id="PDBIDHelp" class="form-text text-muted">PDB ID</small> -->
-                </div>
+        <div class="form-row">
+          <div class="col-md">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBID_radio" value="" checked>
+              <div class="form-group">
+                <input class="form-control" type="text" id="customPDBID" placeholder="type a PDB code..." value="" onfocus="document.getElementById('customPDBID_radio').checked=true">
+                <!-- <small id="PDBIDHelp" class="form-text text-muted">PDB ID</small> -->
               </div>
             </div>
-            <div class="col-md"> </div>
           </div>
+          <div class="col-md"> </div>
+        </div>
 
-          <div class="form-row">
-            <div class="col-md">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBfile_radio" value="">
-                <div class="form-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customPDBFile" accept=".pdb, .pdb.gz" onfocus="document.getElementById('customPDBfile_radio').checked=true">
-                    <label class="custom-file-label" for="customPDBFile">Upload PDB file</label>
-                  </div>
+        <div class="form-row">
+          <div class="col-md">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBfile_radio" value="">
+              <div class="form-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customPDBFile" accept=".pdb, .pdb.gz" onfocus="document.getElementById('customPDBfile_radio').checked=true">
+                  <label class="custom-file-label" for="customPDBFile">Upload PDB file</label>
                 </div>
               </div>
             </div>
-            <div class="col-md"> </div>
           </div>
+          <div class="col-md"> </div>
         </div>
       </div>
 
@@ -144,7 +150,8 @@
 
   <footer class="footer">
     <div class="container text-center">
-      <span class="text-muted">lponzoni@pitt.edu - Bahar lab, U. of Pittsburgh, Dept. of Computational & Systems Biology</span>
+      <span class="text-muted">lponzoni@pitt.edu - Bahar lab, U. of Pittsburgh,
+        Dept. of Computational & Systems Biology</span>
     </div>
   </footer>
 
