@@ -21,12 +21,15 @@
 
 <?php
 
-# check input
-
+// check input and print set variables
+echo '<h2>Set variables:</h2>';
 foreach ($_POST as $key => $value) {
-  echo '<p>'.$key.': '.$value.'</p>';
+  echo '<p>'.$key.': "'.$value.'"</p>';
 }
-echo '<p>---</p>';
+
+
+// check for errors and print error messages, if any
+echo '<h2>Error messages:</h2>';
 
 $errors = [];
 
@@ -45,19 +48,30 @@ if ( $_POST["sm_email"]!="" && !filter_var($_POST["sm_email"], FILTER_VALIDATE_E
 }
 
 foreach($errors as $err) {
-    echo $err;
+  echo '<p>'.$err.'</p>';
+}
 
-    // // to know what's in $item
-    // echo '<pre>'; var_dump($item);
+echo '<h2>Status</h2>';
+if (!empty($errors)) {
+  echo '<p>Canceled</p>';
+  die();
+}
+else {
+  echo '<p>Running...</p>';
 }
 
 
+
+// run rhapsody
+
 $jobs_dir = "jobs_dir";
 
-// if ($errors[]):
-//   die($errors[])
-//
-// die()
+// NB: command output must be redirected and run in background,
+// otherwise it will prevent to show the results page
+$command = 'python run_sat_mutagen.py';
+
+// # $command = "nohup ../../nohup.sh 2>&1 > nohup_text.log &";
+exec($command);
 
 // $input_type = "";
 // if ( $_POST["input_type"] == "pp2_file"   ) $input_type = "pp2_file";
