@@ -1,4 +1,6 @@
 scratch/
-src/
+__pycache__
 
-*.swp
+config.py
+
+.*.swp

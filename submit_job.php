@@ -52,6 +52,7 @@ foreach($errors as $err) {
 }
 
 echo '<h2>Status</h2>';
+
 if (!empty($errors)) {
   echo '<p>Canceled</p>';
   die();
@@ -61,17 +62,50 @@ else {
 }
 
 
+// create a unique job ID and directory
+
+$scratch_dir = "scratch";
+$orig_dir    = getcwd();
+$jobid  = "";
+$jobdir = "";
+
+while ($jobid=="" || file_exists($jobdir)) {
+  $salt = time();
+  $jobid = substr(md5($salt), 0, 10);
+  $jobdir = $scratch_dir . "/job_" . $jobid;
+}
+
+mkdir($jobdir);
+chdir($jobdir);
+
+
+// save inputs
+
+foreach ($_POST as $key => $value) {
+  $fname = "input-" . $key . ".txt";
+  $file = fopen($fname, "w");
+  fwrite($file, $value);
+  fclose($file);
+}
+
 
 // run rhapsody
 
-$jobs_dir = "jobs_dir";
-
 // NB: command output must be redirected and run in background,
 // otherwise it will prevent to show the results page
-$command = 'python run_sat_mutagen.py';
+exec(
+  'nohup python '.$orig_dir.'/run_sat_mutagen.py > log.txt 2> err.txt & ' .
+  'echo $! > PID.tmp'
+);
 
-// # $command = "nohup ../../nohup.sh 2>&1 > nohup_text.log &";
-exec($command);
+// check status with: ps -p `cat PID.tmp`
+
+chdir($orig_dir);
+
+
+
+
+
 
 // $input_type = "";
 // if ( $_POST["input_type"] == "pp2_file"   ) $input_type = "pp2_file";
