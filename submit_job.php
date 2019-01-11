@@ -9,56 +9,50 @@
 
 <body>
 
-<div class="titlebar">
-     <h1> RHAPSODY </h1>
-     <a href="saturation_mutagenesis.html">Back to submission page</a>
-</div>
-
-<br>
 
 <!-- preformatted text -->
 <pre>
 
 <?php
 
-// check input and print set variables
-echo '<h2>Set variables:</h2>';
-foreach ($_POST as $key => $value) {
-  echo '<p>'.$key.': "'.$value.'"</p>';
+// // print set variables
+// echo '<h2>Set variables:</h2>';
+// foreach ($_POST as $key => $value) {
+//   echo '<p>'.$key.': "'.$value.'"</p>';
+// }
+
+// determine submission type
+$subm_type = '';
+if ( isset($_POST["sm_query"]) ) {
+  $subm_type = 'sat_mutagen';
 }
 
 
 // check for errors and print error messages, if any
-echo '<h2>Error messages:</h2>';
-
 $errors = [];
 
-if ( !isset($_POST["sm_query"]) ) {
-  $errors[] = 'Query not set';
-}
-else {
+if ( $subm_type == 'sat_mutagen' ) {
   $s = str_replace(' ', '', $_POST["sm_query"]);
   if (!ctype_alnum($s)) {
     $errors[] = 'Query must contain letters, numbers and spaces only';
   }
-}
-
-if ( $_POST["sm_email"]!="" && !filter_var($_POST["sm_email"], FILTER_VALIDATE_EMAIL)) {
-  $errors[] = 'Invalid email address';
-}
-
-foreach($errors as $err) {
-  echo '<p>'.$err.'</p>';
-}
-
-echo '<h2>Status</h2>';
-
-if (!empty($errors)) {
-  echo '<p>Canceled</p>';
-  die();
+  if ( $_POST["sm_email"]!="" && !filter_var($_POST["sm_email"], FILTER_VALIDATE_EMAIL)) {
+    $errors[] = 'Invalid email address';
+  }
+  $subm_page = 'sat_mutagen.html';
 }
 else {
-  echo '<p>Running...</p>';
+  $errors[] = 'Internal error: Invalid submission type';
+  $subm_page = 'index.html';
+}
+
+if (!empty($errors)) {
+  echo '<h2>Error:</h2>';
+  foreach($errors as $err) {
+    echo '<p>'.$err.'</p>';
+  }
+  echo '<br><p><a href="'.$subm_page.'">Back</a></p>';
+  die();
 }
 
 
@@ -80,7 +74,6 @@ chdir($jobdir);
 
 
 // save inputs
-
 foreach ($_POST as $key => $value) {
   $fname = "input-" . $key . ".txt";
   $file = fopen($fname, "w");
@@ -90,19 +83,31 @@ foreach ($_POST as $key => $value) {
 
 
 // run rhapsody
-
 // NB: command output must be redirected and run in background,
-// otherwise it will prevent to show the results page
+//     otherwise it will prevent to show the results page
+//     Also, you should redirect stderr ("2>&1") *after* stdout
+if ( $subm_type == 'sat_mutagen' ) {
+  $pyscript = $orig_dir . '/run_sat_mutagen.py';
+}
+else {
+  $pyscript = $orig_dir . '/XXX.py';
+}
 exec(
-  'nohup python '.$orig_dir.'/run_sat_mutagen.py > log.txt 2> err.txt & ' .
-  'echo $! > PID.tmp'
+  'nohup python ' . $pyscript . ' > rhapsody-log.txt 2>&1 & ' .
+  'echo -n $! > PID.tmp'
 );
 
-// check status with: ps -p `cat PID.tmp`
 
 chdir($orig_dir);
 
 
+// go to the results page
+$res_page = "results_page.php?id=" . $jobid;
+echo "<p> Your job ID is: <b>".$jobid."</b></p>\n";
+echo "<p> If you are not automatically redirected to the results page click here: <a href=\"".$res_page."\">" . $res_page. "</a></p>";
+echo "<script type=\"text/javascript\">
+  window.location.href = \"".$res_page."\"
+</script>";
 
 
 

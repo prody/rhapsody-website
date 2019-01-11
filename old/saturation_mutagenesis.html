@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title>Sat. mutagenesis</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.html">Rhapsody</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample02">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><i>In silico</i> saturation mutagenesis<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Batch query</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Links</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Download</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Search">
+      </form> -->
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container text-center">
+      <h2><i>In silico</i> saturation mutagenesis</h2>
+      <p>Short description.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="needs-validation" novalidate action="submit_job.php" method="post">
+      <div class="form-row">
+        <div class="col-md">
+          <div class="form-group">
+            <label for="sm_query">query</label>
+            <input type="text" class="form-control" name="sm_query" id="sm_query"
+                   placeholder="P12345" value="" required>
+            <small id="jobIDHelp" class="form-text text-muted">Uniprot accession
+              number (optional: add a specific position for single-site scanning)</small>
+            <div class="invalid-feedback">
+              Invalid query
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md">
+
+          <div class="form-group">
+            <label for="sm_email">email</label>
+            <input type="email" class="form-control" name="sm_email" id="sm_email"
+                   aria-describedby="emailHelp" placeholder="(optional)" value="">
+            <small id="emailHelp" class="form-text text-muted">We'll notify you
+              when results are ready
+            </small>
+            <div class="invalid-feedback">
+              Invalid email address
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="form-row">
+      <div class="col-md">
+        <label for="sm_custom_jobID">job name</label>
+        <div class="form-group">
+          <input type="text" class="form-control" name="sm_custom_jobID"
+                 id="sm_custom_jobID" placeholder="(optional)" value="">
+          <small id="jobIDHelp" class="form-text text-muted">Helps retrieve
+            your job later</small>
+        </div>
+      </div>
+      <div class="col-md">
+        <label for="sm_email">email</label>
+        <div class="form-group">
+          <input type="email" class="form-control" name="sm_email" id="sm_email"
+                 aria-describedby="emailHelp" placeholder="(optional)">
+          <small id="emailHelp" class="form-text text-muted">A notification will be sent
+            at this address when results are ready</small>
+        </div>
+      </div>
+    </div> -->
+
+      <div class="form-group">
+        <div class="custom-control custom-checkbox" data-toggle="collapse" data-target="#collapse1">
+          <input type="checkbox" class="custom-control-input" id="customPDB_checkbox">
+          <label class="custom-control-label" for="customPDB_checkbox">Use custom PDB structure</label>
+        </div>
+      </div>
+
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="form-row">
+          <div class="col-md">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBID_radio" value="" checked>
+              <div class="form-group">
+                <input class="form-control" type="text" id="customPDBID" placeholder="type a PDB code..." value="" onfocus="document.getElementById('customPDBID_radio').checked=true">
+                <!-- <small id="PDBIDHelp" class="form-text text-muted">PDB ID</small> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md"> </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBfile_radio" value="">
+              <div class="form-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customPDBFile" accept=".pdb, .pdb.gz" onfocus="document.getElementById('customPDBfile_radio').checked=true">
+                  <label class="custom-file-label" for="customPDBFile">Upload PDB file</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md"> </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Submit job</button>
+      </div>
+    </form>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <footer class="footer">
+    <div class="container text-center">
+      <span class="text-muted">lponzoni@pitt.edu - Bahar lab, U. of Pittsburgh,
+        Dept. of Computational & Systems Biology</span>
+    </div>
+  </footer>
+
+  <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
