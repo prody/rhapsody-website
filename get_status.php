@@ -1,7 +1,7 @@
 <?php
 
 $pidFile  = 'PID.tmp';
-$doneFile = 'rhapsody-info.txt';
+$doneFile = 'rhapsody-results.zip';
 
 function isProcessRunning($f) {
   if ( !file_exists($f) ) {
@@ -40,7 +40,7 @@ if ( preg_match('/[^a-z0-9]/', $jobid) ) {
   returnStatus( 'invalid job id' );
 }
 
-$jobdir = "scratch/job_" . $jobid;
+$jobdir = "workspace/job_" . $jobid;
 
 if ( !is_dir($jobdir) ) {
   returnStatus( 'results folder not found' );

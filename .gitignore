@@ -1,6 +1,6 @@
-scratch/
+workspace/
 __pycache__
 
-config.py
+scripts/config.py
 
 .*.swp

@@ -85,7 +85,7 @@ if ($valid_jobid) {
     <p> Job ID: <b> <?php echo $jobid; ?> </b></p>
     <p> Save the following
     <?php
-      echo " <a href=\"results_page.php?id=".$jobid."\">link</a> ";
+      echo " <a href=\"monitor_job.php?id=".$jobid."\">link</a> ";
     ?>
     to access the Results page later. </p>
     <p> Note: Results for this job will be only available for 48 hours.</p>
@@ -107,8 +107,8 @@ if ($valid_jobid) {
 
     <div id="resultsdiv" style="display:none">
       <h2> Job results: </h2>
-      <p><?php echo '<a href="scratch/job_'.$jobid.'/rhapsody-aux_predictions.txt">View predictions</a>';?> </p>
-      <!-- <p><?php echo '<a href="scratch/'.$jobid.'/XXX.zip">Click here</a>'; ?> to download all the results.</p> -->
+      <p><?php echo '<a href="workspace/job_'.$jobid.'/rhapsody-aux_predictions.txt">View predictions</a>';?> </p>
+      <p><?php echo '<a href="workspace/job_'.$jobid.'/rhapsody-results.zip">Download results</a>';?></p>
     </div>
 
   </div>

@@ -58,7 +58,7 @@ if (!empty($errors)) {
 
 // create a unique job ID and directory
 
-$scratch_dir = "scratch";
+$scratch_dir = "workspace";
 $orig_dir    = getcwd();
 $jobid  = "";
 $jobdir = "";
@@ -84,13 +84,13 @@ foreach ($_POST as $key => $value) {
 
 // run rhapsody
 // NB: command output must be redirected and run in background,
-//     otherwise it will prevent to show the results page
+//     otherwise it will prevent to show the page.
 //     Also, you should redirect stderr ("2>&1") *after* stdout
 if ( $subm_type == 'sat_mutagen' ) {
-  $pyscript = $orig_dir . '/run_sat_mutagen.py';
+  $pyscript = $orig_dir . '/scripts/run_sat_mutagen.py';
 }
 else {
-  $pyscript = $orig_dir . '/XXX.py';
+  $pyscript = $orig_dir . '/scripts/XXX.py';
 }
 exec(
   'nohup python ' . $pyscript . ' > rhapsody-log.txt 2>&1 & ' .
@@ -101,15 +101,9 @@ exec(
 chdir($orig_dir);
 
 
-// go to the results page
-$res_page = "results_page.php?id=" . $jobid;
-echo "<p> Your job ID is: <b>".$jobid."</b></p>\n";
-echo "<p> If you are not automatically redirected to the results page click here: <a href=\"".$res_page."\">" . $res_page. "</a></p>";
-echo "<script type=\"text/javascript\">
-  window.location.href = \"".$res_page."\"
-</script>";
-
-
+// go to the progress page
+$ppage = "monitor_job.php?id=" . $jobid;
+echo "<script type=\"text/javascript\"> window.location.href = \"".$ppage."\"</script>";
 
 
 // $input_type = "";
