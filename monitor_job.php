@@ -10,6 +10,14 @@ if (isset($_GET["id"])) {
     $valid_jobid = True;
   }
 }
+// based on submission type define links
+$back_link = "index.html";
+$res_link  = "monitor_job.php?id=" . $jobid;
+if (isset($_GET["st"])) {
+  if ( $_GET["st"] == 'sat_mutagen' )
+    $back_link = 'sat_mutagen.html';
+    $res_link  = $res_link . "&st=" . 'sat_mutagen';
+}
 ?>
 
 <html>
@@ -29,7 +37,7 @@ if ($valid_jobid) {
   echo "var jobid  = \"" . $jobid  ."\";" ;
   ?>
 
-  var job_status = "running...";
+  var job_status = "-";
   var log_tail   = "";
 
   function check_status() {
@@ -41,7 +49,7 @@ if ($valid_jobid) {
     $("#status_update").html(job_status);
     $("#log_update").html(log_tail);
 
-    if (job_status == "running...") {
+    if (job_status == "-" || job_status == "running...") {
       setTimeout(check_status, 1000);
     }
 
@@ -66,8 +74,8 @@ if ($valid_jobid) {
 <body>
 
 <div class="titlebar">
-  <h1> RHAPSODY </h1>
-  <a href="index.html">Back to home page</a>
+  <h1> <a href="index.html">Rhapsody</a> </h1>
+  <a href=<?php echo $back_link ?>>Back to submission page</a>
 </div>
 
 <br><br>
@@ -83,10 +91,7 @@ if ($valid_jobid) {
       }
     ?>
     <p> Job ID: <b> <?php echo $jobid; ?> </b></p>
-    <p> Save the following
-    <?php
-      echo " <a href=\"monitor_job.php?id=".$jobid."\">link</a> ";
-    ?>
+    <p> Save the following <a href=<?php echo $res_link ?>>link</a>
     to access the Results page later. </p>
     <p> Note: Results for this job will be only available for 48 hours.</p>
     <?php
