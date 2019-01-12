@@ -1,6 +1,8 @@
-workspace/
-__pycache__
+workspace/pickles/*
+!workspace/pickles/.gitkeep
 
 scripts/config.py
+
+__pycache__
 
 .*.swp
