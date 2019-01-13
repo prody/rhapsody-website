@@ -29,7 +29,13 @@ if (isset($_GET["st"])) {
 if ($valid_jobid) {
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!-- <script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script> -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 
@@ -41,6 +47,8 @@ if ($valid_jobid) {
   var log_tail   = "";
 
   function check_status() {
+    console.log("job status: " + job_status);
+
     $.get( "get_status.php?id=" + jobid , function(data, status){
       job_status = data.status;
       log_tail   = data.logTail;
@@ -52,14 +60,13 @@ if ($valid_jobid) {
     if (job_status == "-" || job_status == "running...") {
       setTimeout(check_status, 1000);
     }
-
-    if (job_status == "completed") {
+    else if (job_status == "completed") {
       $("#resultsdiv").show();
     }
   }
 
   $(document).ready(function() {
-      check_status();
+    check_status();
   })
 
 </script>
@@ -105,7 +112,7 @@ if ($valid_jobid) {
     ?>
 
     <h2> Job progress: </h2>
-    <p> Current job status: <b> <span style="color:red;" id="status_update">...</span></b></p>
+    <p> Current job status: <b> <span style="color:red;" id="status_update"></span></b></p>
     <textarea id="log_update" cols="100" rows="15" readonly class="logtxa">
       ...
     </textarea>

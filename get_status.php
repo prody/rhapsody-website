@@ -1,5 +1,9 @@
 <?php
 
+// // DEBUG:
+// $arr = array('status' => "running...", 'logTail' => "something");
+// die( json_encode($arr) );
+
 $pidFile  = 'PID.tmp';
 $doneFile = 'rhapsody-results.zip';
 
@@ -13,7 +17,7 @@ function isProcessRunning($f) {
 
 function tailShell($filepath, $lines = 13) {
   ob_start();
-  passthru('tail -'  . $lines . ' ' . escapeshellarg($filepath));
+  passthru('tail -' . $lines . ' ' . escapeshellarg($filepath));
   return trim(ob_get_clean());
 }
 
@@ -58,7 +62,5 @@ elseif ( isProcessRunning($pidFile) ) {
 else {
   returnStatus( 'aborted' );
 }
-
-
 
 ?>

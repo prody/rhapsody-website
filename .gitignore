@@ -1,7 +1,8 @@
 workspace/pickles/*
 !workspace/pickles/.gitkeep
+workspace/*
 
-scripts/config.py
+scripts/python/config.py
 
 __pycache__
 
