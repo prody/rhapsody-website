@@ -6,7 +6,7 @@ BIN_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 WWW_DIR="${BIN_DIR%/src/bin}"
 
 # create config.py file
-cat << EOF > ${WWW_DIR}/src/python/config_.py
+cat << EOF > ${WWW_DIR}/src/python/config.py
 PICKLES_DIR  = '${WWW_DIR}/workspace/pickles'
 PRODY_DIR    = '???'
 RHAPSODY_DIR = '???'
