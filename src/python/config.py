@@ -1,5 +1,0 @@
-PICKLES_DIR  = '/home/luca/Data/01-rhapsody-git/rhapsody-website/workspace/pickles'
-PRODY_DIR    = '/home/luca/Data/00-rapsody_integration/ProDy'
-RHAPSODY_DIR = '/home/luca/Data/01-rhapsody-git/'
-MAIN_CLSF    = '/home/luca/Data/01-rhapsody-git/trained_classifier.pkl'
-AUX_CLSF     = '/home/luca/Data/01-rhapsody-git/trained_classifier-aux.pkl'
