@@ -5,4 +5,6 @@ workspace/*
 src/python/config.py*
 src/python/__pycache__
 
+config.txt*
+
 .*.swp
