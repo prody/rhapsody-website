@@ -135,7 +135,7 @@ if ( $subm_type == 'sat_mutagen' ) {
     }
   }
   // select Python script
-  $pyscript = $orig_dir . '/src/python/run_sat_mutagen.py';
+  $pyscript = $orig_dir . '/src/python/sat_mutagen.py';
 }
 else {
   // batch query
