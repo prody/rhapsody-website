@@ -2,27 +2,58 @@
 <html lang="en">
 
 <head>
+  <style>
+    .jumbotron {
+      background-image: url("/img/index_bckg.png");
+      background-size: cover;
+    }
+
+    /* class to add margin to e.g. rows */
+    .top-buffer { margin-top:20px; }
+
+    /* Sticky footer styles */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      height: 60px;
+      background-color: #f5f5f5;
+    }
+  </style>
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous">
 
-  <title>Sat. mutagenesis</title>
+  <link rel="shortcut icon" href="img/favicon.ico">
+
+  <title>Rhapsody</title>
 </head>
 
 <body>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">Rhapsody</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
-            aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
+            aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExample02">
+    <div class="collapse navbar-collapse" id="myNavBar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="#"><i>In silico</i> saturation mutagenesis<span class="sr-only">
@@ -47,15 +78,21 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2><i>In silico</i> saturation mutagenesis</h2>
-      <p>Short description.</p>
+      <h1><i>In silico</i> saturation mutagenesis</h1>
+      <p>Scanning of all possible amino acid substitutions in a sequence</p>
     </div>
   </div>
 
-  <div class="container">
+
+
+  <br><br>
+
+
+
+  <div class="container top-buffer">
     <form class="needs-validation" novalidate action="submit_job.php"
           method="post" enctype="multipart/form-data">
-      <div class="form-row">
+      <div class="form-row top-buffer">
         <div class="col-md">
           <div class="form-group">
             <label for="sm_query">query</label>
@@ -85,21 +122,26 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="custom-control custom-checkbox" data-toggle="collapse" data-target="#collapse1">
-          <input type="checkbox" class="custom-control-input" name="customPDB_checkbox" id="customPDB_checkbox" autocomplete="off">
-          <label class="custom-control-label" for="customPDB_checkbox">Use custom PDB structure</label>
+      <div class="form-row top-buffer">
+        <div class="form-group">
+          <div class="custom-control custom-checkbox" data-toggle="collapse" data-target="#collapse1">
+            <input type="checkbox" class="custom-control-input" name="customPDB_checkbox"
+                   id="customPDB_checkbox" autocomplete="off">
+            <label class="custom-control-label" for="customPDB_checkbox">Use custom PDB structure</label>
+          </div>
         </div>
       </div>
 
       <!-- collapsable div -->
-      <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-collapse collapse" id="collapse1">
         <div class="form-row">
           <div class="col-md">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBID_radio" value="PDBID" checked>
+              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBID_radio"
+                     value="PDBID" checked>
               <div class="form-group">
-                <input class="form-control" type="text" name="customPDBID" id="customPDBID" placeholder="type a PDB code..."
+                <input class="form-control" type="text" name="customPDBID" id="customPDBID"
+                       placeholder="type a PDB code..."
                        value="" onfocus="document.getElementById('customPDBID_radio').checked=true">
                 <!-- <small id="PDBIDHelp" class="form-text text-muted">PDB ID</small> -->
               </div>
@@ -111,7 +153,8 @@
         <div class="form-row">
           <div class="col-md">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBfile_radio" value="PDBfile">
+              <input class="form-check-input" type="radio" name="customPDB_radios" id="customPDBfile_radio"
+                     value="PDBfile">
               <div class="form-group">
                 <!-- "classic" upload button -->
                 <input type="file" accept=".pdb,.pdb.gz" name="customPDBFile" id="customPDBFile"
@@ -124,7 +167,8 @@
                 </div> -->
                 <!-- <script>
                   // JS for updating label after uploading file, in case you are using "custom" upload button
-                  // NB: does not work... (see: https://stackoverflow.com/questions/48613992/bootstrap-4-file-input-doesnt-show-the-file-name)
+                  // NB: does not work...
+                  // see: https://stackoverflow.com/questions/48613992/bootstrap-4-file-input-doesnt-show-the-file-name
                   $('#customPDBFile').on('change',function(){
                     // get the filename
                     var fileName = $(this).val();
@@ -139,22 +183,24 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">Submit job</button>
+      <div class="form-row">
+        <div class="form-group top-buffer">
+          <button class="btn btn-primary" type="submit">Submit job</button>
+        </div>
       </div>
     </form>
   </div>
 
 
 
-  <br>
-  <br>
-  <br>
+  <br><br><br><br><br><br>
+
+
 
   <footer class="footer">
     <div class="container text-center">
-      <span class="text-muted">lponzoni@pitt.edu - Bahar lab, U. of Pittsburgh,
-        Dept. of Computational & Systems Biology</span>
+      <span class="text-muted">lponzoni@pitt.edu - Bahar lab,
+        Dept. of Computational & Systems Biology, U. of Pittsburgh</span>
     </div>
   </footer>
 
