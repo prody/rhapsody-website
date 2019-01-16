@@ -89,7 +89,7 @@ if (!empty($errors)) {
 
 
 // create a unique job ID and directory
-$scratch_dir = "workspace";
+$scratch_dir = "./workspace";
 $orig_dir    = getcwd();
 $jobid  = "";
 $jobdir = "";
@@ -101,17 +101,18 @@ while ($jobid=="" || file_exists($jobdir)) {
 }
 
 mkdir($jobdir);
-chdir($jobdir);
 
 
-// DEBUG: save info
-$output = print_r($_POST, true);
-file_put_contents('input.log', $output);
-$output = print_r($_FILES, true);
-file_put_contents('input.log', $output, FILE_APPEND);
+// // DEBUG: save info
+// $output = print_r($_POST, true);
+// file_put_contents("${jobdir}/input.log", $output);
+// $output = print_r($_FILES, true);
+// file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
 
 
 // import data
+chdir($jobdir);
+
 $errors = [];
 if ( $subm_type == 'sat_mutagen' ) {
   // write data to file
@@ -135,29 +136,24 @@ if ( $subm_type == 'sat_mutagen' ) {
     }
   }
   // select Python script
-  $pyscript = $orig_dir . '/src/python/sat_mutagen.py';
+  $pyscript = "${orig_dir}/src/python/sat_mutagen.py";
 }
 else {
   // batch query
-  $pyscript = $orig_dir . '/src/python/XXX.py';
+  $pyscript = "${orig_dir}/src/python/XXX.py";
 }
-
-
-// run rhapsody
-// NB: command output must be redirected and run in background,
-//     otherwise it will prevent to show the page.
-//     Also, you should redirect stderr ("2>&1") *after* stdout
-exec(
-  'nohup python ' . $pyscript . ' > rhapsody-log.txt 2>&1 &' .
-  'echo -n $! > PID.tmp'
-);
-
 
 chdir($orig_dir);
 
 
+// launch job in the background
+exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
+     ">> ${scratch_dir}/launch_job.err 2>&1");
+
+
 // clean workspace from old jobs
-exec('nohup ./src/bin/clean_workspace.sh 2>&1 >> '.$scratch_dir.'/old_jobs.log &');
+exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
+     ">> ${scratch_dir}/old_jobs.log 2>> ${scratch_dir}/old_jobs.err ");
 
 
 // go to the progress page

@@ -2,9 +2,8 @@ workspace/pickles/*
 !workspace/pickles/.gitkeep
 workspace/*
 
-src/python/config.py*
 src/python/__pycache__
 
-config.txt*
+.profile*
 
 .*.swp

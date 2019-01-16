@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-scratch_dir="./workspace"
+scratch_dir=$(realpath $1)
 
 # find stuff older than 2 days
 OLD_DIRS=$(find $scratch_dir -maxdepth 1 -type d -name "job_*" -mtime +2)

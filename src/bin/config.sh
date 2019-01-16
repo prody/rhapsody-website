@@ -8,41 +8,31 @@ WWW_DIR="${BIN_DIR%/src/bin}"
 # create config.txt file
 cd ${WWW_DIR}
 
-if [ -e config.txt ]
+if [ -e .profile ]
 then
-  cp -f config.txt{,.bak}
-  echo "Original file config.txt backed up as config.txt.bak"
+  cp -f .profile{,.bak}
+  echo "Original configuration file backed up as .profile.bak"
 fi
 
-cat << EOF > config.txt
-#!/bin/bash
-set -e
+cat << EOF > .profile
+# At least Python 3.6 is required
+export PYTHON="python"
 
-# At least Python 3.7 is required
-PYTHON="python"
+# path to ProDy package folder
+# (leave blank to use version installed by pip)
+export PRODY_DIR=""
+
+# path to Rhapsody package folder
+export RHAPSODY_DIR="???"
+
+# path to folders where precomputed pickles and downloaded PDBs will be stored
+export PICKLES_DIR="${WWW_DIR}/workspace/pickles"
+export PDB_DIR="${WWW_DIR}/workspace/pickles"
+
+# path to classifiers used by Rhapsody for predictions
+export MAIN_CLSF="???.pkl"
+export AUX_CLSF="???.pkl"
 EOF
 
 
-# create config.py file
-cd ${WWW_DIR}/src/python
-
-if [ -e config.py ] 
-then 
-  cp -f config.py{,.bak} 
-  echo "Original file src/python/config.py backed up as src/python/config.py.bak"
-fi
-cat << EOF > ${WWW_DIR}/src/python/config.py
-PICKLES_DIR  = '${WWW_DIR}/workspace/pickles'
-PRODY_DIR    = '???'
-RHAPSODY_DIR = '???'
-MAIN_CLSF    = '???'
-AUX_CLSF     = '???'
-EOF
-
-echo
-echo "Clean configuration files have been created."
-echo "Please set the requested paths in:"
-echo ${WWW_DIR}/config.txt 
-echo "and:" 
-echo ${WWW_DIR}/src/python/config.py
-echo
+echo "Please set the requested paths in " ${WWW_DIR}/.profile
