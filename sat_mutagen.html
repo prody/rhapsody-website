@@ -26,7 +26,6 @@
       width: 100%;
       /* Set the fixed height of the footer here */
       height: 60px;
-      background-color: #f5f5f5;
     }
   </style>
 
@@ -92,6 +91,7 @@
   <div class="container top-buffer">
     <form class="needs-validation" novalidate action="submit_job.php"
           method="post" enctype="multipart/form-data">
+
       <div class="form-row top-buffer">
         <div class="col-md">
           <div class="form-group">
@@ -123,11 +123,13 @@
       </div>
 
       <div class="form-row top-buffer">
-        <div class="form-group">
-          <div class="custom-control custom-checkbox" data-toggle="collapse" data-target="#collapse1">
-            <input type="checkbox" class="custom-control-input" name="customPDB_checkbox"
-                   id="customPDB_checkbox" autocomplete="off">
-            <label class="custom-control-label" for="customPDB_checkbox">Use custom PDB structure</label>
+        <div class="col-md">
+          <div class="form-group">
+            <div class="custom-control custom-checkbox" data-toggle="collapse" data-target="#collapse1">
+              <input type="checkbox" class="custom-control-input" name="customPDB_checkbox"
+                     id="customPDB_checkbox" autocomplete="off">
+              <label class="custom-control-label" for="customPDB_checkbox">Use custom PDB structure</label>
+            </div>
           </div>
         </div>
       </div>
@@ -184,8 +186,10 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group top-buffer">
-          <button class="btn btn-primary" type="submit">Submit job</button>
+        <div class="col-md">
+          <div class="form-group top-buffer">
+            <button class="btn btn-primary" type="submit">Submit job</button>
+          </div>
         </div>
       </div>
     </form>
@@ -199,8 +203,9 @@
 
   <footer class="footer">
     <div class="container text-center">
-      <span class="text-muted">lponzoni@pitt.edu - Bahar lab,
-        Dept. of Computational & Systems Biology, U. of Pittsburgh</span>
+      <span class="text-muted"> lponzoni@pitt.edu -
+        <a href="https://www.ccbb.pitt.edu/Faculty/bahar/lab.html">Bahar lab</a>
+      </span>
     </div>
   </footer>
 
