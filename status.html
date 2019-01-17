@@ -71,7 +71,7 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h1>Job #{{jobid}}</h1>
+      <h2>Job #{{jobid}}</h2>
     </div>
   </div>
 
@@ -80,9 +80,9 @@
   <div class="container bg-3">
     <div class="row">
       <div class="col-md">
-        <h2>
+        <h4>
           Status: <b><span style="color:red;" id="status_update"></span></b>
-        </h2>
+        </h4>
         <p>
           Save this <a href="monitor_job.php?id={{jobid}}">link</a>
           to access the page later.<br>
@@ -101,7 +101,7 @@
     <div class="row top-buffer">
       <div class="col-md">
         <div id="resultsdiv" style="display:none">
-          <h2>Results</h2>
+          <h4>Results</h4>
           <p>
             <a href="{{jobdir}}/rhapsody-aux_predictions.txt">View predictions</a><br>
             <a href="{{jobdir}}/rhapsody-results.zip">Download results</a>
@@ -153,7 +153,10 @@
       $("#status_update").html(job_status);
       $("#log_update").html(log_tail);
 
-      if (job_status == "-" || job_status == "running...") {
+      if (job_status == "-") {
+        setTimeout(check_status, 100);
+      }
+      else if (job_status == "running...") {
         setTimeout(check_status, 1000);
       }
       else if (job_status == "completed") {

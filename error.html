@@ -45,7 +45,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Rhapsody</a>
+    <a class="navbar-brand" href="index.html">Rhapsody</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
             aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -71,24 +71,17 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h1>Error :(</h1>
+      <h2>something went wrong :(</h2>
     </div>
   </div>
 
   <br><br>
 
-  <div class="container bg-3 border rounded">
-    <div class="row">
-      <div class="col-md">
-        <pre> {{err_msg}} </pre>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md">
-        <a href={{back_link}}>Back</a>
-      </div>
-    </div>
+  <div class="container bg-3">
+    <h5>Error log:</h5>
+    <pre> {{err_msg}}</pre>
+    <br>
+    <a href={{back_link}}>Back</a>
   </div>
 
   <br><br><br><br><br><br>

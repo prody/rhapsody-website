@@ -77,7 +77,7 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h1><i>In silico</i> saturation mutagenesis</h1>
+      <h2><i>In silico</i> saturation mutagenesis</h2>
       Scanning of all possible amino acid substitutions in a sequence
     </div>
   </div>
@@ -95,11 +95,11 @@
       <div class="form-row top-buffer">
         <div class="col-md">
           <div class="form-group">
-            <label for="sm_query">query</label>
+            <label for="sm_query"><h5>query</h5></label>
             <input type="text" class="form-control" name="sm_query" id="sm_query"
-                   placeholder="P12345" value="" required>
-            <small id="jobIDHelp" class="form-text text-muted">Uniprot accession
-              number (optional: add a specific position for single-site scanning)</small>
+                   placeholder="e.g. P01112" value="" required>
+            <small id="jobIDHelp" class="form-text text-muted">
+              add a specific position for single-site scanning</small>
             <div class="invalid-feedback">
               Invalid query
             </div>
@@ -109,10 +109,10 @@
         <div class="col-md">
 
           <div class="form-group">
-            <label for="sm_email">email</label>
+            <label for="sm_email"><h5>email</h5></label>
             <input type="email" class="form-control" name="sm_email" id="sm_email"
                    aria-describedby="emailHelp" placeholder="(optional)" value="">
-            <small id="emailHelp" class="form-text text-muted">We'll notify you
+            <small id="emailHelp" class="form-text text-muted">you'll be notified
               when results are ready
             </small>
             <div class="invalid-feedback">
