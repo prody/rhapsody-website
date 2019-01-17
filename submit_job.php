@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title> submitting job... </title>
-</head>
-
-<body>
-
-
-<!-- preformatted text -->
-<pre>
-
 <?php
 
 function endsWith($haystack, $needle) {
@@ -27,12 +12,18 @@ function save2file($fname, $value) {
   fclose($file);
 }
 
+function exit2error($err_msg, $back_link) {
+  // // DEBUG: append info to error message
+  // $err_msg .= "Set variables: <br>";
+  // $err_msg .= print_r($_POST, true);
+  // $err_msg .= "<br>Uploaded files: <br>";
+  // $err_msg .= print_r($_FILES, true);
+  $html = file_get_contents("error.html");
+  $html = str_replace("{{err_msg}}", $err_msg, $html);
+  $html = str_replace("{{back_link}}", $back_link, $html);
+  die($html);
+}
 
-// // DEBUG: print all POST variables
-// echo '<h2>Set variables:</h2>';
-// print_r($_POST);
-// echo '<h2>Uploaded files:</h2>';
-// print_r($_FILES);
 
 
 // determine submission type
@@ -46,7 +37,7 @@ if ( isset($_POST["sm_query"]) ) {
 $errors = [];
 
 if ( $subm_type == 'sat_mutagen' ) {
-  $previous_page = 'sat_mutagen.html';
+  $back_link = 'sat_mutagen.html';
   // check input data
   $query = str_replace(' ', '', $_POST["sm_query"]);
   if (!ctype_alnum($query))
@@ -75,16 +66,17 @@ if ( $subm_type == 'sat_mutagen' ) {
 }
 else {
   $errors[] = 'Internal error: Invalid submission type';
-  $previous_page = 'index.html';
+  $back_link = 'index.html';
 }
 
 if (!empty($errors)) {
-  echo '<h2>Error:</h2>';
+  $err_msg = "<ul>";
   foreach($errors as $err) {
-    echo '<p>'.$err.'</p>';
+    $err_msg .= '<li>'.$err.'</li>';
   }
-  echo '<br><p><a href="'.$previous_page.'">Back</a></p>';
-  die("</pre></body></html>");
+  $err_msg .= "</ul>";
+  // exit to error page
+  exit2error($err_msg, $back_link);
 }
 
 
@@ -132,7 +124,7 @@ if ( $subm_type == 'sat_mutagen' ) {
       else
         $uploaded_file = "input-PDB.pdb.gz";
       if ( ! move_uploaded_file($_FILES["customPDBFile"]["tmp_name"], $uploaded_file) )
-        die("Sorry, there was an error uploading your file.</pre></body></html>");
+        exit2error("Sorry, there was an error uploading your file", $back_link);
     }
   }
   // select Python script
@@ -148,20 +140,16 @@ chdir($orig_dir);
 
 // launch job in the background
 exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
-     ">> ${scratch_dir}/launch_job.err 2>&1");
+     ">> ${scratch_dir}/launch_job.err 2>&1 &");
 
 
 // clean workspace from old jobs
 exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
-     ">> ${scratch_dir}/old_jobs.log 2>> ${scratch_dir}/old_jobs.err ");
+     ">> ${scratch_dir}/old_jobs.log 2>> ${scratch_dir}/old_jobs.err &");
 
 
 // go to the progress page
-$ppage = "monitor_job.php?id=" . $jobid . "&st=" . $subm_type;
-echo '<script type="text/javascript"> window.location.href = "'.$ppage.'"</script>';
+$ppage = "monitor_job.php?id=${jobid}&st=${subm_type}";
+echo "<script type='text/javascript'> window.location.href='$ppage';</script>";
 
 ?>
-
-</pre>
-</body>
-</html>

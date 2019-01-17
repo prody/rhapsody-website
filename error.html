@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    .jumbotron {
+      background-color: lightgray !important;
+    }
+
+    /* class to add margin to e.g. rows */
+    .top-buffer { margin-top:20px; }
+
+    /* Sticky footer styles */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      height: 60px;
+    }
+  </style>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous">
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  <title>Rhapsody</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Rhapsody</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
+            aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="myNavBar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="sat_mutagen.html">
+          <i>In silico</i> saturation mutagenesis </a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Batch query</a></li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Links</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Download</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Search">
+      </form> -->
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container text-center">
+      <h1>Error :(</h1>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="container bg-3 border rounded">
+    <div class="row top-buffer">
+      <div class="col-md">
+        <a href={{back_link}}>Back</a>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-md">
+        <pre>
+          {{err_msg}}
+        </pre>
+      </div>
+    </div>
+
+
+  </div>
+
+  <br><br><br><br><br><br>
+
+  <footer class="footer">
+    <div class="container text-center">
+      <span class="text-muted"> lponzoni@pitt.edu -
+        <a href="https://www.ccbb.pitt.edu/Faculty/bahar/lab.html">Bahar lab</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
+</body>
+
+</html>

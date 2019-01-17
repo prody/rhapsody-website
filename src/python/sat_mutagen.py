@@ -66,8 +66,9 @@ LOGGER._setverbosity(old_verbosity)
 
 # zip results
 files = glob('rhapsody-*txt') + glob('pph2-*txt')
-files.remove('pph2-started.txt')
-files.remove('pph2-completed.txt')
+if glob('pph2-*txt'):
+    files.remove('pph2-started.txt')
+    files.remove('pph2-completed.txt')
 with ZipFile('rhapsody-results.zip','w') as zip:
         for file in files:
             zip.write(file)
