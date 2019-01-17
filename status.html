@@ -4,8 +4,7 @@
 <head>
   <style>
     .jumbotron {
-      background-image: url("./img/index_bckg.png");
-      background-size: cover;
+      background-color: lightgray !important;
     }
 
     /* class to add margin to e.g. rows */
@@ -46,7 +45,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Rhapsody</a>
+    <a class="navbar-brand" href="index.html">Rhapsody</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
             aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -72,48 +71,48 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h1>Rhapsody</h1>
-      Pathogenicity prediction of human missense variants based on sequence,
-      structure and dynamics of proteins
+      <h1>Job #{{jobid}}</h1>
     </div>
   </div>
-
-
 
   <br><br>
 
-
-
-  <div class="container bg-3 text-center">
-    <div class="row top-buffer">
+  <div class="container bg-3">
+    <div class="row">
       <div class="col-md">
-        <h3> Examples </h3>
+        <h2>
+          Status: <b><span style="color:red;" id="status_update"></span></b>
+        </h2>
+        <p>
+          Save this <a href="monitor_job.php?id={{jobid}}">link</a>
+          to access the page later.<br>
+          Results will be automatically deleted after 48 hours.
+        </p>
+        <p>
+          Log: <br>
+          <textarea class="form-control" id="log_update" cols="100" rows="10" readonly
+                    style="font-family:monospace; font-size:12px; white-space:pre-wrap">
+            ...
+          </textarea>
+        </p>
       </div>
     </div>
+
     <div class="row top-buffer">
-      <div class="col-md top-buffer">
-        <p><i>In silico</i> saturation mutagenesis of DAT</p>
-        <img src="./img/hDAT-chalky_cartoon.png"
-             class="img-responsive border rounded" style="width:80%" alt="">
-      </div>
-      <div class="col-md top-buffer">
-        <p>Batch query of mixed variants</p>
-        <img src="./img/hDAT-EL2_TM4.png"
-             class="img-responsive border rounded" style="width:80%" alt="">
-      </div>
-      <div class="col-md top-buffer">
-        <p>Mapping variants on custom PDB structure</p>
-        <img src="./img/hDAT-chalky_CatmullRom-Goodsell.png"
-             class="img-responsive border rounded" style="width:80%" alt="">
+      <div class="col-md">
+        <div id="resultsdiv" style="display:none">
+          <h2>Results</h2>
+          <p>
+            <a href="{{jobdir}}/rhapsody-aux_predictions.txt">View predictions</a><br>
+            <a href="{{jobdir}}/rhapsody-results.zip">Download results</a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
 
-
   <br><br><br><br><br><br>
-
-
 
   <footer class="footer">
     <div class="container text-center">
@@ -123,10 +122,11 @@
     </div>
   </footer>
 
-  <!-- Optional JavaScript -->
+
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  <!-- NB: for this page it is important not to use the "slim" version -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
           integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -134,6 +134,37 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"></script>
+
+
+  <!-- JS code for printing log live -->
+  <script type="text/javascript">
+    var jobid      = "{{jobid}}";
+    var job_status = "-";
+    var log_tail   = "";
+
+    function check_status() {
+      console.log("job status: " + job_status);
+
+      $.get( "src/php/get_status.php?id=" + jobid , function(data, status){
+        job_status = data.status;
+        log_tail   = data.logTail;
+      }, "json");
+
+      $("#status_update").html(job_status);
+      $("#log_update").html(log_tail);
+
+      if (job_status == "-" || job_status == "running...") {
+        setTimeout(check_status, 1000);
+      }
+      else if (job_status == "completed") {
+        $("#resultsdiv").show();
+      }
+    }
+
+    $(document).ready(function() {
+      check_status();
+    })
+  </script>
 
 </body>
 

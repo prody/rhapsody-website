@@ -1,5 +1,7 @@
 <?php
 
+include 'src/php/utils.php';
+
 function endsWith($haystack, $needle) {
   $length = strlen($needle);
   if ($length == 0) return true;
@@ -12,17 +14,7 @@ function save2file($fname, $value) {
   fclose($file);
 }
 
-function exit2error($err_msg, $back_link) {
-  // // DEBUG: append info to error message
-  // $err_msg .= "Set variables: <br>";
-  // $err_msg .= print_r($_POST, true);
-  // $err_msg .= "<br>Uploaded files: <br>";
-  // $err_msg .= print_r($_FILES, true);
-  $html = file_get_contents("error.html");
-  $html = str_replace("{{err_msg}}", $err_msg, $html);
-  $html = str_replace("{{back_link}}", $back_link, $html);
-  die($html);
-}
+$scratch_dir = "./workspace";
 
 
 
@@ -70,21 +62,26 @@ else {
 }
 
 if (!empty($errors)) {
-  $err_msg = "<ul>";
+  $err_msg = "";
   foreach($errors as $err) {
-    $err_msg .= '<li>'.$err.'</li>';
+    $err_msg .= '<p>'.$err.'</p>';
   }
-  $err_msg .= "</ul>";
+  // // DEBUG: append info to error message
+  // $err_msg .= "Set variables: <br>";
+  // $err_msg .= print_r($_POST, true);
+  // $err_msg .= "<br>Uploaded files: <br>";
+  // $err_msg .= print_r($_FILES, true);
+
   // exit to error page
-  exit2error($err_msg, $back_link);
+  $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
+  fillTemplate("error.html", $arr);
 }
 
 
 // create a unique job ID and directory
-$scratch_dir = "./workspace";
-$orig_dir    = getcwd();
-$jobid  = "";
-$jobdir = "";
+$orig_dir = getcwd();
+$jobid    = "";
+$jobdir   = "";
 
 while ($jobid=="" || file_exists($jobdir)) {
   $salt = time();
@@ -124,7 +121,10 @@ if ( $subm_type == 'sat_mutagen' ) {
       else
         $uploaded_file = "input-PDB.pdb.gz";
       if ( ! move_uploaded_file($_FILES["customPDBFile"]["tmp_name"], $uploaded_file) )
-        exit2error("Sorry, there was an error uploading your file", $back_link);
+        // exit to error page
+        $err_msg = "Sorry, there was an error uploading your file";
+        $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
+        fillTemplate("error.html", $arr);
     }
   }
   // select Python script
@@ -149,7 +149,7 @@ exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
 
 
 // go to the progress page
-$ppage = "monitor_job.php?id=${jobid}&st=${subm_type}";
+$ppage = "monitor_job.php?id=${jobid}";
 echo "<script type='text/javascript'> window.location.href='$ppage';</script>";
 
 ?>

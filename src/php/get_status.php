@@ -1,11 +1,8 @@
 <?php
 
-// // DEBUG:
-// $arr = array('status' => "running...", 'logTail' => "something");
-// die( json_encode($arr) );
-
-$pidFile  = 'PID.tmp';
-$doneFile = 'rhapsody-results.zip';
+$scratch_dir = "../../workspace";
+$pidFile     = "PID.tmp";
+$doneFile    = "rhapsody-results.zip";
 
 function isProcessRunning($f) {
   if ( !file_exists($f) ) {
@@ -15,7 +12,7 @@ function isProcessRunning($f) {
   return posix_kill($pid, 0);
 }
 
-function tailShell($filepath, $lines = 13) {
+function tailShell($filepath, $lines = 10) {
   ob_start();
   passthru('tail -' . $lines . ' ' . escapeshellarg($filepath));
   return trim(ob_get_clean());
@@ -34,6 +31,11 @@ function returnStatus($status="") {
 }
 
 
+// // DEBUG:
+// $arr = array('status' => "running...", 'logTail' => "something");
+// die( json_encode($arr) );
+
+
 if ( !isset($_GET["id"]) ) {
   returnStatus( 'job id not set' );
 }
@@ -44,7 +46,7 @@ if ( preg_match('/[^a-z0-9]/', $jobid) ) {
   returnStatus( 'invalid job id' );
 }
 
-$jobdir = "workspace/job_" . $jobid;
+$jobdir = "${scratch_dir}/job_" . $jobid;
 
 if ( !is_dir($jobdir) ) {
   returnStatus( 'results folder not found' );
