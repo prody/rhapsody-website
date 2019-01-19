@@ -47,6 +47,8 @@ if not DEBUG_MODE:
     rh = rhapsody(input_query, realpath(os.environ['MAIN_CLSF']),
                   aux_classifier = realpath(os.environ['AUX_CLSF']),
                   input_type = 'scanning', custom_PDB = pdb)
+    # create figure
+    print_sat_mutagen_figure('rhapsody-figure.png', rh)
 else:
     time.sleep(10)
 
@@ -64,6 +66,10 @@ else:
 LOGGER._setverbosity(old_verbosity)
 
 
+LOGGER.info('')
+LOGGER.info(f'completed on {datetime.now()}')
+
+
 # zip results
 files = glob('rhapsody-*txt') + glob('pph2-*txt')
 if glob('pph2-*txt'):
@@ -72,7 +78,3 @@ if glob('pph2-*txt'):
 with ZipFile('rhapsody-results.zip','w') as zip:
         for file in files:
             zip.write(file)
-
-
-LOGGER.info('')
-LOGGER.info(f'completed on {datetime.now()}')
