@@ -19,7 +19,9 @@ do
     if [ -e ${d}/rhapsody-results.zip ]; then
       status="completed  "
       # number of submitted SAVs
-      numSAVs=$(cat ${d}/rhapsody-Uniprot2PDB.txt | wc -l)
+      if [ -e ${d}/rhapsody-Uniprot2PDB.txt ]; then
+        numSAVs=$(cat ${d}/rhapsody-Uniprot2PDB.txt | wc -l)
+      fi
     elif [ -z "$(ls -A ${d})" ]; then
       # empty dir
       status="not started"

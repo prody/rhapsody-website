@@ -85,30 +85,22 @@
           Status: <b><span style="color:red;" id="status_update"></span></b>
         </h4>
         <p>
-          Save this <a href="monitor_job.php?id={{jobid}}">link</a>
-          to access the page later.<br>
-          Results will be automatically deleted after 48 hours.
+          <div id="statusdiv">
+            Save this <a href="check_job.php?id={{jobid}}">link</a>
+            to check your job status later.
+          </div>
+          <div id="resultsdiv" style="display:none">
+            You will be automatically redirected to the
+            <a href="prep_results.php?id={{jobid}}">results</a>
+            page in <span id="counter">4 seconds</span>...
+          </div>
         </p>
         <p>
-          Log: <br>
           <textarea class="form-control" id="log_update" cols="100" rows="10" readonly
                     style="font-family:monospace; font-size:12px; white-space:pre-wrap">
             ...
           </textarea>
         </p>
-      </div>
-    </div>
-
-    <div class="row top-buffer">
-      <div class="col-md">
-        <div id="resultsdiv" style="display:none">
-          <h4>Results</h4>
-          <p>
-            <a href="{{jobdir}}/rhapsody-figure.png">View predictions (image)</a><br>
-            <a href="{{jobdir}}/rhapsody-aux_predictions.txt">View predictions (text)</a><br>
-            <a href="{{jobdir}}/rhapsody-results.zip">Download results</a>
-          </p>
-        </div>
       </div>
     </div>
   </div>
@@ -162,7 +154,22 @@
         setTimeout(check_status, 1000);
       }
       else if (job_status == "completed") {
+        $("#statusdiv").hide();
         $("#resultsdiv").show();
+        countdown();
+      }
+    }
+
+    function countdown() {
+      var counter = document.getElementById('counter');
+      var i = parseInt(counter.innerHTML.substring(0, 1)) - 1;
+      if (i <= 0) {
+        location.href = 'prep_results.php?id={{jobid}}';
+      }
+      else {
+        if (i>1) {counter.innerHTML = i + " seconds";}
+        else     {counter.innerHTML = i + " second";}
+        setTimeout(countdown, 1000);
       }
     }
 

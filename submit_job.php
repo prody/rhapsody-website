@@ -149,7 +149,7 @@ exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
 
 
 // go to the progress page
-$ppage = "monitor_job.php?id=${jobid}";
+$ppage = "check_job.php?id=${jobid}";
 echo "<script type='text/javascript'> window.location.href='$ppage';</script>";
 
 ?>

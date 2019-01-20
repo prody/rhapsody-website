@@ -50,7 +50,7 @@ if not DEBUG_MODE:
     # create figure
     print_sat_mutagen_figure('rhapsody-figure.png', rh)
 else:
-    time.sleep(10)
+    time.sleep(5)
 
 
 # restore original pickle and PDB folder locations
