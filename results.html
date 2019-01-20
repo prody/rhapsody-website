@@ -73,37 +73,66 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h2>Results for job #{{jobid}}</h2>
+      (will only be available for 48 hours)
     </div>
   </div>
 
   <br><br>
 
-  <div class="container bg-3">
+  <div class="container">
     <div class="row">
-      <div class="col-md text-center">
-        <img src="./rhapsody-figure.png" class="img"
-             style="max-height: 500px;"
-             alt="saturation mutagenesis figure">
+      <div class="col-sm text-center ">
+        <h4><i>In silico</i> saturation mutagenesis table</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm py-2 text-center">
+        <a href="{{jobdir}}/rhapsody-figure.png">
+          <img src="{{jobdir}}/rhapsody-figure.png" class="img"
+               style="max-height: 400px; max-width: 100%;"
+               alt="click to view in new tab">
+        </a>
       </div>
     </div>
 
     <div class="row top-buffer">
-      <div class="col-md">
-          <h4>Files</h4>
-          <p>
-          <a href="./rhapsody-aux_predictions.txt">predictions</a><br>
-          <a href="./rhapsody-SAVs.txt">sumbitted SAVs</a><br>
-          <a href="./rhapsody-Uniprot2PDB.txt">PDB mapping</a><br>
-          <a href="./rhapsody-features.txt">features</a><br>
-          <a href="./rhapsody-log.txt">logfile</a><br>
-          <a href="./rhapsody-results.zip">Download results</a>
-          </p>
+      <div class="col-sm text-center">
+        <h4>Files</h4>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm-8 py-2">
+        <table class="table table-sm">
+          <tbody>
+            <tr>
+              <td><a href="{{jobdir}}/rhapsody-aux_predictions.txt">Rhapsody predictions</a></td>
+              <td><a href="{{jobdir}}/rhapsody-SAVs.txt">submitted SAVs</a></td>
+              <td><a href="{{jobdir}}/rhapsody-features.txt">computed features</a></td>
+            </tr>
+            <tr>
+              <td><a href="{{jobdir}}/pph2-short.txt">PolyPhen-2 predictions</a></td>
+              <td><a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt">PDB mapping</a></td>
+              <td><a href="{{jobdir}}/rhapsody-log.txt">log file</a></td>
+            </tr>
+            <tr class="table-info">
+              <td></td>
+              <td><a href="{{jobdir}}/rhapsody-results.zip">Download all</a></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm"></div>
     </div>
   </div>
 
 
+
   <br><br><br><br><br><br>
+
 
   <footer class="footer">
     <div class="container text-center">
