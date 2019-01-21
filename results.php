@@ -9,7 +9,7 @@ $jobid  = $arr["jobid"];
 $jobdir = $arr["jobdir"];
 
 # create results page
-$results_page = fill_template("results.html", $arr);
+$results_page = fill_template("results-sm.html", $arr);
 
 echo $results_page
 
