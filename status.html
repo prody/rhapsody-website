@@ -91,7 +91,7 @@
           </div>
           <div id="resultsdiv" style="display:none">
             You will be automatically redirected to the
-            <a href="results-sm.php?id={{jobid}}">results</a>
+            <a href="results.php?id={{jobid}}">results</a>
             page in <span id="counter">4 seconds</span>...
           </div>
         </p>
@@ -164,7 +164,7 @@
       var counter = document.getElementById('counter');
       var i = parseInt(counter.innerHTML.substring(0, 1)) - 1;
       if (i <= 0) {
-        location.href = 'results-sm.php?id={{jobid}}';
+        location.href = 'results.php?id={{jobid}}';
       }
       else {
         if (i>1) {counter.innerHTML = i + " seconds";}
