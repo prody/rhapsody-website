@@ -23,6 +23,9 @@ $subm_type = '';
 if ( isset($_POST["sm_query"]) ) {
   $subm_type = 'sat_mutagen';
 }
+elseif ( isset($_POST["bq_radios"]) ) {
+  $subm_type = 'batch_query';
+}
 
 
 // check for errors and print error messages, if any
@@ -34,8 +37,6 @@ if ( $subm_type == 'sat_mutagen' ) {
   $query = str_replace(' ', '', $_POST["sm_query"]);
   if (!ctype_alnum($query))
     $errors[] = 'Query must contain letters, numbers and spaces only';
-  if ( $_POST["sm_email"]!="" && !filter_var($_POST["sm_email"], FILTER_VALIDATE_EMAIL))
-    $errors[] = 'Invalid email address';
   if ( isset($_POST["customPDB_checkbox"]) ) {
     $radio_value = $_POST["customPDB_radios"];
     if ( $radio_value == "PDBID" ) {
@@ -56,10 +57,40 @@ if ( $subm_type == 'sat_mutagen' ) {
     }
   }
 }
+elseif ( $subm_type == 'batch_query' ) {
+  $back_link = 'batch_query.html';
+  // check input data
+  $radio_value = $_POST["bq_radios"];
+  if ( $radio_value == "bq_text" ) {
+    $text = $_POST["bq_text"];
+    if ( empty($text) )
+      $errors[] = 'empty SAV coordinates list';
+    elseif ( strlen($text) > 500 )
+      $errors[] = 'input text is too long';
+    else {
+      $text = str_replace(' ', '', $_POST["bq_text"]);
+      $text = str_replace('_', '', $_POST["bq_text"]);
+      if ( ! ctype_alnum($text) )
+        $errors[] = 'SAV coordinates can only contain ' .
+                    'alphanumeric characters and underscore';
+    }
+  }
+  else if ( $radio_value == "bq_file" ) {
+    if ( $_FILES["bq_file"]["size"] == 0 )
+      $errors[] = 'Empty file';
+    elseif ( $_FILES["bq_file"]["size"] > 100000 )
+      $errors[] = 'Uploaded file is too large (>100KB)';
+  }
+  else {
+    $errors[] = 'Internal error: Invalid batch query';
+  }
+}
 else {
   $errors[] = 'Internal error: Invalid submission type';
   $back_link = 'index.html';
 }
+if ( $_POST["email"]!="" && !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
+  $errors[] = 'Invalid email address';
 
 if (!empty($errors)) {
   $err_msg = "";
@@ -74,7 +105,7 @@ if (!empty($errors)) {
 
   // exit to error page
   $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
-  fillTemplate("error.html", $arr);
+  die( fill_template("error.html", $arr) );
 }
 
 
@@ -92,11 +123,11 @@ while ($jobid=="" || file_exists($jobdir)) {
 mkdir($jobdir);
 
 
-// // DEBUG: save info
-// $output = print_r($_POST, true);
-// file_put_contents("${jobdir}/input.log", $output);
-// $output = print_r($_FILES, true);
-// file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
+// DEBUG: save info
+$output = print_r($_POST, true);
+file_put_contents("${jobdir}/input.log", $output);
+$output = print_r($_FILES, true);
+file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
 
 
 // import data
@@ -106,9 +137,6 @@ $errors = [];
 if ( $subm_type == 'sat_mutagen' ) {
   // write data to file
   save2file("input-sm_query.txt", $_POST["sm_query"]);
-  if ( $_POST["sm_email"] != "" ) {
-    save2file("input-email.txt", $_POST["sm_email"]);
-  }
   if ( isset($_POST["customPDB_checkbox"]) ) {
     $radio_value = $_POST["customPDB_radios"];
     if ( $radio_value == "PDBID") {
@@ -124,7 +152,7 @@ if ( $subm_type == 'sat_mutagen' ) {
         // exit to error page
         $err_msg = "Sorry, there was an error uploading your file";
         $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
-        fillTemplate("error.html", $arr);
+        die( fill_template("error.html", $arr) );
     }
   }
   // select Python script
@@ -133,6 +161,10 @@ if ( $subm_type == 'sat_mutagen' ) {
 else {
   // batch query
   $pyscript = "${orig_dir}/src/python/XXX.py";
+}
+
+if (! empty($_POST["email"]) ) {
+  save2file("input-email.txt", $_POST["sm_email"]);
 }
 
 chdir($orig_dir);

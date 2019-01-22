@@ -57,14 +57,15 @@
 
     <div class="collapse navbar-collapse" id="myNavBar">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
+        <li class="nav-item">
+          <a class="nav-link" href="sat_mutagen.html">
             <i>In silico</i> saturation mutagenesis
-            <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="batch_query.html">Batch query</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            Batch query <span class="sr-only">(current)</span>
+          </a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right">
@@ -81,8 +82,8 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2><i>In silico</i> saturation mutagenesis</h2>
-      Scanning of all possible amino acid substitutions in a sequence
+      <h2>Batch query</h2>
+      Get predictions for single SAVs from various sequences
     </div>
   </div>
 
@@ -93,114 +94,55 @@
 
 
 <div class="container">
-  <form class="needs-validation" novalidate action="submit_job.php"
-  method="post" enctype="multipart/form-data">
+<form class="needs-validation" novalidate action="submit_job.php" method="post"
+      enctype="multipart/form-data">
 
-<!-- row for query -->
+<!-- row with radio buttons -->
 <div class="form-row">
   <div class="col-md"></div>
 
   <div class="col-md-6">
-    <div class="form-group">
-      <label for="sm_query">
-        <h5>Uniprot sequence ID</h5>
-      </label>
-      <input type="text" class="form-control" name="sm_query" id="sm_query"
-      placeholder="P01112" value="" required>
-      <small id="jobIDHelp" class="form-text text-muted">
-        add a specific position for single-site scanning, e.g. "P01112 100"</small>
-      <div class="invalid-feedback">
-        Invalid query
+    <label for="bq_radios">
+      <h5>list of SAVs</h5>
+    </label>
+
+    <!-- radio button with text area -->
+    <div class="form-check">
+      <div class="form-group">
+        <input class="form-check-input" type="radio" name="bq_radios"
+        id="bq_text_radio" value="bq_text" checked>
+        <textarea class="form-control" rows="3" name="bq_text"
+        id="bq_text" maxlength="500"
+        onfocus="document.getElementById('bq_text_radio').checked=true"
+        placeholder="P01112 99 Q R
+RET_HUMAN 800 L A
+..."></textarea>
+        <small id="bq_text" class="form-text text-muted">
+          type Uniprot coordinates...
+        </small>
       </div>
     </div>
+
+    <!-- radio button with upload file -->
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="bq_radios"
+      id="bq_file_radio" value="bq_file">
+      <div class="form-group">
+        <!-- "classic" upload button -->
+        <input type="file" name="bq_file" id="bq_file" autocomplete="off"
+        onfocus="document.getElementById('bq_file_radio').checked=true" >
+        <small id="bq_text" class="form-text text-muted">
+          ...or upload text file</small>
+      </div>
+    </div>
+
   </div>
 
   <div class="col-md"></div>
 </div>
 
-<!-- row with checkbox for opening collapsable row below -->
-<div class="form-row">
-  <div class="col-md"></div>
 
-  <div class="col-md-6">
-    <div class="form-group">
-      <div class="custom-control custom-checkbox" data-toggle="collapse"
-      data-target="#collapse1">
-        <input type="checkbox" class="custom-control-input"
-        name="customPDB_checkbox" id="customPDB_checkbox" autocomplete="off">
-        <label class="custom-control-label" for="customPDB_checkbox">
-          use custom PDB structure
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md"></div>
-</div>
-
-<!-- collapsable row with radio buttons for typing/uploading PDB -->
-<div class="panel-collapse collapse" id="collapse1">
-  <div class="form-row">
-  <div class="col-md"></div>
-
-    <div class="col-md-6">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="customPDB_radios"
-        id="customPDBID_radio" value="PDBID" checked>
-        <div class="form-group">
-          <input class="form-control" type="text" name="customPDBID" value=""
-          id="customPDBID" maxlength="4" placeholder="type a PDB code..." 
-          onfocus="document.getElementById('customPDBID_radio').checked=true">
-          <!-- <small id="PDBIDHelp" class="form-text text-muted">PDB ID</small> -->
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md"></div>
-  </div>
-
-  <div class="form-row">
-    <div class="col-md"></div>
-
-    <div class="col-md-6">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="customPDB_radios"
-        id="customPDBfile_radio" value="PDBfile">
-        <div class="form-group">
-          <!-- "classic" upload button -->
-          <input type="file" accept=".pdb,.pdb.gz" name="customPDBFile" id="customPDBFile"
-          onfocus="document.getElementById('customPDBfile_radio').checked=true" autocomplete="off">
-          <!-- "custom" upload button -->
-          <!-- <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="customPDBFile"
-                  id="customPDBFile" accept=".pdb,.pdb.gz"
-                  onfocus="document.getElementById('customPDBfile_radio').checked=true">
-                  <label class="custom-file-label text-truncate" for="customPDBFile">
-                  Upload PDB file</label>
-                </div> -->
-          <!-- <script>
-                  // JS for updating label after uploading file, in case you are
-                  using "custom" upload button
-                  // NB: does not work...
-                  // see: https://stackoverflow.com/questions/48613992/bootstrap-4-file-input-doesnt-show-the-file-name
-                  $('#customPDBFile').on('change',function(){
-                    // get the filename
-                    var fileName = $(this).val();
-                    // replace the label
-                    $(this).next('.custom-file-label').html(fileName);
-                  })
-                </script> -->
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md"></div>
-  </div>
-</div>
-
-
-
-<!-- email row -->
+<!-- row for email -->
 <div class="form-row top-buffer">
   <div class="col-md"></div>
 
@@ -211,8 +153,8 @@
       </label>
       <input type="email" class="form-control" name="email" id="email"
       aria-describedby="emailHelp" placeholder="(optional)" value="">
-      <small id="emailHelp" class="form-text text-muted">
-        you'll be notified when results are ready
+      <small id="emailHelp" class="form-text text-muted">you'll be notified
+        when results are ready
       </small>
       <div class="invalid-feedback">
         Invalid email address
@@ -224,7 +166,8 @@
 </div>
 
 
-<!-- submit button row -->
+
+<!-- row for submit button -->
 <div class="form-row top-buffer">
   <div class="col-md text-center top-buffer">
     <div class="form-group">
@@ -253,7 +196,8 @@
 
 
   <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    // Example starter JavaScript for disabling form submissions
+    // if there are invalid fields
     (function() {
       'use strict';
       window.addEventListener('load', function() {
