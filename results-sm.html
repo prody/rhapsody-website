@@ -88,11 +88,7 @@
 
     <div class="row">
       <div class="col-sm py-2 text-center">
-        <a href="{{jobdir}}/rhapsody-figure.png">
-          <img src="{{jobdir}}/rhapsody-figure.png" class="img"
-               style="max-height: 420px; max-width: 100%;"
-               alt="click to view in new tab">
-        </a>
+        {{images}}
       </div>
     </div>
 
@@ -108,13 +104,13 @@
         <table class="table table-sm text-center">
           <tbody>
             <tr>
-              <td><a href="{{jobdir}}/rhapsody-aux_predictions.txt">Rhapsody predictions</a></td>
+              <td><a href="{{jobdir}}/rhapsody-predictions.txt">&nbsp;Rhapsody predictions&nbsp;</a></td>
+              <td><a href="{{jobdir}}/rhapsody-predictions-full.txt">Rhapsody predictions (full)</a></td>
               <td><a href="{{jobdir}}/pph2-short.txt">PolyPhen-2 predictions</a></td>
-              <td><a href="{{jobdir}}/rhapsody-features.txt">computed features</a></td>
             </tr>
             <tr>
-              <td><a href="{{jobdir}}/rhapsody-SAVs.txt">submitted SAVs</a></td>
               <td><a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt">PDB mapping</a></td>
+              <td><a href="{{jobdir}}/rhapsody-features.txt">computed features</a></td>
               <td><a href="{{jobdir}}/rhapsody-log.txt">log file</a></td>
             </tr>
             <tr class="table-info">

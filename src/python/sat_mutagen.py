@@ -11,6 +11,7 @@ from rhapsody import *
 
 
 DEBUG_MODE = False
+FIGURE_MAX_WIDTH = 100
 
 
 LOGGER._setprefix('')
@@ -47,8 +48,18 @@ if not DEBUG_MODE:
     rh = rhapsody(input_query, realpath(os.environ['MAIN_CLSF']),
                   aux_classifier = realpath(os.environ['AUX_CLSF']),
                   input_type = 'scanning', custom_PDB = pdb)
-    # create figure
-    print_sat_mutagen_figure('rhapsody-figure.png', rh)
+    # create figure(s)
+    num_res = len(set(rh.SAVcoords['pos']))
+    if num_res <= FIGURE_MAX_WIDTH:
+        print_sat_mutagen_figure('rhapsody-figure.png', rh)
+    else:
+        num_splits = int(num_res/FIGURE_MAX_WIDTH) + 1
+        n = int(num_res/num_splits)
+        remainder = num_res%num_splits
+        for i in range(num_splits):
+            interval = (i*n+1, (i+1)*n+remainder)
+            print_sat_mutagen_figure(f'rhapsody-figure-{i+1}.png', rh,
+                                     res_interval=interval)
 else:
     time.sleep(5)
 
@@ -71,7 +82,7 @@ LOGGER.info(f'completed on {datetime.now()}')
 
 
 # zip results
-files = glob('rhapsody-*txt') + glob('pph2-*txt')
+files = glob('rhapsody-*') + glob('pph2-*txt')
 if glob('pph2-*txt'):
     files.remove('pph2-started.txt')
     files.remove('pph2-completed.txt')
