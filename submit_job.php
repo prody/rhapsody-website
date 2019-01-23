@@ -130,12 +130,11 @@ $output = print_r($_FILES, true);
 file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
 
 
-// import data
+// write data to file
 chdir($jobdir);
 
 $errors = [];
 if ( $subm_type == 'sat_mutagen' ) {
-  // write data to file
   save2file("input-sm_query.txt", $_POST["sm_query"]);
   if ( isset($_POST["customPDB_checkbox"]) ) {
     $radio_value = $_POST["customPDB_radios"];
@@ -145,32 +144,42 @@ if ( $subm_type == 'sat_mutagen' ) {
     else {
       $orig_fname = $_FILES["customPDBFile"]["name"];
       if ( endsWith($orig_fname, ".pdb") )
-        $uploaded_file = "input-PDB.pdb";
+        $new_fname = "input-PDB.pdb";
       else
-        $uploaded_file = "input-PDB.pdb.gz";
-      if ( ! move_uploaded_file($_FILES["customPDBFile"]["tmp_name"], $uploaded_file) )
+        $new_fname = "input-PDB.pdb.gz";
+      if (! move_uploaded_file($_FILES["customPDBFile"]["tmp_name"], $new_fname))
         // exit to error page
         $err_msg = "Sorry, there was an error uploading your file";
         $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
         die( fill_template("error.html", $arr) );
     }
   }
-  // select Python script
-  $pyscript = "${orig_dir}/src/python/sat_mutagen.py";
 }
-else {
-  // batch query
-  $pyscript = "${orig_dir}/src/python/XXX.py";
+elseif ( $subm_type == 'batch_query' ) {
+  $radio_value = $_POST["bq_radios"];
+  if ( $radio_value == "bq_text" ) {
+    save2file("input-batch_query.txt", $_POST["bq_text"]);
+  }
+  else {
+    $tmp_fname = $_FILES["bq_file"]["tmp_name"];
+    if (! move_uploaded_file($tmp_fname, "input-batch_query.txt")) {
+      // exit to error page
+      $err_msg = "Sorry, there was an error uploading your file";
+      $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
+      die( fill_template("error.html", $arr) );
+    }
+  }
 }
 
 if (! empty($_POST["email"]) ) {
-  save2file("input-email.txt", $_POST["sm_email"]);
+  save2file("input-email.txt", $_POST["email"]);
 }
 
 chdir($orig_dir);
 
 
 // launch job in the background
+$pyscript = "${orig_dir}/src/python/${subm_type}.py";
 exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
      ">> ${scratch_dir}/launch_job.err 2>&1 &");
 

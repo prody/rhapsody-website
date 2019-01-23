@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    .jumbotron {
+      background-image: url("./img/sm_colormap-oily.png");
+      background-size: cover;
+    }
+
+    /* class to add margin to e.g. rows */
+    .top-buffer { margin-top:20px; }
+
+    /* Sticky footer styles */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      height: 60px;
+    }
+  </style>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous">
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  <title>Rhapsody</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.html">Rhapsody</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
+            aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="myNavBar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="sat_mutagen.html">
+          <i>In silico</i> saturation mutagenesis </a></li>
+        <li class="nav-item"><a class="nav-link" href="batch_query.html">Batch query</a></li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Links</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Download</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Search">
+      </form> -->
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container text-center">
+      <h2>Results for job #{{jobid}}</h2>
+      (will only be available for 48 hours)
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="container">
+
+    <div class="row top-buffer">
+      <div class="col-sm text-center">
+        <h4>Files</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm-8 py-2">
+        <table class="table table-sm text-center">
+          <tbody>
+            <tr>
+              <td><a href="{{jobdir}}/rhapsody-predictions.txt">&nbsp;Rhapsody predictions&nbsp;</a></td>
+              <td><a href="{{jobdir}}/rhapsody-predictions-full.txt">Rhapsody predictions (full)</a></td>
+              <td><a href="{{jobdir}}/pph2-short.txt">PolyPhen-2 predictions</a></td>
+            </tr>
+            <tr>
+              <td><a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt">PDB mapping</a></td>
+              <td><a href="{{jobdir}}/rhapsody-features.txt">computed features</a></td>
+              <td><a href="{{jobdir}}/rhapsody-log.txt">log file</a></td>
+            </tr>
+            <tr class="table-info">
+              <td colspan="3"><a href="{{jobdir}}/rhapsody-results.zip">Download all</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm"></div>
+    </div>
+  </div>
+
+
+
+  <br><br><br><br><br><br>
+
+
+  <footer class="footer">
+    <div class="container text-center">
+      <span class="text-muted"> lponzoni@pitt.edu -
+        <a href="https://www.ccbb.pitt.edu/Faculty/bahar/lab.html">Bahar lab</a>
+      </span>
+    </div>
+  </footer>
+
+</body>
+
+</html>
