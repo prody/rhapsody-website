@@ -69,7 +69,7 @@ elseif ( $subm_type == 'batch_query' ) {
       $errors[] = 'input text is too long';
     else {
       $text = str_replace(' ', '', $_POST["bq_text"]);
-      $text = str_replace('_', '', $_POST["bq_text"]);
+      $text = str_replace('_', '', $text);
       if ( ! ctype_alnum($text) )
         $errors[] = 'SAV coordinates can only contain ' .
                     'alphanumeric characters and underscore';
@@ -190,7 +190,7 @@ exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
 
 
 // go to the progress page
-$ppage = "check_job.php?id=${jobid}";
+$ppage = "status.php?id=${jobid}";
 echo "<script type='text/javascript'> window.location.href='$ppage';</script>";
 
 ?>

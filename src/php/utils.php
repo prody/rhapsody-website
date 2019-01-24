@@ -37,4 +37,25 @@ function check_jobid_and_jobdir($scratch_dir) {
   return ["jobid" => $jobid, "jobdir" => $jobdir];
 }
 
+function send_email($email, $jobid) {
+  $to = trim($email);
+  $subject = "Rhapsody: job $jobid completed!";
+  $message = "
+<html>
+<head>
+<title>Rhapsody</title>
+</head>
+<body>
+<p>Click <a href=\"results.php?id=${jobid}\">here</a>
+to access your job's results</p>
+</body>
+</html>
+";
+  $headers  = "MIME-Version: 1.0 \r\n";
+  $headers .= "Content-type:text/html;charset=UTF-8 \r\n";
+  $headers .= 'From: <rhapsody@csb.pitt.edu>' . "\r\n";
+
+  mail($to,$subject,$message,$headers);
+}
+
 ?>
