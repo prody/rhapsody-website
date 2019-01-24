@@ -68,11 +68,12 @@ elseif ( $subm_type == 'batch_query' ) {
     elseif ( strlen($text) > 500 )
       $errors[] = 'input text is too long';
     else {
-      $text = str_replace(' ', '', $_POST["bq_text"]);
-      $text = str_replace('_', '', $text);
+      $text = $_POST["bq_text"];
+      $text = str_replace(array(" ", "_", "\n", "\r"), '', $text);
       if ( ! ctype_alnum($text) )
         $errors[] = 'SAV coordinates can only contain ' .
                     'alphanumeric characters and underscore';
+                    die($text);
     }
   }
   else if ( $radio_value == "bq_file" ) {
