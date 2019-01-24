@@ -57,7 +57,7 @@ chdir($jobdir);
 if ( file_exists($doneFile) ) {
   exec("rm -f $pidFile");
   returnStatus( 'completed' );
-  send notification via email
+  // send notification via email
   if ( $email = file_get_contents("${jobdir}/input-email.txt") ) {
     send_email($email, $jobid);
   }
