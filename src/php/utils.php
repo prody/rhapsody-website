@@ -20,7 +20,7 @@ function check_jobid_and_jobdir($scratch_dir) {
     $error = "missing job ID";
 
   $jobid = $_GET["id"];
-  if ( preg_match('/[^a-z0-9]/', $jobid) )
+  if ( preg_match('/[^a-z0-9\-]/', $jobid) )
     $error = "invalid job ID";
 
   // check job folder
