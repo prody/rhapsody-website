@@ -73,7 +73,6 @@ elseif ( $subm_type == 'batch_query' ) {
       if ( ! ctype_alnum($text) )
         $errors[] = 'SAV coordinates can only contain ' .
                     'alphanumeric characters and underscore';
-                    die($text);
     }
   }
   else if ( $radio_value == "bq_file" ) {
