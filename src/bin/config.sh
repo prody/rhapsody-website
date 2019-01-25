@@ -32,6 +32,9 @@ export PDB_DIR="${WWW_DIR}/workspace/pickles"
 # path to classifiers used by Rhapsody for predictions
 export MAIN_CLSF="???.pkl"
 export AUX_CLSF="???.pkl"
+
+# path to EVmutation folder
+export EVMUT_DIR="???/mutation_effects"
 EOF
 
 

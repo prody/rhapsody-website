@@ -179,7 +179,7 @@ chdir($orig_dir);
 
 
 // launch job in the background
-$pyscript = "${orig_dir}/src/python/${subm_type}.py";
+$pyscript = "${orig_dir}/src/python/rhapsody_interface.py";
 exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
      ">> ${scratch_dir}/launch_job.err 2>&1 &");
 
