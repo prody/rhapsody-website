@@ -16,9 +16,9 @@ elseif ( file_exists("${jobdir}/input-batch_query.txt") )
 # create results page
 if ( $subm_type == 'sm' ) {
   $html_images = "";
-  $img_template = '<div class="py-3"><a href="{{fname}}">' .
+  $img_template = '<div class="py-2"><a href="{{fname}}">' .
                   '<img src="{{fname}}" class="img" ' .
-                  'style="max-height: 420px; max-width: 100%;" ' .
+                  'style="max-height: 480px; max-width: 100%;" ' .
                   'alt="click to view in new tab"></a></div>'."\n";
   foreach ( glob("${jobdir}/rhapsody-figure*.png") as $fname ) {
     $html_images .= str_replace("{{fname}}", $fname, $img_template);

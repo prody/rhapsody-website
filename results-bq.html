@@ -38,6 +38,10 @@
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
   crossorigin="anonymous">
 
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+  integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+  crossorigin="anonymous">
+
   <link rel="shortcut icon" href="./img/favicon.ico">
 
   <title>Rhapsody</title>
@@ -94,10 +98,16 @@
           <tbody>
             <tr>
               <td><a href="{{jobdir}}/rhapsody-predictions.txt">Rhapsody predictions</a>
-                  <a href="{{jobdir}}/rhapsody-predictions-full.txt">(full)</a>
+                  <a href="{{jobdir}}/rhapsody-predictions-full.txt">(more details)</a>
               </td>
-              <td><a href="{{jobdir}}/rhapsody-EVmutation.txt">EVmutation scores</a></td>
-              <td><a href="{{jobdir}}/pph2-short.txt">PolyPhen-2 predictions</a></td>
+              <td><a href="{{jobdir}}/rhapsody-EVmutation.txt">EVmutation predictions</a>
+                  <a href="https://marks.hms.harvard.edu/evmutation/" target='_blank'>
+                     <i class="fas fa-external-link-alt"></i></a>
+              </td>
+              <td><a href="{{jobdir}}/pph2-short.txt">PolyPhen-2 predictions</a>
+                     <a href="http://genetics.bwh.harvard.edu/pph2/" target='_blank'>
+                        <i class="fas fa-external-link-alt"></i></a>
+              </td>
             </tr>
             <tr>
               <td><a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt">PDB mapping</a></td>
