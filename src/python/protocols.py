@@ -4,7 +4,7 @@ from rhapsody import *
 FIGURE_MAX_WIDTH = 100
 
 
-def sat_mutagen(main_clsf, aux_clsf):
+def sat_mutagen(main_clsf, aux_clsf, EVmut_cutoff):
 
     # import data
     with open('input-sm_query.txt', 'r') as f:
@@ -34,7 +34,8 @@ def sat_mutagen(main_clsf, aux_clsf):
         for i in range(num_splits):
             interval = (i*n+1, (i+1)*n+remainder)
             fname = f'rhapsody-figure-{i+1}.png'
-            print_sat_mutagen_figure(fname, rh, res_interval=interval)
+            print_sat_mutagen_figure(fname, rh, res_interval=interval,
+                                     EVmut_cutoff=EVmut_cutoff)
 
     return rh
 
@@ -43,7 +44,7 @@ def batch_query(main_clsf, aux_clsf):
 
     # run RHAPSODY
     rh = rhapsody('input-batch_query.txt', main_clsf, aux_classifier=aux_clsf)
-    
+
     return rh
 
 

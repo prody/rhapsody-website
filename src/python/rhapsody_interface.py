@@ -36,19 +36,33 @@ LOGGER._setverbosity(old_verbosity)
 if not DEBUG_MODE:
     main_clsf = realpath(os.environ['MAIN_CLSF'])
     aux_clsf  = realpath(os.environ['AUX_CLSF'])
+    EVmut_cutoff = float(os.environ['EVMUT_CUTOFF'])
 
     # run appropriate protocol
     if isfile('input-sm_query.txt'):
         # perform saturation mutagenesis
-        rh = sat_mutagen(main_clsf, aux_clsf)
+        rh = sat_mutagen(main_clsf, aux_clsf, EVmut_cutoff)
     elif isfile('input-batch_query.txt'):
         # analyse batch query
         rh = batch_query(main_clsf, aux_clsf)
     else:
         raise ValueError('Invalid protocol')
 
-    # print EVmutation features to file
-    np.savetxt('rhapsody-EVmutation.txt', rh.calcEVmutationFeats(), fmt='%10.3e')
+    # print EVmutation predictions to file
+    EVscore = rh.calcEVmutationFeats()['EVmut-DeltaE_epist']
+    SAVs = rh.SAVcoords['text']
+    with open('rhapsody-EVmutation.txt', 'w') as f:
+        f.write('# SAV coords           score     prob    class \n')
+        for SAV, s in zip(SAVs, EVscore):
+            # compute "normalized" score
+            ns = s/EVmut_cutoff*0.5
+            if s > 0.5:
+                c = 'deleterious'
+            elif s < 0.5:
+                c = 'neutral'
+            else:
+                c = '-'
+            f.write(f'{SAV:22} {s:<7.3f}   {ns:<5.3f}   {c:12s} \n')
 
 
 # restore original pickle and PDB folder locations

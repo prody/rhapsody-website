@@ -35,6 +35,10 @@ export AUX_CLSF="???.pkl"
 
 # path to EVmutation folder
 export EVMUT_DIR="???/mutation_effects"
+
+# EVmutation optimal cutoff computed on training dataset
+export EVMUT_CUTOFF="-4.551"
+
 EOF
 
 
