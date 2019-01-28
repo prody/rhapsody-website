@@ -94,8 +94,20 @@
       <div class="col-sm text-center">
         <div class="py-2">
           <!-- legend -->
-          <img src="./img/sm_legend.png" class="img" style="max-height: 70px; max-width: 100%;"
-               alt="legend">
+          <div class="container">
+            <img src="./img/sm_legend.png" class="img" alt="legend" usemap="#legendMap"
+            style="max-height: 70px; max-width: 100%;" id="legend">
+
+            <map name="#legendMap" id="legendMap">
+              <area shape="rect" coords="0,0,1230,360" href="#" alt="1"
+              data-toggle="tooltip" data-trigger="hover" data-placement="top" title="1">
+              <area shape="rect" coords="1230,0,2640,180" href="#" alt="2"
+              data-toggle="tooltip" data-trigger="hover" data-placement="top" title="2">
+              <area shape="rect" coords="1230,180,2640,360" href="#" alt="3"
+              data-toggle="tooltip" data-trigger="hover" data-placement="top" title="3">
+            </map>
+          </div>
+
         </div>
         <!-- sat. mutagen. table(s) -->
         {{images}}
@@ -155,6 +167,52 @@
       </span>
     </div>
   </footer>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
+  <script>
+    // function for rescaling image maps according to their final sizes
+    // *after* CSS styling
+    function rescale_img_map(imgID) {
+      var img = document.getElementById(imgID);
+
+      // compute rescaling factor
+      var rescaling = img.naturalWidth/img.width;
+
+      // get associated map
+      let mapID = img.useMap.slice(1);
+      var map = document.getElementById(mapID);
+
+      // apply rescaling to all areas in image map
+      for (let i=0; i < map.areas.length; ++i) {
+        var coords = map.areas[i].coords.split(",");
+        var new_coords = "";
+        for (let j=0; j < coords.length; j++) {
+          let x = parseFloat(coords[j]) / rescaling;
+          new_coords += Math.round(x) + ",";
+        }
+        map.areas[i].coords = new_coords.slice(0, -1);
+        // console.log(coords);
+        // console.log(new_coords);
+      }
+    }
+
+    // wait until all images are loaded
+    $(window).on("load", function() {
+      rescale_img_map("legend");
+    });
+
+  </script>
 
 </body>
 
