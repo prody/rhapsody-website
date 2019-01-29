@@ -181,8 +181,9 @@
           crossorigin="anonymous"></script>
 
   <script>
-    // function for rescaling image maps according to their final sizes
-    // *after* CSS styling
+
+    // function for rescaling image maps according to their current sizes
+    // *after* CSS styling and window resizing
     function rescale_all_maps() {
       // iterate over all images with maps (saved at the beginning)
       for (var imgID in images_dict){
@@ -195,7 +196,6 @@
         var rescaling = img.naturalWidth/img.width;
 
         // apply rescaling to all areas in image map
-        console.log('Resizing', mapID);
         for (let i=0; i<map.areas.length; ++i) {
           let orig_coords = area_coords[i].split(",");
           let new_coords = "";
@@ -204,7 +204,8 @@
             new_coords += Math.round(x) + ",";
           }
           map.areas[i].coords = new_coords.slice(0, -1);
-          console.log('Area', i, 'resized from', area_coords[i], 'to', new_coords);
+          // console.log('Area', i, 'resized from', area_coords[i],
+          // 'to', new_coords);
         }
       }
     }
@@ -221,7 +222,6 @@
         var area_coords = [];
         for (let j=0; j<map.areas.length; ++j) {
           area_coords.push(map.areas[j].coords);
-          // console.log(img.id, mapID, j, area_coords[j]);
         }
         dict["mapID"] = mapID;
         dict["area_coords"] = area_coords;
@@ -229,9 +229,15 @@
       };
 	  }
 
-    // wait until all images are loaded
-    $(window).on("load", rescale_all_maps());
-    // $(window).on("resize", rescale_all_maps());
+    $( document ).ready(function() {
+      // rescale maps once when all images are loaded...
+      $(window).on("load", rescale_all_maps());
+
+      // ... and every time the window is resized
+      $(window).resize(function() {
+        rescale_all_maps();
+      });
+    });
 
   </script>
 
