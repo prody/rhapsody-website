@@ -28,8 +28,10 @@ if ( $subm_type == 'sm' ) {
     $html_img = str_replace("{{imgid}}", $imgid, $html_img);
     // create image map too
     $html_map = file_get_contents("${jobdir}/map-${imgid}.html");
-    $map_attr = "name=\"map_${imgid}\" id=\"map_${imgid}\"";
-    $html_map = str_replace('name="map"', $map_attr, $html_map);
+    $html_map = str_replace('{{map_id}}', "map_${imgid}", $html_map);
+    $area_js  = 'onmousemove="getPos(event)" onmouseout="stopTracking()"';
+    $html_map = str_replace('{{area_attrs}}', $area_js, $html_map);
+    $html_map = str_replace('{{map_attrs}}', '', $html_map);
     // attach html lines
     $html_snippet .= $html_img;
     $html_snippet .= $html_map;

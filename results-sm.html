@@ -44,6 +44,17 @@
 
   <link rel="shortcut icon" href="./img/favicon.ico">
 
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
   <title>Rhapsody</title>
 </head>
 
@@ -95,20 +106,11 @@
         <div class="py-2">
           <!-- legend -->
           <div class="container">
-            <img src="./img/sm_legend.png" class="img" alt="legend" usemap="#map_legend"
+            <img src="./img/sm_legend.png" class="img" alt="legend"
             style="max-height: 70px; max-width: 100%;" id="legend">
-
-            <map name="map_legend" id="map_legend">
-              <area shape="rect" coords="0,0,1230,360" href="#" alt="1"
-              data-toggle="tooltip" data-trigger="hover" data-placement="top" title="1">
-              <area shape="rect" coords="1230,0,2640,180" href="#" alt="2"
-              data-toggle="tooltip" data-trigger="hover" data-placement="top" title="2">
-              <area shape="rect" coords="1230,180,2640,360" href="#" alt="3"
-              data-toggle="tooltip" data-trigger="hover" data-placement="top" title="3">
-            </map>
           </div>
-
         </div>
+        <p id="displayArea">none</p>
         <!-- sat. mutagen. table(s) -->
         {{images}}
       </div>
@@ -168,70 +170,92 @@
     </div>
   </footer>
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-          crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-          crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-          crossorigin="anonymous"></script>
 
   <script>
+
+    var IMG_DICT = {};
+    var AREA_DICT = {};
+
+    // function for creating a dictionary with images, maps and area coordinates
+    function initialize_dicts() {
+      const allImages = document.querySelectorAll("img");
+      for (let i=0; i<allImages.length; i++) {
+        var dict = {};
+        let img = allImages[i];
+        if (img.hasAttribute("usemap")) {
+          let mapID = img.useMap.slice(1);
+          dict["mapID"] = mapID;
+          dict["areas"] = {};
+          let map = document.getElementById(mapID);
+          for (let j=0; j<map.areas.length; ++j) {
+            let area = map.areas[j];
+            let coords = area.coords.split(",");
+            let xyxy = [];
+            for (let k=0; k<4; ++k) {
+              xyxy.push(parseFloat(coords[k]));
+            }
+            let area_id = area.id;
+            AREA_DICT[area_id] = {};
+            AREA_DICT[area_id]['coords'] = xyxy;
+            AREA_DICT[area_id]['x_min'] = Math.min(xyxy[0], xyxy[2]);
+            AREA_DICT[area_id]['y_min'] = Math.min(xyxy[1], xyxy[3]);
+            dict["areas"][area_id] = AREA_DICT[area_id];
+          }
+          IMG_DICT[img.id] = dict;
+        };
+      };
+    }
 
     // function for rescaling image maps according to their current sizes
     // *after* CSS styling and window resizing
     function rescale_all_maps() {
       // iterate over all images with maps (saved at the beginning)
-      for (var imgID in images_dict){
-        var mapID       = images_dict[imgID].mapID;
-        var area_coords = images_dict[imgID].area_coords;
+      for (var imgID in IMG_DICT){
+        var mapID = IMG_DICT[imgID].mapID;
+        var areas = IMG_DICT[imgID].areas;
         var img = document.getElementById(imgID);
-        var map = document.getElementById(mapID);
 
         // compute rescaling factor
         var rescaling = img.naturalWidth/img.width;
 
         // apply rescaling to all areas in image map
-        for (let i=0; i<map.areas.length; ++i) {
-          let orig_coords = area_coords[i].split(",");
-          let new_coords = "";
-          for (let j=0; j < orig_coords.length; ++j) {
-            let x = parseFloat(orig_coords[j]) / rescaling;
-            new_coords += Math.round(x) + ",";
+        const area_ids = Object.keys(areas);
+        for (var area_id in areas) {
+          let orig_coords = areas[area_id]['coords'];
+          let new_coords = [0,0,0,0];
+          for (let j=0; j<4; ++j) {
+            new_coords[j] = Math.round(orig_coords[j]/rescaling);
           }
-          map.areas[i].coords = new_coords.slice(0, -1);
-          // console.log('Area', i, 'resized from', area_coords[i],
-          // 'to', new_coords);
+          document.getElementById(area_id).coords = new_coords.join();
+          AREA_DICT[area_id]['x_min'] = Math.min(new_coords[0], new_coords[2]);
+          AREA_DICT[area_id]['y_min'] = Math.min(new_coords[1], new_coords[3]);
+          // console.log('Area', i, 'resized from', orig_coords.join(),
+          // 'to', new_coords.join());
         }
       }
     }
 
-    // create and store dictionary with images, maps and area coordinates
-    const allImages = document.querySelectorAll("img");
-    var images_dict = {};
-	  for (let i=0; i<allImages.length; i++) {
-      var dict = {};
-      let img = allImages[i];
-      if (img.hasAttribute("usemap")) {
-        let mapID = img.useMap.slice(1);
-        let map = document.getElementById(mapID);
-        var area_coords = [];
-        for (let j=0; j<map.areas.length; ++j) {
-          area_coords.push(map.areas[j].coords);
-        }
-        dict["mapID"] = mapID;
-        dict["area_coords"] = area_coords;
-        images_dict[img.id] = dict;
-      };
-	  }
+    function getPos(e){
+      var rect = e.target.getBoundingClientRect();
+      var area_id = e.target.id;
+      var x = e.clientX - rect.left - AREA_DICT[area_id]['x_min'];
+      var y = e.clientY - rect.top  - AREA_DICT[area_id]['y_min'];
+
+      cursor="(x, y) =" + x + ", " + y + " in " + area_id ;
+      document.getElementById("displayArea").innerHTML=cursor;
+    }
+
+    function stopTracking(){
+      document.getElementById("displayArea").innerHTML="none";
+    }
+
 
     $( document ).ready(function() {
       // rescale maps once when all images are loaded...
-      $(window).on("load", rescale_all_maps());
+      $(window).on("load", function() {
+        initialize_dicts();
+        rescale_all_maps();
+      });
 
       // ... and every time the window is resized
       $(window).resize(function() {

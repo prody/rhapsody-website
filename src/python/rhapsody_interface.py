@@ -32,8 +32,9 @@ pathEVmutationFolder(realpath(os.environ['EVMUT_DIR']))
 LOGGER._setverbosity(old_verbosity)
 
 
-
-if not DEBUG_MODE:
+if DEBUG_MODE:
+    time.sleep(5)
+else:
     main_clsf = realpath(os.environ['MAIN_CLSF'])
     aux_clsf  = realpath(os.environ['AUX_CLSF'])
     EVmut_cutoff = float(os.environ['EVMUT_CUTOFF'])
