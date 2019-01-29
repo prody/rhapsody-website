@@ -95,10 +95,10 @@
         <div class="py-2">
           <!-- legend -->
           <div class="container">
-            <img src="./img/sm_legend.png" class="img" alt="legend" usemap="#legendMap"
+            <img src="./img/sm_legend.png" class="img" alt="legend" usemap="#map_legend"
             style="max-height: 70px; max-width: 100%;" id="legend">
 
-            <map name="#legendMap" id="legendMap">
+            <map name="map_legend" id="map_legend">
               <area shape="rect" coords="0,0,1230,360" href="#" alt="1"
               data-toggle="tooltip" data-trigger="hover" data-placement="top" title="1">
               <area shape="rect" coords="1230,0,2640,180" href="#" alt="2"
@@ -183,34 +183,55 @@
   <script>
     // function for rescaling image maps according to their final sizes
     // *after* CSS styling
-    function rescale_img_map(imgID) {
-      var img = document.getElementById(imgID);
+    function rescale_all_maps() {
+      // iterate over all images with maps (saved at the beginning)
+      for (var imgID in images_dict){
+        var mapID       = images_dict[imgID].mapID;
+        var area_coords = images_dict[imgID].area_coords;
+        var img = document.getElementById(imgID);
+        var map = document.getElementById(mapID);
 
-      // compute rescaling factor
-      var rescaling = img.naturalWidth/img.width;
+        // compute rescaling factor
+        var rescaling = img.naturalWidth/img.width;
 
-      // get associated map
-      let mapID = img.useMap.slice(1);
-      var map = document.getElementById(mapID);
-
-      // apply rescaling to all areas in image map
-      for (let i=0; i < map.areas.length; ++i) {
-        var coords = map.areas[i].coords.split(",");
-        var new_coords = "";
-        for (let j=0; j < coords.length; j++) {
-          let x = parseFloat(coords[j]) / rescaling;
-          new_coords += Math.round(x) + ",";
+        // apply rescaling to all areas in image map
+        console.log('Resizing', mapID);
+        for (let i=0; i<map.areas.length; ++i) {
+          let orig_coords = area_coords[i].split(",");
+          let new_coords = "";
+          for (let j=0; j < orig_coords.length; ++j) {
+            let x = parseFloat(orig_coords[j]) / rescaling;
+            new_coords += Math.round(x) + ",";
+          }
+          map.areas[i].coords = new_coords.slice(0, -1);
+          console.log('Area', i, 'resized from', area_coords[i], 'to', new_coords);
         }
-        map.areas[i].coords = new_coords.slice(0, -1);
-        // console.log(coords);
-        // console.log(new_coords);
       }
     }
 
+    // create and store dictionary with images, maps and area coordinates
+    const allImages = document.querySelectorAll("img");
+    var images_dict = {};
+	  for (let i=0; i<allImages.length; i++) {
+      var dict = {};
+      let img = allImages[i];
+      if (img.hasAttribute("usemap")) {
+        let mapID = img.useMap.slice(1);
+        let map = document.getElementById(mapID);
+        var area_coords = [];
+        for (let j=0; j<map.areas.length; ++j) {
+          area_coords.push(map.areas[j].coords);
+          // console.log(img.id, mapID, j, area_coords[j]);
+        }
+        dict["mapID"] = mapID;
+        dict["area_coords"] = area_coords;
+        images_dict[img.id] = dict;
+      };
+	  }
+
     // wait until all images are loaded
-    $(window).on("load", function() {
-      rescale_img_map("legend");
-    });
+    $(window).on("load", rescale_all_maps());
+    // $(window).on("resize", rescale_all_maps());
 
   </script>
 

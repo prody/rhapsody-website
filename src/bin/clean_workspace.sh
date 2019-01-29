@@ -15,7 +15,7 @@ do
   date=$(date -r $d "+%d %b %Y %R")
   status="?"
   numSAVs="?"
-  if [ "${jobdir:0:4}" == "job_" -a  "${jobdir:4:8}" != "example_" ]; then
+  if [ "${jobdir:0:4}" == "job_" -a  "${jobdir:4:8}" != "example-" ]; then
     if [ -e ${d}/rhapsody-results.zip ]; then
       status="completed  "
       # number of submitted SAVs

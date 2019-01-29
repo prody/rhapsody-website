@@ -35,16 +35,17 @@ def sat_mutagen(main_clsf, aux_clsf, EVmut_cutoff):
     # create figure(s)
     num_res = len(set(rh.SAVcoords['pos']))
     if num_res <= FIGURE_MAX_WIDTH:
-        print_sat_mutagen_figure('rhapsody-figure.png', rh)
+        print_sat_mutagen_figure('rhapsody-figure.png', rh,
+        EVmut_cutoff=EVmut_cutoff, html_map='map-figure.html')
     else:
         num_splits = int(num_res/FIGURE_MAX_WIDTH) + 1
         n = int(num_res/num_splits)
         remainder = num_res%num_splits
         for i in range(num_splits):
             interval = (i*n+1, (i+1)*n+remainder)
-            fname = f'rhapsody-figure-{i+1}.png'
+            fname = f'rhapsody-figure_{i+1}.png'
             print_sat_mutagen_figure(fname, rh, res_interval=interval,
-                                     EVmut_cutoff=EVmut_cutoff)
+            EVmut_cutoff=EVmut_cutoff, html_map=f'map-figure_{i+1}.html')
 
     return rh
 

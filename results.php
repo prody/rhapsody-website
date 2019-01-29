@@ -15,15 +15,26 @@ elseif ( file_exists("${jobdir}/input-batch_query.txt") )
 
 # create results page
 if ( $subm_type == 'sm' ) {
-  $html_images = "";
-  $img_template = '<div class="py-2"><a href="{{fname}}">' .
+  $html_snippet = "";
+  $img_template = '<div class="py-2">' .
                   '<img src="{{fname}}" class="img" ' .
                   'style="max-height: 480px; max-width: 100%;" ' .
-                  'alt="click to view in new tab"></a></div>'."\n";
+                  'alt="click to view in new tab" id="{{imgid}}" ' .
+                  'usemap="#map_{{imgid}}"></div>' . "\n";
   foreach ( glob("${jobdir}/rhapsody-figure*.png") as $fname ) {
-    $html_images .= str_replace("{{fname}}", $fname, $img_template);
+    $imgid = str_replace('rhapsody-', '', basename($fname, ".png"));
+    // create html image
+    $html_img = str_replace("{{fname}}", $fname, $img_template);
+    $html_img = str_replace("{{imgid}}", $imgid, $html_img);
+    // create image map too
+    $html_map = file_get_contents("${jobdir}/map-${imgid}.html");
+    $map_attr = "name=\"map_${imgid}\" id=\"map_${imgid}\"";
+    $html_map = str_replace('name="map"', $map_attr, $html_map);
+    // attach html lines
+    $html_snippet .= $html_img;
+    $html_snippet .= $html_map;
   }
-  $arr += ["images" => $html_images];
+  $arr += ["images" => $html_snippet];
 }
 
 $results_page = fill_template("results-${subm_type}.html", $arr);
