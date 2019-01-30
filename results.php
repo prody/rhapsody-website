@@ -22,16 +22,17 @@ if ( $subm_type == 'sm' ) {
                   'alt="click to view in new tab" id="{{imgid}}" ' .
                   'usemap="#map_{{imgid}}"></div>' . "\n";
   foreach ( glob("${jobdir}/rhapsody-figure*.png") as $fname ) {
-    $imgid = str_replace('rhapsody-', '', basename($fname, ".png"));
+    $basename = basename($fname, ".png");
+    $imgid = str_replace('rhapsody-', '', $basename);
     // create html image
     $html_img = str_replace("{{fname}}", $fname, $img_template);
     $html_img = str_replace("{{imgid}}", $imgid, $html_img);
     // create image map too
-    $html_map = file_get_contents("${jobdir}/map-${imgid}.html");
+    $html_map = file_get_contents("${jobdir}/${basename}.html");
     $html_map = str_replace('{{map_id}}', "map_${imgid}", $html_map);
     $area_js  = 'onmousemove="getPos(event)" onmouseout="stopTracking()"';
     $html_map = str_replace('{{area_attrs}}', $area_js, $html_map);
-    $html_map = str_replace('{{map_attrs}}', '', $html_map);
+    $html_map = str_replace('{{map_data}}', 'MAP_DATA', $html_map);
     // attach html lines
     $html_snippet .= $html_img;
     $html_snippet .= $html_map;

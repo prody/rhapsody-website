@@ -229,6 +229,10 @@
           document.getElementById(area_id).coords = new_coords.join();
           AREA_DICT[area_id]['x_min'] = Math.min(new_coords[0], new_coords[2]);
           AREA_DICT[area_id]['y_min'] = Math.min(new_coords[1], new_coords[3]);
+          AREA_DICT[area_id]['widht']  = Math.abs(new_coords[0]-new_coords[2]);
+          AREA_DICT[area_id]['height'] = Math.abs(new_coords[1]-new_coords[3]);
+          AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] /MAP_DATA[area_id]["num_cols"];
+          AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/MAP_DATA[area_id]["num_rows"];
           // console.log('Area', i, 'resized from', orig_coords.join(),
           // 'to', new_coords.join());
         }
@@ -240,6 +244,8 @@
       var area_id = e.target.id;
       var x = e.clientX - rect.left - AREA_DICT[area_id]['x_min'];
       var y = e.clientY - rect.top  - AREA_DICT[area_id]['y_min'];
+      x = Math.floor(x / AREA_DICT[area_id]['dx']);
+      y = Math.floor(y / AREA_DICT[area_id]['dy']);
 
       cursor="(x, y) =" + x + ", " + y + " in " + area_id ;
       document.getElementById("displayArea").innerHTML=cursor;
