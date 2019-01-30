@@ -231,8 +231,10 @@
           AREA_DICT[area_id]['y_min'] = Math.min(new_coords[1], new_coords[3]);
           AREA_DICT[area_id]['widht']  = Math.abs(new_coords[0]-new_coords[2]);
           AREA_DICT[area_id]['height'] = Math.abs(new_coords[1]-new_coords[3]);
-          AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] /MAP_DATA[area_id]["num_cols"];
-          AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/MAP_DATA[area_id]["num_rows"];
+          let num_cols = MAP_DATA[area_id]["num_cols"];
+          let num_rows = MAP_DATA[area_id]["num_rows"];
+          AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] / num_cols;
+          AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/ num_rows;
           // console.log('Area', i, 'resized from', orig_coords.join(),
           // 'to', new_coords.join());
         }
@@ -257,6 +259,10 @@
 
 
     $( document ).ready(function() {
+
+      // initialize tooltip
+      $('[data-toggle="tooltip"]').tooltip();
+
       // rescale maps once when all images are loaded...
       $(window).on("load", function() {
         initialize_dicts();
