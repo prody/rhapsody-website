@@ -30,8 +30,10 @@ if ( $subm_type == 'sm' ) {
     // create image map too
     $html_map = file_get_contents("${jobdir}/${basename}.html");
     $html_map = str_replace('{{map_id}}', "map_${imgid}", $html_map);
-    $area_js  = 'onmousemove="getPos(event)" onmouseout="stopTracking()"';
-    $html_map = str_replace('{{area_attrs}}', $area_js, $html_map);
+    $map_attrs = 'data-toggle="tooltip" data-trigger="hover" data-placement="top"';
+    $html_map = str_replace('{{map_attrs}}', $map_attrs, $html_map);
+    $area_attrs = 'onmousemove="updateTooltip(event)" onmouseout="hideTooltip()"';
+    $html_map = str_replace('{{area_attrs}}', $area_attrs, $html_map);
     $html_map = str_replace('{{map_data}}', 'MAP_DATA', $html_map);
     // attach html lines
     $html_snippet .= $html_img;

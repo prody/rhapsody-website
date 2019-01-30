@@ -55,6 +55,98 @@
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"></script>
 
+  <script>
+    var IMG_DICT  = {};
+    var AREA_DICT = {};
+    var MAP_DATA  = {};
+
+    // function for creating a dictionary with images, maps and area coordinates
+    function initialize_dicts() {
+      const allImages = document.querySelectorAll("img");
+      for (let i=0; i<allImages.length; i++) {
+        var dict = {};
+        let img = allImages[i];
+        if (img.hasAttribute("usemap")) {
+          let mapID = img.useMap.slice(1);
+          dict["mapID"] = mapID;
+          dict["areas"] = {};
+          let map = document.getElementById(mapID);
+          for (let j=0; j<map.areas.length; ++j) {
+            let area = map.areas[j];
+            let coords = area.coords.split(",");
+            let xyxy = [];
+            for (let k=0; k<4; ++k) {
+              xyxy.push(parseFloat(coords[k]));
+            }
+            let area_id = area.id;
+            AREA_DICT[area_id] = {};
+            AREA_DICT[area_id]['coords'] = xyxy;
+            AREA_DICT[area_id]['x_min'] = Math.min(xyxy[0], xyxy[2]);
+            AREA_DICT[area_id]['y_min'] = Math.min(xyxy[1], xyxy[3]);
+            dict["areas"][area_id] = AREA_DICT[area_id];
+          }
+          IMG_DICT[img.id] = dict;
+        };
+      };
+    }
+
+    // function for rescaling image maps according to their current sizes
+    // *after* CSS styling and window resizing
+    function rescale_all_maps() {
+      // iterate over all images with maps (saved at the beginning)
+      for (var imgID in IMG_DICT){
+        var mapID = IMG_DICT[imgID].mapID;
+        var areas = IMG_DICT[imgID].areas;
+        var img = document.getElementById(imgID);
+        // compute rescaling factor
+        var rescaling = img.naturalWidth/img.width;
+        // apply rescaling to all areas in image map
+        const area_ids = Object.keys(areas);
+        for (var area_id in areas) {
+          let orig_coords = areas[area_id]['coords'];
+          let new_coords = [0,0,0,0];
+          for (let j=0; j<4; ++j) {
+            new_coords[j] = Math.round(orig_coords[j]/rescaling);
+          }
+          document.getElementById(area_id).coords = new_coords.join();
+          // store info for each area
+          AREA_DICT[area_id]['map_id'] = mapID;
+          AREA_DICT[area_id]['x_min']  = Math.min(new_coords[0], new_coords[2]);
+          AREA_DICT[area_id]['y_min']  = Math.min(new_coords[1], new_coords[3]);
+          AREA_DICT[area_id]['widht']  = Math.abs(new_coords[0] -new_coords[2]);
+          AREA_DICT[area_id]['height'] = Math.abs(new_coords[1] -new_coords[3]);
+          let num_cols = MAP_DATA[area_id]["num_cols"];
+          let num_rows = MAP_DATA[area_id]["num_rows"];
+          AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] / num_cols;
+          AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/ num_rows;
+          // console.log('Area', i, 'resized from', orig_coords.join(),
+          // 'to', new_coords.join());
+        }
+      }
+    }
+
+    function updateTooltip(e){
+      // triggered by "hover" event on map areas
+      var area_id = e.target.id;
+      var map_id = AREA_DICT[area_id]['map_id'];
+      // the target is the area, but the bounding rectangle is the map's
+      var map_rect = e.target.getBoundingClientRect();
+      // get mouse coordinates wrt area
+      var x = e.clientX - map_rect.left - AREA_DICT[area_id]['x_min'];
+      var y = e.clientY - map_rect.top  - AREA_DICT[area_id]['y_min'];
+      x = Math.floor(x / AREA_DICT[area_id]['dx']);
+      y = Math.floor(y / AREA_DICT[area_id]['dy']);
+      // update map title that will be displayed in tooltip
+      var map = document.getElementById(map_id);
+      var msg = [map_id, area_id, x, y].join();
+      $(map).attr('data-original-title', msg).tooltip('show');
+    }
+
+    function hideTooltip(){
+      document.getElementById("displayArea").innerHTML="none";
+    }
+  </script>
+
   <title>Rhapsody</title>
 </head>
 
@@ -172,94 +264,7 @@
 
 
   <script>
-
-    var IMG_DICT = {};
-    var AREA_DICT = {};
-
-    // function for creating a dictionary with images, maps and area coordinates
-    function initialize_dicts() {
-      const allImages = document.querySelectorAll("img");
-      for (let i=0; i<allImages.length; i++) {
-        var dict = {};
-        let img = allImages[i];
-        if (img.hasAttribute("usemap")) {
-          let mapID = img.useMap.slice(1);
-          dict["mapID"] = mapID;
-          dict["areas"] = {};
-          let map = document.getElementById(mapID);
-          for (let j=0; j<map.areas.length; ++j) {
-            let area = map.areas[j];
-            let coords = area.coords.split(",");
-            let xyxy = [];
-            for (let k=0; k<4; ++k) {
-              xyxy.push(parseFloat(coords[k]));
-            }
-            let area_id = area.id;
-            AREA_DICT[area_id] = {};
-            AREA_DICT[area_id]['coords'] = xyxy;
-            AREA_DICT[area_id]['x_min'] = Math.min(xyxy[0], xyxy[2]);
-            AREA_DICT[area_id]['y_min'] = Math.min(xyxy[1], xyxy[3]);
-            dict["areas"][area_id] = AREA_DICT[area_id];
-          }
-          IMG_DICT[img.id] = dict;
-        };
-      };
-    }
-
-    // function for rescaling image maps according to their current sizes
-    // *after* CSS styling and window resizing
-    function rescale_all_maps() {
-      // iterate over all images with maps (saved at the beginning)
-      for (var imgID in IMG_DICT){
-        var mapID = IMG_DICT[imgID].mapID;
-        var areas = IMG_DICT[imgID].areas;
-        var img = document.getElementById(imgID);
-
-        // compute rescaling factor
-        var rescaling = img.naturalWidth/img.width;
-
-        // apply rescaling to all areas in image map
-        const area_ids = Object.keys(areas);
-        for (var area_id in areas) {
-          let orig_coords = areas[area_id]['coords'];
-          let new_coords = [0,0,0,0];
-          for (let j=0; j<4; ++j) {
-            new_coords[j] = Math.round(orig_coords[j]/rescaling);
-          }
-          document.getElementById(area_id).coords = new_coords.join();
-          AREA_DICT[area_id]['x_min'] = Math.min(new_coords[0], new_coords[2]);
-          AREA_DICT[area_id]['y_min'] = Math.min(new_coords[1], new_coords[3]);
-          AREA_DICT[area_id]['widht']  = Math.abs(new_coords[0]-new_coords[2]);
-          AREA_DICT[area_id]['height'] = Math.abs(new_coords[1]-new_coords[3]);
-          let num_cols = MAP_DATA[area_id]["num_cols"];
-          let num_rows = MAP_DATA[area_id]["num_rows"];
-          AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] / num_cols;
-          AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/ num_rows;
-          // console.log('Area', i, 'resized from', orig_coords.join(),
-          // 'to', new_coords.join());
-        }
-      }
-    }
-
-    function getPos(e){
-      var rect = e.target.getBoundingClientRect();
-      var area_id = e.target.id;
-      var x = e.clientX - rect.left - AREA_DICT[area_id]['x_min'];
-      var y = e.clientY - rect.top  - AREA_DICT[area_id]['y_min'];
-      x = Math.floor(x / AREA_DICT[area_id]['dx']);
-      y = Math.floor(y / AREA_DICT[area_id]['dy']);
-
-      cursor="(x, y) =" + x + ", " + y + " in " + area_id ;
-      document.getElementById("displayArea").innerHTML=cursor;
-    }
-
-    function stopTracking(){
-      document.getElementById("displayArea").innerHTML="none";
-    }
-
-
     $( document ).ready(function() {
-
       // initialize tooltip
       $('[data-toggle="tooltip"]').tooltip();
 
@@ -274,7 +279,6 @@
         rescale_all_maps();
       });
     });
-
   </script>
 
 </body>
