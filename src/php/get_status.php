@@ -4,6 +4,8 @@ $scratch_dir = "../../workspace";
 $pidFile     = "PID.tmp";
 $doneFile    = "rhapsody-results.zip";
 
+include './utils.php';
+
 function isProcessRunning($f) {
   if ( !file_exists($f) ) {
     return False;
@@ -35,22 +37,9 @@ function returnStatus($status="") {
 // $arr = array('status' => "running...", 'logTail' => "something");
 // die( json_encode($arr) );
 
-
-if ( !isset($_GET["id"]) ) {
-  returnStatus( 'job id not set' );
-}
-
-$jobid = $_GET["id"];
-
-if ( preg_match('/[^a-z0-9]/', $jobid) ) {
-  returnStatus( 'invalid job id' );
-}
-
-$jobdir = "${scratch_dir}/job_" . $jobid;
-
-if ( !is_dir($jobdir) ) {
-  returnStatus( 'results folder not found' );
-}
+$arr = check_jobid_and_jobdir($scratch_dir);
+$jobid  = $arr["jobid"];
+$jobdir = $arr["jobdir"];
 
 chdir($jobdir);
 

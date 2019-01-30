@@ -37,6 +37,8 @@ if ( $subm_type == 'sat_mutagen' ) {
   $query = str_replace(' ', '', $_POST["sm_query"]);
   if (!ctype_alnum($query))
     $errors[] = 'Query must contain letters, numbers and spaces only';
+  if ( $query == "test" )
+    $subm_type = "example-sm";
   if ( isset($_POST["customPDB_checkbox"]) ) {
     $radio_value = $_POST["customPDB_radios"];
     if ( $radio_value == "PDBID" ) {
@@ -70,9 +72,11 @@ elseif ( $subm_type == 'batch_query' ) {
     else {
       $text = $_POST["bq_text"];
       $text = str_replace(array(" ", "_", "\n", "\r"), '', $text);
-      if ( ! ctype_alnum($text) )
+      if ( !ctype_alnum($text) )
         $errors[] = 'SAV coordinates can only contain ' .
                     'alphanumeric characters and underscore';
+      if ( $text == "test" )
+        $subm_type = "example-bq";
     }
   }
   else if ( $radio_value == "bq_file" ) {
@@ -111,23 +115,33 @@ if (!empty($errors)) {
 
 // create a unique job ID and directory
 $orig_dir = getcwd();
-$jobid    = "";
-$jobdir   = "";
+$jobid  = "";
+$jobdir = "";
 
-while ($jobid=="" || file_exists($jobdir)) {
-  $salt = time();
-  $jobid = substr(md5($salt), 0, 10);
+if ( substr($subm_type, 0, 8) == "example-") {
+  // test examples
+  $jobid  = $subm_type;
   $jobdir = $scratch_dir . "/job_" . $jobid;
+  if ( !file_exists($jobdir) ) {
+    mkdir($jobdir);
+  }
+}
+else {
+  // normal jobs
+  while ( $jobid=="" || file_exists($jobdir) ) {
+    $salt = time();
+    $jobid = substr(md5($salt), 0, 10);
+    $jobdir = $scratch_dir . "/job_" . $jobid;
+  }
+  mkdir($jobdir);
 }
 
-mkdir($jobdir);
 
-
-// DEBUG: save info
-$output = print_r($_POST, true);
-file_put_contents("${jobdir}/input.log", $output);
-$output = print_r($_FILES, true);
-file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
+// // DEBUG: save info
+// $output = print_r($_POST, true);
+// file_put_contents("${jobdir}/input.log", $output);
+// $output = print_r($_FILES, true);
+// file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
 
 
 // write data to file
@@ -170,6 +184,37 @@ elseif ( $subm_type == 'batch_query' ) {
     }
   }
 }
+elseif ( substr($subm_type, 0, 8) == "example-") {
+  // try to reuse PolyPhen-2 files
+  if ( file_exists("pph2-full.txt") ) {
+    foreach( glob("./*") as $file ) {
+      $fname = basename($file);
+      $startswith = substr($fname, 0, 5);
+      if( $startswith!="pph2-" && $startswith!="input" )
+        unlink($file);
+    }
+  }
+  else {
+    // delete everything
+    array_map('unlink', glob("./*"));
+    // print test query to file
+    if ( $subm_type == "example-sm" ) {
+      $test_query = "P01112";
+      save2file("input-sm_query.txt", $test_query);
+    }
+    elseif ( $subm_type == "example-bq" ) {
+      $test_query = "P01112 99 Q R\nEGFR_HUMAN 300 V A\n";
+      save2file("input-batch_query.txt", $test_query);
+    }
+  }
+}
+else {
+  // exit to error page
+  $err_msg = "Internal error: invalid submission type";
+  $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
+  die( fill_template("error.html", $arr) );
+}
+
 
 if (! empty($_POST["email"]) ) {
   save2file("input-email.txt", $_POST["email"]);

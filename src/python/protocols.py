@@ -22,16 +22,10 @@ def sat_mutagen(main_clsf, aux_clsf, EVmut_cutoff):
         pdb = None
 
     # run RHAPSODY
-    test_dir = '../job_example-sm'
-    test_query = 'P01112'
-    if input_query == 'test' and isdir(test_dir):
-        for f in glob(join(test_dir, 'pph2-*.txt')):
-            copyfile(f, basename(f))
+    if isfile('pph2-full.txt'):
         rh = rhapsody('pph2-full.txt', main_clsf, aux_classifier=aux_clsf,
                       input_type='PP2', custom_PDB=pdb)
     else:
-        if input_query == 'test':
-            input_query = test_query
         rh = rhapsody(input_query, main_clsf, aux_classifier=aux_clsf,
                       input_type='scanning', custom_PDB=pdb)
 
@@ -60,16 +54,10 @@ def batch_query(main_clsf, aux_clsf):
         input_query = f.read().strip()
 
     # run RHAPSODY
-    test_dir = '../job_example-bq'
-    test_query = 'P01112 99 Q R \nEGFR_HUMAN 300 V A'
-    if input_query == 'test' and isdir(test_dir):
-        for f in glob(join(test_dir, 'pph2-*.txt')):
-            copyfile(f, basename(f))
+    if isfile('pph2-full.txt'):
         rh = rhapsody('pph2-full.txt', main_clsf, aux_classifier=aux_clsf,
                       input_type='PP2')
     else:
-        if input_query == 'test':
-            input_query = test_query
         rh = rhapsody('input-batch_query.txt', main_clsf,
                       aux_classifier=aux_clsf)
 
