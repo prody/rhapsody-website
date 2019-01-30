@@ -58,6 +58,8 @@
   <script>
     var IMG_DICT  = {};
     var AREA_DICT = {};
+    // MAP_DATA contains variables defined in \{\{images\}\}, a placeholder
+    // replaced by results.php based on image data
     var MAP_DATA  = {};
 
     // function for creating a dictionary with images, maps and area coordinates
@@ -139,11 +141,14 @@
       // update map title that will be displayed in tooltip
       var map = document.getElementById(map_id);
       var msg = [map_id, area_id, x, y].join();
-      $(map).attr('data-original-title', msg).tooltip('show');
+      $(map).attr('title', msg);
     }
 
-    function hideTooltip(){
-      document.getElementById("displayArea").innerHTML="none";
+    function hideTooltip(e){
+      var area_id = e.target.id;
+      var map_id = AREA_DICT[area_id]['map_id'];
+      var map = document.getElementById(map_id);
+      $(map).attr('title', "");
     }
   </script>
 
@@ -195,16 +200,17 @@
 
     <div class="row">
       <div class="col-sm text-center">
+        <!-- legend -->
         <div class="py-2">
-          <!-- legend -->
           <div class="container">
             <img src="./img/sm_legend.png" class="img" alt="legend"
             style="max-height: 70px; max-width: 100%;" id="legend">
           </div>
         </div>
-        <p id="displayArea">none</p>
         <!-- sat. mutagen. table(s) -->
-        {{images}}
+        <div class="py-2">
+          {{images}}
+        </div>
       </div>
     </div>
 
@@ -265,8 +271,6 @@
 
   <script>
     $( document ).ready(function() {
-      // initialize tooltip
-      $('[data-toggle="tooltip"]').tooltip();
 
       // rescale maps once when all images are loaded...
       $(window).on("load", function() {

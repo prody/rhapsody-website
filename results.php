@@ -16,11 +16,10 @@ elseif ( file_exists("${jobdir}/input-batch_query.txt") )
 # create results page
 if ( $subm_type == 'sm' ) {
   $html_snippet = "";
-  $img_template = '<div class="py-2">' .
-                  '<img src="{{fname}}" class="img" ' .
+  $img_template = '<img src="{{fname}}" class="img" ' .
                   'style="max-height: 480px; max-width: 100%;" ' .
                   'alt="click to view in new tab" id="{{imgid}}" ' .
-                  'usemap="#map_{{imgid}}"></div>' . "\n";
+                  'usemap="#map_{{imgid}}">' . "\n";
   foreach ( glob("${jobdir}/rhapsody-figure*.png") as $fname ) {
     $basename = basename($fname, ".png");
     $imgid = str_replace('rhapsody-', '', $basename);
@@ -30,9 +29,10 @@ if ( $subm_type == 'sm' ) {
     // create image map too
     $html_map = file_get_contents("${jobdir}/${basename}.html");
     $html_map = str_replace('{{map_id}}', "map_${imgid}", $html_map);
-    $map_attrs = 'data-toggle="tooltip" data-trigger="hover" data-placement="top"';
+    // $map_attrs = 'data-toggle="tooltip" data-trigger="hover" data-placement="top"';
+    $map_attrs = '';
     $html_map = str_replace('{{map_attrs}}', $map_attrs, $html_map);
-    $area_attrs = 'onmousemove="updateTooltip(event)" onmouseout="hideTooltip()"';
+    $area_attrs = 'onmousemove="updateTooltip(event)" onmouseout="hideTooltip(event)"';
     $html_map = str_replace('{{area_attrs}}', $area_attrs, $html_map);
     $html_map = str_replace('{{map_data}}', 'MAP_DATA', $html_map);
     // attach html lines
