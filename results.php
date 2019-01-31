@@ -8,8 +8,14 @@ $arr = check_jobid_and_jobdir($scratch_dir);
 $jobid  = $arr["jobid"];
 $jobdir = $arr["jobdir"];
 
-if ( file_exists("${jobdir}/input-sm_query.txt") )
+if ( file_exists("${jobdir}/input-sm_query.txt") ) {
   $subm_type = 'sm';
+  // get sequence Uniprot accession number
+  $f = fopen("${jobdir}/rhapsody-Uniprot2PDB.txt", 'r');
+  $first_line = fgets($f);
+  fclose($f);
+  $Uniprot_acc = explode(" ", trim($first_line))[0];
+}
 elseif ( file_exists("${jobdir}/input-batch_query.txt") )
   $subm_type = 'bq';
 
@@ -44,7 +50,9 @@ if ( $subm_type == 'sm' ) {
     $js_vars = str_replace('{{map_data}}', 'MAP_DATA', $js_vars);
     $js_snippet .= $js_vars;
   }
-  $arr += ["images" => $html_snippet, "lookup_tables" => $js_snippet];
+  $arr += ["Uniprot_acc"   => $Uniprot_acc,
+           "images"        => $html_snippet,
+           "lookup_tables" => $js_snippet];
 }
 
 $results_page = fill_template("results-${subm_type}.html", $arr);
