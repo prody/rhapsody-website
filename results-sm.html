@@ -140,7 +140,7 @@
       y = Math.floor(y / AREA_DICT[area_id]['dy']);
       // update map title that will be displayed in tooltip
       var map = document.getElementById(map_id);
-      var msg = [map_id, area_id, x, y].join();
+      var msg = MAP_DATA[area_id]["info_msg"][y][x];
       $(map).attr('title', msg);
     }
 
@@ -270,6 +270,10 @@
 
 
   <script>
+
+    // insert here look-up tables with image info
+    {{lookup_tables}}
+
     $( document ).ready(function() {
 
       // rescale maps once when all images are loaded...
@@ -283,6 +287,7 @@
         rescale_all_maps();
       });
     });
+
   </script>
 
 </body>

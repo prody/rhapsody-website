@@ -16,6 +16,7 @@ elseif ( file_exists("${jobdir}/input-batch_query.txt") )
 # create results page
 if ( $subm_type == 'sm' ) {
   $html_snippet = "";
+  $js_snippet   = "";
   $img_template = '<img src="{{fname}}" class="img" ' .
                   'style="max-height: 480px; max-width: 100%;" ' .
                   'alt="click to view in new tab" id="{{imgid}}" ' .
@@ -34,12 +35,16 @@ if ( $subm_type == 'sm' ) {
     $html_map = str_replace('{{map_attrs}}', $map_attrs, $html_map);
     $area_attrs = 'onmousemove="updateTooltip(event)" onmouseout="hideTooltip(event)"';
     $html_map = str_replace('{{area_attrs}}', $area_attrs, $html_map);
-    $html_map = str_replace('{{map_data}}', 'MAP_DATA', $html_map);
     // attach html lines
     $html_snippet .= $html_img;
     $html_snippet .= $html_map;
+    // write javascript variables
+    $js_vars = file_get_contents("${jobdir}/${basename}.js");
+    $js_vars = str_replace('{{map_id}}', "map_${imgid}", $js_vars);
+    $js_vars = str_replace('{{map_data}}', 'MAP_DATA', $js_vars);
+    $js_snippet .= $js_vars;
   }
-  $arr += ["images" => $html_snippet];
+  $arr += ["images" => $html_snippet, "lookup_tables" => $js_snippet];
 }
 
 $results_page = fill_template("results-${subm_type}.html", $arr);
