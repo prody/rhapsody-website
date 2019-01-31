@@ -45,8 +45,8 @@
   <link rel="shortcut icon" href="./img/favicon.ico">
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
           integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -64,6 +64,7 @@
 
     // function for creating a dictionary with images, maps and area coordinates
     function initialize_dicts() {
+      // console.log('initialize_dicts() started');
       const allImages = document.querySelectorAll("img");
       for (let i=0; i<allImages.length; i++) {
         var dict = {};
@@ -90,6 +91,7 @@
           IMG_DICT[img.id] = dict;
         };
       };
+      // console.log('initialize_dicts() completed');
     }
 
     // function for rescaling image maps according to their current sizes
@@ -121,7 +123,7 @@
           let num_rows = MAP_DATA[area_id]["num_rows"];
           AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] / num_cols;
           AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/ num_rows;
-          // console.log('Area', i, 'resized from', orig_coords.join(),
+          // console.log('Area', area_id, 'resized from', orig_coords.join(),
           // 'to', new_coords.join());
         }
       }
@@ -138,6 +140,8 @@
       var y = e.clientY - map_rect.top  - AREA_DICT[area_id]['y_min'];
       x = Math.floor(x / AREA_DICT[area_id]['dx']);
       y = Math.floor(y / AREA_DICT[area_id]['dy']);
+      x = Math.max(0, x);
+      y = Math.max(0, y);
       // update map title that will be displayed in tooltip
       var map = document.getElementById(map_id);
       var msg = MAP_DATA[area_id]["info_msg"][y][x];
@@ -194,7 +198,8 @@
   <div class="container">
     <div class="row">
       <div class="col-sm text-center ">
-        <h4><i>In silico</i> saturation mutagenesis table of {{Uniprot_acc}}</h4>
+        <h4><i>In silico</i> saturation mutagenesis table for
+        sequence {{Uniprot_acc}}</h4>
       </div>
     </div>
 
@@ -228,25 +233,44 @@
         <table class="table table-sm text-center">
           <tbody>
             <tr>
-              <td><a href="{{jobdir}}/rhapsody-predictions.txt">Rhapsody predictions</a>
-                  <a href="{{jobdir}}/rhapsody-predictions-full.txt">(more details)</a>
+              <td>
+                <a href="{{jobdir}}/rhapsody-predictions.txt" target='_blank'>
+                Rhapsody predictions</a>
+                <a href="{{jobdir}}/rhapsody-predictions-full.txt"
+                target='_blank'>(more)</a>
               </td>
-              <td><a href="{{jobdir}}/rhapsody-EVmutation.txt">EVmutation predictions</a>
-                  <a href="https://marks.hms.harvard.edu/evmutation/" target='_blank'>
-                     <i class="fas fa-external-link-alt"></i></a>
+              <td>
+                <a href="{{jobdir}}/rhapsody-EVmutation.txt" target='_blank'>
+                EVmutation predictions</a>
+                <a href="https://marks.hms.harvard.edu/evmutation/"
+                target='_blank'> <i class="fas fa-external-link-alt"></i></a>
               </td>
-              <td><a href="{{jobdir}}/pph2-short.txt">PolyPhen-2 predictions</a>
-                     <a href="http://genetics.bwh.harvard.edu/pph2/" target='_blank'>
-                        <i class="fas fa-external-link-alt"></i></a>
+              <td>
+                <a href="{{jobdir}}/pph2-short.txt" target='_blank'>
+                PolyPhen-2 predictions</a>
+                <a href="http://genetics.bwh.harvard.edu/pph2/" target='_blank'>
+                <i class="fas fa-external-link-alt"></i></a>
               </td>
             </tr>
             <tr>
-              <td><a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt">PDB mapping</a></td>
-              <td><a href="{{jobdir}}/rhapsody-features.txt">computed features</a></td>
-              <td><a href="{{jobdir}}/rhapsody-log.txt">log file</a></td>
+              <td>
+                <a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt" target='_blank'>
+                PDB mapping</a>
+              </td>
+              <td>
+                <a href="{{jobdir}}/rhapsody-features.txt" target='_blank'>
+                  computed features</a>
+              </td>
+              <td>
+                <a href="{{jobdir}}/rhapsody-log.txt" target='_blank'>
+                log file</a>
+              </td>
             </tr>
             <tr class="table-info">
-              <td colspan="3"><a href="{{jobdir}}/rhapsody-results.zip">Download all</a></td>
+              <td colspan="3">
+                <a href="{{jobdir}}/rhapsody-results.zip" target='_blank'>
+                Download all</a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -262,7 +286,9 @@
 
   <footer class="footer">
     <div class="container text-center">
-      <span class="text-muted"> lponzoni@pitt.edu -
+      <span class="text-muted">
+        <a href="mailto:lponzoni@pitt.edu?Subject=Rhapsody:%20job_{{jobid}}&amp;body=Hi%20Luca,%0D%0A"
+        target="_top">lponzoni@pitt.edu</a> -
         <a href="https://www.ccbb.pitt.edu/Faculty/bahar/lab.html">Bahar lab</a>
       </span>
     </div>
@@ -270,24 +296,24 @@
 
 
   <script>
-
     // insert here look-up tables with image info
     {{lookup_tables}}
 
     $( document ).ready(function() {
-
-      // rescale maps once when all images are loaded...
-      $(window).on("load", function() {
-        initialize_dicts();
-        rescale_all_maps();
-      });
-
-      // ... and every time the window is resized
-      $(window).resize(function() {
-        rescale_all_maps();
-      });
+      console.log( "document loaded" );
+      initialize_dicts();
     });
 
+    // rescale maps when all images are loaded
+    // and every time the window is resized
+    $( window ).on( "ready load resize", function() {
+      console.log( "rescaling maps" );
+      rescale_all_maps()
+    });
+    $( window ).one( "mouseenter", function() {
+      console.log( "rescaling maps" );
+      rescale_all_maps()
+    });
   </script>
 
 </body>

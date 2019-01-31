@@ -12,9 +12,10 @@ if ( file_exists("${jobdir}/input-sm_query.txt") ) {
   $subm_type = 'sm';
   // get sequence Uniprot accession number
   $f = fopen("${jobdir}/rhapsody-Uniprot2PDB.txt", 'r');
-  $first_line = fgets($f);
+  $first_line  = fgets($f);
+  $second_line = fgets($f);
   fclose($f);
-  $Uniprot_acc = explode(" ", trim($first_line))[0];
+  $Uniprot_acc = explode(" ", trim($second_line))[0];
 }
 elseif ( file_exists("${jobdir}/input-batch_query.txt") )
   $subm_type = 'bq';

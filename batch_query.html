@@ -83,7 +83,7 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h2>Batch query</h2>
-      Get predictions for single SAVs from various sequences
+      Get predictions for a list of variants from mutliple sequences
     </div>
   </div>
 
@@ -103,7 +103,7 @@
 
   <div class="col-md-6">
     <label for="bq_radios">
-      <h5>list of SAVs</h5>
+      <h5>list of missense variants</h5>
     </label>
 
     <!-- radio button with text area -->
@@ -118,7 +118,8 @@
 EGFR_HUMAN 300 V A
 ..."></textarea>
         <small id="bq_text" class="form-text text-muted">
-          type Uniprot coordinates. Leave blank to run test case.
+          type <a href="query_Uniprot.html" target='_blank'>Uniprot coordinates</a>
+          or leave blank to run test case
         </small>
       </div>
     </div>
@@ -132,7 +133,7 @@ EGFR_HUMAN 300 V A
         <input type="file" name="bq_file" id="bq_file" autocomplete="off"
         onfocus="document.getElementById('bq_file_radio').checked=true" >
         <small id="bq_text" class="form-text text-muted">
-          upload text file</small>
+          upload the list in a text file</small>
       </div>
     </div>
 
@@ -219,8 +220,8 @@ EGFR_HUMAN 300 V A
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
           integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
