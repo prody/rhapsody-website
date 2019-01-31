@@ -118,7 +118,7 @@
 EGFR_HUMAN 300 V A
 ..."></textarea>
         <small id="bq_text" class="form-text text-muted">
-          type Uniprot coordinates...
+          type Uniprot coordinates. Leave blank to run test case.
         </small>
       </div>
     </div>
@@ -132,7 +132,7 @@ EGFR_HUMAN 300 V A
         <input type="file" name="bq_file" id="bq_file" autocomplete="off"
         onfocus="document.getElementById('bq_file_radio').checked=true" >
         <small id="bq_text" class="form-text text-muted">
-          ...or upload text file</small>
+          upload text file</small>
       </div>
     </div>
 
@@ -152,7 +152,7 @@ EGFR_HUMAN 300 V A
         <h5>email</h5>
       </label>
       <input type="email" class="form-control" name="email" id="email"
-      aria-describedby="emailHelp" placeholder="(optional)" value="">
+      aria-describedby="emailHelp" value="" placeholder="(not available)" disabled>
       <small id="emailHelp" class="form-text text-muted">you'll be notified
         when results are ready
       </small>

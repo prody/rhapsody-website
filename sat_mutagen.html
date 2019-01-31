@@ -106,9 +106,10 @@
         <h5>Uniprot sequence ID</h5>
       </label>
       <input type="text" class="form-control" name="sm_query" id="sm_query"
-      placeholder="P01112" value="" required>
+      placeholder="P01112" value="">
       <small id="jobIDHelp" class="form-text text-muted">
-        add a specific position for single-site scanning, e.g. "P01112 100"</small>
+        add a specific position for single-site scanning, e.g. "P01112 100".
+        Leave blank to run test case.</small>
       <div class="invalid-feedback">
         Invalid query
       </div>
@@ -210,7 +211,7 @@
         <h5>email</h5>
       </label>
       <input type="email" class="form-control" name="email" id="email"
-      aria-describedby="emailHelp" placeholder="(optional)" value="">
+      aria-describedby="emailHelp"  value="" placeholder="(not available)" disabled>
       <small id="emailHelp" class="form-text text-muted">
         you'll be notified when results are ready
       </small>

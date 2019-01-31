@@ -34,11 +34,11 @@ $errors = [];
 if ( $subm_type == 'sat_mutagen' ) {
   $back_link = 'sat_mutagen.html';
   // check input data
-  $query = str_replace(' ', '', $_POST["sm_query"]);
-  if (!ctype_alnum($query))
-    $errors[] = 'Query must contain letters, numbers and spaces only';
-  if ( $query == "test" )
+  $query = str_replace(array(" ", "\n", "\r"), '', $_POST["sm_query"]);
+  if ( empty($query) || $query=="test" )
     $subm_type = "example-sm";
+  elseif (!ctype_alnum($query))
+    $errors[] = 'Query must contain letters, numbers and spaces only';
   if ( isset($_POST["customPDB_checkbox"]) ) {
     $radio_value = $_POST["customPDB_radios"];
     if ( $radio_value == "PDBID" ) {
@@ -65,19 +65,14 @@ elseif ( $subm_type == 'batch_query' ) {
   $radio_value = $_POST["bq_radios"];
   if ( $radio_value == "bq_text" ) {
     $text = $_POST["bq_text"];
-    if ( empty($text) )
-      $errors[] = 'empty SAV coordinates list';
+    $text = str_replace(array(" ", "_", "\n", "\r"), '', $text);
+    if ( empty($text) || $text=="test" )
+      $subm_type = "example-bq";
+    elseif ( !ctype_alnum($text) )
+      $errors[] = 'SAV coordinates can only contain ' .
+                  'alphanumeric characters and underscores';
     elseif ( strlen($text) > 500 )
       $errors[] = 'input text is too long';
-    else {
-      $text = $_POST["bq_text"];
-      $text = str_replace(array(" ", "_", "\n", "\r"), '', $text);
-      if ( !ctype_alnum($text) )
-        $errors[] = 'SAV coordinates can only contain ' .
-                    'alphanumeric characters and underscore';
-      if ( $text == "test" )
-        $subm_type = "example-bq";
-    }
   }
   else if ( $radio_value == "bq_file" ) {
     if ( $_FILES["bq_file"]["size"] == 0 )
