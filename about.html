@@ -67,10 +67,13 @@
         </li>
       </ul>
       <ul class="navbar-nav navbar-right">
-        <!-- <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Links</a></li> -->
-        <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <ul class="navbar-nav navbar-right">
+          <!-- <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Links</a></li> -->
+          <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
+          <li class="nav-item active"><a class="nav-link" href="about.html">About</a>
+          <span class="sr-only">(current)</span></li>
+        </ul>
       </ul>
       <!-- <form class="form-inline my-2 my-md-0">
         <input class="form-control" type="text" placeholder="Search">
@@ -80,39 +83,30 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2>Uniprot search tool</h2>
+      <h2>About</h2>
     </div>
   </div>
 
   <br><br>
 
   <div class="container">
-    <form class="needs-validation" novalidate action="javascript:query_Uniprot()">
-
     <div class="form-row">
       <div class="col-md"></div>
 
       <div class="col-md-6">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <button class="btn btn-primary" type="submit" id="btn">
-            Search</button>
-          </div>
-          <input type="text" class="form-control" id="Uniprot_query"
-          placeholder="Gene name..." required>
-          <small class="form-text text-muted">find the correct
-            unique entry identifier for your sequence by querying the Uniprot
-            database
-          </small>
-          <div class="invalid-feedback">
-            Invalid query
-          </div>
-        </div>
+        <p><h5>please cite</h5><?p>
+        <p>
+        <a href="https://www.pnas.org/content/115/16/4164">
+          <i>Structural dynamics is a determinant of the functional
+          significance of missense variants </i><br>
+          Luca Ponzoni, Ivet Bahar <br>
+          <small>Proceedings of the National Academy of Sciences Apr 2018,
+            115 (16) 4164-4169; DOI: 10.1073/pnas.1715896115 </small>
+        </a>
+        </p>
       </div>
-
       <div class="col-md"></div>
     </div>
-    </form>
   </div>
 
 
