@@ -1,5 +1,17 @@
 <?php
 
+function redirect($page, $arr=[]) {
+  if ( ! is_array($arr) )
+    die('redirect(): not an array');
+  elseif ( ! empty($arr) )
+    $page .= "?" . http_build_query($arr);
+  // redirect to page
+  $host = $_SERVER['HTTP_HOST'];
+  $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  header("Location: http://$host$uri/$page");
+  die();
+}
+
 function fill_template($html, $arr) {
   $template = file_get_contents($html);
 
@@ -13,6 +25,7 @@ function fill_template($html, $arr) {
 
 
 function check_jobid_and_jobdir($scratch_dir) {
+
   // check job ID
   $error = "";
 
@@ -31,7 +44,7 @@ function check_jobid_and_jobdir($scratch_dir) {
   if (! empty($error) ) {
     // exit to error page
     $arr = ["err_msg" => $error, "back_link" => "index.php"];
-    die(fill_template("error.html", $arr));
+    redirect("error.php", $arr);
   }
 
   return ["jobid" => $jobid, "jobdir" => $jobdir];

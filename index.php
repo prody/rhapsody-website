@@ -7,7 +7,10 @@
 
 <body>
 
-<?php readfile("./html/navbar.html"); ?>
+  <?php
+    $currentPage = '';
+    include './html/navbar.php';
+  ?>
 
 
   <div class="jumbotron">
@@ -24,7 +27,7 @@
       <div class="col-md py-4">
         <h5><i>In silico</i> saturation mutagenesis </h5>
         <div class="py-2">
-          <a href="sat_mutagen.html">
+          <a href="sat_mutagen.php">
             <img src="./img/thumbnail-sm.png"
             class="img-responsive border rounded" style="width:80%" alt="">
           </a>
@@ -34,7 +37,7 @@
       <div class="col-md py-4">
         <h5>Batch query of mixed variants </h5>
         <div class="py-2">
-          <a href="batch_query.html">
+          <a href="batch_query.php">
             <img src="./img/thumbnail-bq.png"
             class="img-responsive border rounded" style="width:80%" alt="">
           </a>
@@ -44,7 +47,7 @@
       <div class="col-md py-4">
         <h5>Variants on custom PDB structure </h5>
         <div class="py-2">
-          <a href="sat_mutagen.html">
+          <a href="sat_mutagen.php">
             <img src="./img/thumbnail-customPDB.jpg"
             class="img-responsive border rounded" style="width:80%" alt="">
           </a>

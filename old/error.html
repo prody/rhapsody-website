@@ -4,7 +4,7 @@
 <head>
   <style>
     .jumbotron {
-      background-image: url("./img/sm_colormap-oily.png");
+      background-image: url("./img/sm_colormap-blur.png");
       background-size: cover;
     }
 
@@ -56,13 +56,13 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" href="sat_mutagen.html">
           <i>In silico</i> saturation mutagenesis </a></li>
-        <li class="nav-item"><a class="nav-link" href="batch_query.html">Batch query</a></li>
+        <li class="nav-item"><a class="nav-link" href="batch_query.php">Batch query</a></li>
       </ul>
       <ul class="navbar-nav navbar-right">
         <!-- <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Links</a></li> -->
-        <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="download.php">Download</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
       </ul>
       <!-- <form class="form-inline my-2 my-md-0">
         <input class="form-control" type="text" placeholder="Search">
@@ -72,36 +72,16 @@
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2>Job #{{jobid}}</h2>
+      <h2>something went wrong :(</h2>
     </div>
   </div>
 
   <br><br>
 
-  <div class="container bg-3">
-    <div class="row">
-      <div class="col-md">
-        <h4>
-          Status: <b><span style="color:red;" id="status_update"></span></b>
-        </h4>
-        <p>
-          <div id="statusdiv">
-            Bookmark this page to check your job status later
-          </div>
-          <div id="resultsdiv" style="display:none">
-            You will be automatically redirected to the
-            <a href="results.php?id={{jobid}}">results</a>
-            page in <span id="counter">4 seconds</span>...
-          </div>
-        </p>
-        <p>
-          <textarea class="form-control" id="log_update" cols="100" rows="10" readonly
-                    style="font-family:monospace; font-size:12px; white-space:pre-wrap">
-            ...
-          </textarea>
-        </p>
-      </div>
-    </div>
+  <div class="container border rounded bg-3">
+    <h5>Error log:</h5>
+    <p><pre> {{err_msg}}</pre></p>
+    <p><a href={{back_link}}>Back</a></p>
   </div>
 
 
@@ -118,8 +98,9 @@
   </footer>
 
 
+
+  <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <!-- NB: for this page it is important not to use the "slim" version -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
@@ -129,55 +110,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"></script>
-
-
-  <!-- JS code for printing log live -->
-  <script type="text/javascript">
-    var jobid      = "{{jobid}}";
-    var job_status = "-";
-    var log_tail   = "";
-
-    function check_status() {
-      console.log("job status: " + job_status);
-
-      $.get( "src/php/get_status.php?id=" + jobid , function(data, status){
-        job_status = data.status;
-        log_tail   = data.logTail;
-      }, "json");
-
-      $("#status_update").html(job_status);
-      $("#log_update").html(log_tail);
-
-      if (job_status == "-") {
-        setTimeout(check_status, 100);
-      }
-      else if (job_status == "running...") {
-        setTimeout(check_status, 1000);
-      }
-      else if (job_status == "completed") {
-        $("#statusdiv").hide();
-        $("#resultsdiv").show();
-        countdown();
-      }
-    }
-
-    function countdown() {
-      var counter = document.getElementById('counter');
-      var i = parseInt(counter.innerHTML.substring(0, 1)) - 1;
-      if (i <= 0) {
-        location.href = 'results.php?id={{jobid}}';
-      }
-      else {
-        if (i>1) {counter.innerHTML = i + " seconds";}
-        else     {counter.innerHTML = i + " second";}
-        setTimeout(countdown, 1000);
-      }
-    }
-
-    $(document).ready(function() {
-      check_status();
-    })
-  </script>
 
 </body>
 

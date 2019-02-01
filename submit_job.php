@@ -32,7 +32,7 @@ elseif ( isset($_POST["bq_radios"]) ) {
 $errors = [];
 
 if ( $subm_type == 'sat_mutagen' ) {
-  $back_link = 'sat_mutagen.html';
+  $back_link = 'sat_mutagen.php';
   // check input data
   $query = str_replace(array(" ", "\n", "\r"), '', $_POST["sm_query"]);
   if ( empty($query) || $query=="test" )
@@ -60,7 +60,7 @@ if ( $subm_type == 'sat_mutagen' ) {
   }
 }
 elseif ( $subm_type == 'batch_query' ) {
-  $back_link = 'batch_query.html';
+  $back_link = 'batch_query.php';
   // check input data
   $radio_value = $_POST["bq_radios"];
   if ( $radio_value == "bq_text" ) {
@@ -88,8 +88,10 @@ else {
   $errors[] = 'Internal error: Invalid submission type';
   $back_link = 'index.php';
 }
-if ( $_POST["email"]!="" && !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
+if ( isset($_POST["email"]) && $_POST["email"]!="" &&
+     !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
   $errors[] = 'Invalid email address';
+}
 
 if (!empty($errors)) {
   $err_msg = "";
@@ -104,7 +106,7 @@ if (!empty($errors)) {
 
   // exit to error page
   $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
-  die( fill_template("error.html", $arr) );
+  redirect("error.php", $arr);
 }
 
 
@@ -142,7 +144,6 @@ else {
 // write data to file
 chdir($jobdir);
 
-$errors = [];
 if ( $subm_type == 'sat_mutagen' ) {
   save2file("input-sm_query.txt", $_POST["sm_query"]);
   if ( isset($_POST["customPDB_checkbox"]) ) {
@@ -152,15 +153,17 @@ if ( $subm_type == 'sat_mutagen' ) {
     }
     else {
       $orig_fname = $_FILES["customPDBFile"]["name"];
+      $temp_fname = $_FILES["customPDBFile"]["tmp_name"];
       if ( endsWith($orig_fname, ".pdb") )
         $new_fname = "input-PDB.pdb";
       else
         $new_fname = "input-PDB.pdb.gz";
-      if (! move_uploaded_file($_FILES["customPDBFile"]["tmp_name"], $new_fname))
+      if (! move_uploaded_file($temp_fname, $new_fname)) {
         // exit to error page
         $err_msg = "Sorry, there was an error uploading your file";
         $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
-        die( fill_template("error.html", $arr) );
+        redirect("error.php", $arr);
+      }
     }
   }
 }
@@ -175,7 +178,7 @@ elseif ( $subm_type == 'batch_query' ) {
       // exit to error page
       $err_msg = "Sorry, there was an error uploading your file";
       $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
-      die( fill_template("error.html", $arr) );
+      redirect("error.php", $arr);
     }
   }
 }
@@ -207,7 +210,7 @@ else {
   // exit to error page
   $err_msg = "Internal error: invalid submission type";
   $arr = ["err_msg" => $err_msg, "back_link" => $back_link];
-  die( fill_template("error.html", $arr) );
+  redirect("error.php", $arr);
 }
 
 
@@ -230,7 +233,11 @@ exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
 
 
 // go to the progress page
-$ppage = "status.php?id=${jobid}";
-echo "<script type='text/javascript'> window.location.href='$ppage';</script>";
+$page = "status.php?id=${jobid}";
+echo "<script type='text/javascript'> window.location.href='$page';</script>";
 
+// I don't understand why redirect() does not work here...
+// redirect("status.php", ["id" => $jobid]);
+
+exit();
 ?>

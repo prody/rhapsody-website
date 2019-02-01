@@ -2,82 +2,15 @@
 <html lang="en">
 
 <head>
-  <style>
-    .jumbotron {
-      background-image: url("./img/sm_colormap-oily.png");
-      background-size: cover;
-    }
-
-    /* class to add margin to e.g. rows */
-    .top-buffer { margin-top:20px; }
-
-    /* Sticky footer styles */
-    html {
-      position: relative;
-      min-height: 100%;
-    }
-    body {
-      /* Margin bottom by footer height */
-      margin-bottom: 60px;
-    }
-    .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      /* Set the fixed height of the footer here */
-      height: 60px;
-    }
-  </style>
-
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1,
-  shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-  crossorigin="anonymous">
-
-  <link rel="shortcut icon" href="./img/favicon.ico">
-
-  <title>Rhapsody</title>
+<?php readfile("./html/header.html"); ?>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">Rhapsody</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-    data-target="#myNavBar" aria-controls="myNavBar" aria-expanded="false"
-    aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="myNavBar">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            <i>In silico</i> saturation mutagenesis
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="batch_query.html">Batch query</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav navbar-right">
-        <!-- <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Links</a></li> -->
-        <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-      </ul>
-      <!-- <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search">
-      </form> -->
-    </div>
-  </nav>
+  <?php
+    $currentPage = 'Saturation mutagenesis';
+    include './html/navbar.php';
+  ?>
 
   <div class="jumbotron">
     <div class="container text-center">
@@ -87,12 +20,7 @@
   </div>
 
 
-
-  <br>
-
-
-
-<div class="container">
+<div class="container py-6">
   <form class="needs-validation" novalidate action="submit_job.php"
   method="post" enctype="multipart/form-data">
 
@@ -108,7 +36,7 @@
       <input type="text" class="form-control" name="sm_query" id="sm_query"
       placeholder="P01112" value="">
       <small id="jobIDHelp" class="form-text text-muted">type a Uniprot
-        <a href="query_Uniprot.html" target='_blank'>unique accession number</a>
+        <a href="query_Uniprot.php" target='_blank'>unique accession number</a>
         or leave blank to run test case. <br>
         optional: add a specific position for single-site scanning, e.g. "P01112 100"
       </small>
@@ -122,7 +50,7 @@
 </div>
 
 <!-- row with checkbox for opening collapsable row below -->
-<div class="form-row top-buffer">
+<div class="form-row">
   <div class="col-md"></div>
 
   <div class="col-md-6">
@@ -209,7 +137,7 @@
 
 
 <!-- email row -->
-<div class="form-row top-buffer">
+<div class="form-row">
   <div class="col-md"></div>
 
   <div class="col-md-6">
@@ -233,8 +161,8 @@
 
 
 <!-- submit button row -->
-<div class="form-row top-buffer">
-  <div class="col-md text-center top-buffer">
+<div class="form-row">
+  <div class="col-md text-center">
     <div class="form-group">
       <button class="btn btn-primary" type="submit">Submit job</button>
     </div>
@@ -246,51 +174,29 @@
 </div>
 
 
+<?php readfile("./html/footer.html"); ?>
+<?php readfile("./html/js_src.html"); ?>
 
-  <br><br><br><br><br><br>
-  <footer class="footer">
-    <div class="container text-center">
-      <span class="text-muted">
-        <a href="mailto:lponzoni@pitt.edu?Subject=Rhapsody&amp;body=Hi%20Luca,%0D%0A"
-        target="_top">lponzoni@pitt.edu</a> -
-        <a href="https://www.ccbb.pitt.edu/Faculty/bahar/lab.html">Bahar lab</a>
-      </span>
-    </div>
-  </footer>
-
-
-  <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-  </script>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-          crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-          crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-          crossorigin="anonymous"></script>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>
 
 </body>
 
