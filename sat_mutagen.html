@@ -171,28 +171,33 @@
         id="customPDBfile_radio" value="PDBfile">
         <div class="form-group">
           <!-- "classic" upload button -->
-          <input type="file" accept=".pdb,.pdb.gz" name="customPDBFile" id="customPDBFile"
-          onfocus="document.getElementById('customPDBfile_radio').checked=true" autocomplete="off">
-          <!-- "custom" upload button -->
-          <!-- <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="customPDBFile"
-                  id="customPDBFile" accept=".pdb,.pdb.gz"
-                  onfocus="document.getElementById('customPDBfile_radio').checked=true">
-                  <label class="custom-file-label text-truncate" for="customPDBFile">
-                  Upload PDB file</label>
-                </div> -->
-          <!-- <script>
-                  // JS for updating label after uploading file, in case you are
-                  using "custom" upload button
-                  // NB: does not work...
-                  // see: https://stackoverflow.com/questions/48613992/bootstrap-4-file-input-doesnt-show-the-file-name
-                  $('#customPDBFile').on('change',function(){
-                    // get the filename
-                    var fileName = $(this).val();
-                    // replace the label
-                    $(this).next('.custom-file-label').html(fileName);
-                  })
-                </script> -->
+          <input type="file" accept=".pdb,.pdb.gz" name="customPDBFile"
+          id="customPDBFile" autocomplete="off"
+          onfocus="document.getElementById('customPDBfile_radio').checked=true">
+<!-- "custom" upload button -->
+<!--
+<div class="custom-file">
+  <input type="file" class="custom-file-input" name="customPDBFile"
+  id="customPDBFile" accept=".pdb,.pdb.gz"
+  onfocus="document.getElementById('customPDBfile_radio').checked=true">
+  <label class="custom-file-label text-truncate" for="customPDBFile">
+  Upload PDB file</label>
+</div>
+-->
+<!--
+<script>
+  // JS for updating label after uploading file, in case you are
+  using "custom" upload button
+  // NB: does not work...
+  // see: https://stackoverflow.com/questions/48613992/bootstrap-4-file-input-doesnt-show-the-file-name
+  $('#customPDBFile').on('change',function(){
+    // get the filename
+    var fileName = $(this).val();
+    // replace the label
+    $(this).next('.custom-file-label').html(fileName);
+  })
+</script>
+-->
         </div>
       </div>
     </div>
