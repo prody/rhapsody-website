@@ -31,10 +31,12 @@
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+  shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  <link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
   crossorigin="anonymous">
 
@@ -51,16 +53,22 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">Rhapsody</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar"
-            aria-controls="myNavBar" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#myNavBar" aria-controls="myNavBar" aria-expanded="false"
+    aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="myNavBar">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="sat_mutagen.html">
-          <i>In silico</i> saturation mutagenesis </a></li>
-        <li class="nav-item"><a class="nav-link" href="batch_query.html">Batch query</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="sat_mutagen.html">
+            <i>In silico</i> saturation mutagenesis
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="batch_query.html">Batch query</a>
+        </li>
       </ul>
       <ul class="navbar-nav navbar-right">
         <!-- <li class="nav-item"><a class="nav-link" href="#">Tutorials</a></li>
@@ -83,65 +91,67 @@
 
   <br><br>
 
-  <div class="container">
+<div class="container">
 
-    <div class="row top-buffer">
-      <div class="col-sm text-center">
-        <h4>Files</h4>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm"></div>
-      <div class="col-sm-8 py-2">
-        <table class="table table-sm text-center">
-          <tbody>
-            <tr>
-              <td>
-                <a href="{{jobdir}}/rhapsody-predictions.txt" target='_blank'>
-                Rhapsody predictions</a>
-                <a href="{{jobdir}}/rhapsody-predictions-full.txt"
-                target='_blank'>(more)</a>
-              </td>
-              <td>
-                <a href="{{jobdir}}/rhapsody-EVmutation.txt" target='_blank'>
-                EVmutation predictions</a>
-                <a href="https://marks.hms.harvard.edu/evmutation/"
-                target='_blank'> <i class="fas fa-external-link-alt"></i></a>
-              </td>
-              <td>
-                <a href="{{jobdir}}/pph2-short.txt" target='_blank'>
-                PolyPhen-2 predictions</a>
-                <a href="http://genetics.bwh.harvard.edu/pph2/" target='_blank'>
-                <i class="fas fa-external-link-alt"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt" target='_blank'>
-                PDB mapping</a>
-              </td>
-              <td>
-                <a href="{{jobdir}}/rhapsody-features.txt" target='_blank'>
-                  computed features</a>
-              </td>
-              <td>
-                <a href="{{jobdir}}/rhapsody-log.txt" target='_blank'>
-                log file</a>
-              </td>
-            </tr>
-            <tr class="table-info">
-              <td colspan="3">
-                <a href="{{jobdir}}/rhapsody-results.zip" target='_blank'>
-                Download all</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-sm"></div>
+  <div class="row top-buffer">
+    <div class="col-sm text-center">
+      <h4>Files</h4>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm-8 py-2">
+      <table class="table table-sm text-center">
+        <tbody>
+          <tr>
+            <td>
+              <a href="{{jobdir}}/rhapsody-predictions.txt" target='_blank'>
+                Rhapsody predictions</a>
+              <a href="{{jobdir}}/rhapsody-predictions-full.txt" target='_blank'>
+                (more)
+              </a>
+            </td>
+            <td>
+              <a href="{{jobdir}}/rhapsody-EVmutation.txt" target='_blank'>
+                EVmutation predictions</a>
+              <a href="https://marks.hms.harvard.edu/evmutation/" target='_blank'>
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </td>
+            <td>
+              <a href="{{jobdir}}/pph2-short.txt" target='_blank'>
+                PolyPhen-2 predictions</a>
+              <a href="http://genetics.bwh.harvard.edu/pph2/" target='_blank'>
+                <i class="fas fa-external-link-alt"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="{{jobdir}}/rhapsody-Uniprot2PDB.txt" target='_blank'>
+                PDB mapping</a>
+            </td>
+            <td>
+              <a href="{{jobdir}}/rhapsody-features.txt" target='_blank'>
+                computed features</a>
+            </td>
+            <td>
+              <a href="{{jobdir}}/rhapsody-log.txt" target='_blank'>
+                log file</a>
+            </td>
+          </tr>
+          <tr class="table-info">
+            <td colspan="3">
+              <a href="{{jobdir}}/rhapsody-results.zip" target='_blank'>
+                Download all</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm"></div>
+  </div>
+</div>
 
 
 
@@ -155,6 +165,17 @@
       </span>
     </div>
   </footer>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
 
 </body>
 
