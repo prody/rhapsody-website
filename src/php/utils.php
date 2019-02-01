@@ -30,7 +30,7 @@ function check_jobid_and_jobdir($scratch_dir) {
 
   if (! empty($error) ) {
     // exit to error page
-    $arr = ["err_msg" => $error, "back_link" => "index.html"];
+    $arr = ["err_msg" => $error, "back_link" => "index.php"];
     die(fill_template("error.html", $arr));
   }
 

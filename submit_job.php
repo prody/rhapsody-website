@@ -86,7 +86,7 @@ elseif ( $subm_type == 'batch_query' ) {
 }
 else {
   $errors[] = 'Internal error: Invalid submission type';
-  $back_link = 'index.html';
+  $back_link = 'index.php';
 }
 if ( $_POST["email"]!="" && !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
   $errors[] = 'Invalid email address';
