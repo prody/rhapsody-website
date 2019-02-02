@@ -23,7 +23,7 @@ $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
   </div>
 
 
-  <div class="container bg-3 py-6">
+  <div class="container bg-3">
     <div class="row">
       <div class="col-md">
         <h4>

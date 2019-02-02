@@ -19,27 +19,27 @@
   </div>
 
 
-  <div class="container py-6">
+  <div class="container">
     <form class="needs-validation" novalidate action="javascript:query_Uniprot()">
 
     <div class="form-row">
       <div class="col-md"></div>
 
-      <div class="col-md-6">
+      <div class="col-md-6 py-4">
         <div class="input-group">
           <div class="input-group-prepend">
             <button class="btn btn-primary" type="submit" id="btn">
-            Search</button>
+            <i class="fas fa-search"></i></button>
           </div>
-          <input type="text" class="form-control" id="Uniprot_query"
-          placeholder="Gene name..." required>
-          <small class="form-text text-muted">find the correct
-            unique entry identifier for your sequence by querying the Uniprot
-            database
-          </small>
-          <div class="invalid-feedback">
-            Invalid query
-          </div>
+          <input type="text" class="form-control" name="Uquery" id="Uquery"
+          placeholder="search Uniprot..." required>
+        </div>
+        <small class="form-text text-muted">find the correct
+          unique entry identifier for your sequence by querying the Uniprot
+          database
+        </small>
+        <div class="invalid-feedback">
+          Invalid query
         </div>
       </div>
 
@@ -54,7 +54,7 @@
 
   <script>
     function query_Uniprot() {
-      var query = document.getElementById("Uniprot_query").value;
+      var query = document.getElementById("Uquery").value;
       query = query.trim().split(' ').join('+');
       var url = 'https://www.uniprot.org/uniprot/?query=' + query
       + '&fil=organism%3A%22Homo+sapiens+(Human)+[9606]%22&sort=score#';

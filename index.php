@@ -22,7 +22,7 @@
   </div>
 
 
-  <div class="container-fluid md-3 text-center py-6">
+  <div class="container-fluid md-3 text-center">
     <div class="row">
       <div class="col-md py-4">
         <h5><i>In silico</i> saturation mutagenesis </h5>

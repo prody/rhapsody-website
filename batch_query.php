@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div class="container py-6">
+<div class="container">
 <form class="needs-validation" novalidate action="submit_job.php" method="post"
       enctype="multipart/form-data">
 
@@ -95,7 +95,7 @@ EGFR_HUMAN 300 V A
 
 
 <!-- row for submit button -->
-<div class="form-row">
+<div class="form-row py-2">
   <div class="col-md text-center">
     <div class="form-group">
       <button class="btn btn-primary" type="submit">Submit job</button>

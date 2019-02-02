@@ -31,7 +31,7 @@ $back_link = filter_input(INPUT_GET, 'back_link', FILTER_SANITIZE_STRING);
   </div>
 
 
-  <div class="container border rounded bg-3 py-6">
+  <div class="container border rounded bg-3">
     <h5>Error log:</h5>
     <p>
       <pre>

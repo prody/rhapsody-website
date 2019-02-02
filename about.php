@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div class="container py-6">
+  <div class="container">
     <div class="form-row">
       <div class="col-md"></div>
 
