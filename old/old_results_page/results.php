@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-<?php readfile("./html/header.html"); ?>
-<?php readfile("./html/js_src.html"); ?>
-</head>
-
-<body>
-
 <?php
-  $currentPage = '';
-  include './html/navbar.php';
-?>
-
-<?php
-// echo body content based on submission type
 
 include 'src/php/utils.php';
 
@@ -40,10 +24,10 @@ elseif ( file_exists("${jobdir}/input-batch_query.txt") )
 if ( $subm_type == 'sm' ) {
   $html_snippet = "";
   $js_snippet   = "";
-  $img_template = '<div class="py-2"><img src="{{fname}}" class="img" ' .
+  $img_template = '<img src="{{fname}}" class="img" ' .
                   'style="max-height: 480px; max-width: 100%;" ' .
                   'alt="click to view in new tab" id="{{imgid}}" ' .
-                  'usemap="#map_{{imgid}}"></div>' . "\n";
+                  'usemap="#map_{{imgid}}">' . "\n";
   foreach ( glob("${jobdir}/rhapsody-figure*.png") as $fname ) {
     $basename = basename($fname, ".png");
     $imgid = str_replace('rhapsody-', '', $basename);
@@ -72,14 +56,8 @@ if ( $subm_type == 'sm' ) {
            "lookup_tables" => $js_snippet];
 }
 
-$body = fill_template("results-${subm_type}.html", $arr);
+$results_page = fill_template("results-${subm_type}.html", $arr);
 
-echo $body;
+echo $results_page
 
 ?>
-
-<?php readfile("./html/footer.html"); ?>
-
-</body>
-
-</html>
