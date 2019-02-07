@@ -44,7 +44,9 @@ if ( $subm_type == 'sm' ) {
                   'style="max-height: 480px; max-width: 100%;" ' .
                   'alt="click to view in new tab" id="{{imgid}}" ' .
                   'usemap="#map_{{imgid}}"></div>' . "\n";
-  foreach ( glob("${jobdir}/rhapsody-figure*.png") as $fname ) {
+  $img_file_list = glob("${jobdir}/rhapsody-figure*.png");
+  sort($img_file_list, SORT_NATURAL);
+  foreach ( $img_file_list as $fname ) {
     $basename = basename($fname, ".png");
     $imgid = str_replace('rhapsody-', '', $basename);
     // create html image
