@@ -6,8 +6,8 @@ ini_set('display_errors', 'On');
 set_error_handler("var_dump");
 
 // change here
-$sender = 'someone@somedomain.tld';
-$recipient = 'lponzoni@pitt.edu';
+$sender = 'dcb@pitt.edu';
+$recipient = 'lponzoni@pitt.edu, ponzoniluca@gmail.com';
 
 $subject = "php mail test";
 $message = "php test message";
