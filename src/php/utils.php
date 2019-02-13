@@ -51,7 +51,9 @@ function check_jobid_and_jobdir($scratch_dir) {
 }
 
 function send_email($email, $jobid) {
-  $to = trim($email);
+  $host = $_SERVER['HTTP_HOST'];
+  $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $to   = trim($email);
   $subject = "Rhapsody: job $jobid completed!";
   $message = "
 <html>
@@ -59,16 +61,16 @@ function send_email($email, $jobid) {
 <title>Rhapsody</title>
 </head>
 <body>
-<p>Click <a href=\"results.php?id=${jobid}\">here</a>
-to access your job's results</p>
+<p>Click <a href=\"http://$host$uri/results.php?id=${jobid}\">here</a>
+to access the results page.</p>
 </body>
 </html>
 ";
-  $headers  = "MIME-Version: 1.0 \r\n";
-  $headers .= "Content-type:text/html;charset=UTF-8 \r\n";
-  $headers .= 'From: <dcb@pitt.edu>' . "\r\n";
+  $headers[] = 'MIME-Version: 1.0';
+  $headers[] = 'Content-type: text/html;charset=UTF-8';
+  $headers[] = 'From: Rhapsody Webserver <dcb@pitt.edu>';
 
-  mail($to,$subject,$message,$headers);
+  mail($to, $subject, $message, implode("\r\n", $headers));
 }
 
 ?>
