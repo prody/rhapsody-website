@@ -18,7 +18,7 @@ $PYTHON $pyscript > rhapsody-log.txt 2>&1 & echo -n $! > PID.tmp
 if [ -e input-email.txt ]; then
   email=$(cat input-email.txt)
 
-  cat << EOF
+  cat << EOF | sendmail -t
 To: ${email}
 Subject: Rhapsody: job ${jobid} completed!
 MIME-Version: 1.0
@@ -34,7 +34,8 @@ From: Rhapsody Webserver <dcb@pitt.edu>
 to access the results page.</p>
 </body>
 </html>
-EOF | sendmail -t
+EOF
+
 fi
 
 exit 0
