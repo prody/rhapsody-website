@@ -7,8 +7,7 @@ function redirect($page, $arr=[]) {
     $page .= "?" . http_build_query($arr);
   // redirect to page
   $host = $_SERVER['HTTP_HOST'];
-  $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  header("Location: http://$host$uri/$page");
+  header("Location: http://$host/$page");
   die();
 }
 
@@ -52,8 +51,7 @@ function check_jobid_and_jobdir($scratch_dir) {
 
 function send_email($email, $jobid) {
   $host = $_SERVER['HTTP_HOST'];
-  $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-  $to   = trim($email);
+  $to = trim($email);
   $subject = "Rhapsody: job $jobid completed!";
   $message = "
 <html>
@@ -61,7 +59,7 @@ function send_email($email, $jobid) {
 <title>Rhapsody</title>
 </head>
 <body>
-<p>Click <a href=\"http://$host$uri/results.php?id=${jobid}\">here</a>
+<p>Click <a href=\"http://$host/results.php?id=${jobid}\">here</a>
 to access the results page.</p>
 </body>
 </html>
@@ -69,7 +67,6 @@ to access the results page.</p>
   $headers[] = 'MIME-Version: 1.0';
   $headers[] = 'Content-type: text/html;charset=UTF-8';
   $headers[] = 'From: Rhapsody Webserver <dcb@pitt.edu>';
-
   mail($to, $subject, $message, implode("\r\n", $headers));
 }
 
