@@ -223,8 +223,9 @@ chdir($orig_dir);
 
 // launch job in the background
 $pyscript = "${orig_dir}/src/python/rhapsody_interface.py";
+$pid_file = "${jobdir}/PID.tmp";
 exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
-     ">> ${scratch_dir}/launch_job.err 2>&1 &");
+     ">> ${scratch_dir}/launch_job.err 2>&1 & echo $! > $pid_file");
 
 
 // clean workspace from old jobs

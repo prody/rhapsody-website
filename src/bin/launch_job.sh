@@ -12,7 +12,7 @@ source .profile
 cd $jobdir
 
 # run rhapsody
-$PYTHON $pyscript > rhapsody-log.txt 2>&1 & echo -n $! > PID.tmp
+$PYTHON $pyscript > rhapsody-log.txt 2>&1
 
 # send notification when done (if email address is found)
 if [ -e input-email.txt ]; then
