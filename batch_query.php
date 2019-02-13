@@ -79,7 +79,7 @@ EGFR_HUMAN 300 V A
         <h5>email</h5>
       </label>
       <input type="email" class="form-control" name="email" id="email"
-      aria-describedby="emailHelp" value="" placeholder="(not available)" disabled>
+      aria-describedby="emailHelp" value="" placeholder="(optional)">
       <small id="emailHelp" class="form-text text-muted">you'll be notified
         when results are ready
       </small>

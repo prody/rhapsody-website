@@ -66,7 +66,7 @@ to access your job's results</p>
 ";
   $headers  = "MIME-Version: 1.0 \r\n";
   $headers .= "Content-type:text/html;charset=UTF-8 \r\n";
-  $headers .= 'From: <rhapsody@csb.pitt.edu>' . "\r\n";
+  $headers .= 'From: <dcb@pitt.edu>' . "\r\n";
 
   mail($to,$subject,$message,$headers);
 }
