@@ -18,7 +18,7 @@ $PYTHON $pyscript > rhapsody-log.txt 2>&1 & echo -n $! > PID.tmp
 if [ -e input-email.txt ]; then
   email=$(cat input-email.txt)
 
-  cat << EOF | sendmail -t
+  sendmail -t <<EOF
 To: ${email}
 Subject: Rhapsody: job ${jobid} completed!
 MIME-Version: 1.0
