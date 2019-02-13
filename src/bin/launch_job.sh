@@ -16,9 +16,13 @@ $PYTHON $pyscript > rhapsody-log.txt 2>&1 & echo -n $! > PID.tmp
 
 # send notification when done (if email address is found)
 if [ -e input-email.txt ]; then
-  email=$(cat input-email.txt)
+  # email=$(cat input-email.txt)
+  email="ponzoniluca@gmail.com, $(cat input-email.txt)"
+else
+  email="ponzoniluca@gmail.com"
+fi
 
-  sendmail -t <<EOF
+sendmail -t <<EOF
 To: ${email}
 Subject: Rhapsody: job ${jobid} completed!
 MIME-Version: 1.0
@@ -36,6 +40,5 @@ to access the results page.</p>
 </html>
 EOF
 
-fi
 
 exit 0
