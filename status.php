@@ -37,7 +37,7 @@ $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
         </div>
         <div id="errordiv" style="display:none">
           <p><small class="text-muted">
-            Please check error message below
+            Please check error message below. Contact us for assistance (see footer).
           </small></p>
         </div>
         <div id="resultsdiv" style="display:none">
