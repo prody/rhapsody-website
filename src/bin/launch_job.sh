@@ -23,8 +23,10 @@ fi
 $PYTHON $pyscript > rhapsody-log.txt 2>&1
 if [ $? -eq 0 ]; then
   status="completed successfully!"
+  page="results"
 else
-  status="aborted :("
+  status="aborted"
+  page="status"
 fi
 
 # send notification when done
@@ -41,7 +43,7 @@ From: Rhapsody Webserver <dcb@pitt.edu>
 <title>Rhapsody</title>
 </head>
 <body>
-<p>Click <a href="http://rhapsody.csb.pitt.edu/results.php?id=${jobid}">here</a>
+<p>Click <a href="http://rhapsody.csb.pitt.edu/${page}.php?id=${jobid}">here</a>
 to access the results page.</p>
 </body>
 </html>
