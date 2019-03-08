@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # import variables
 jobdir=$(realpath $1)
@@ -11,20 +10,28 @@ source .profile
 
 cd $jobdir
 
-# run rhapsody
-$PYTHON $pyscript > rhapsody-log.txt 2>&1
-
-# send notification when done (if email address is found)
+# check if user provided email address
 if [ -e input-email.txt ]; then
   # email=$(cat input-email.txt)
   email="ponzoniluca@gmail.com, $(cat input-email.txt)"
 else
+  # email=""
   email="ponzoniluca@gmail.com"
 fi
 
-sendmail -t <<EOF
+# run rhapsody
+$PYTHON $pyscript > rhapsody-log.txt 2>&1
+if [ $? -eq 0 ]; then
+  status="completed successfully!"
+else
+  status="aborted :("
+fi
+
+# send notification when done
+if [ ! -z "$email" ]; then
+  sendmail -t <<EOF
 To: ${email}
-Subject: Rhapsody: job ${jobid} completed!
+Subject: Rhapsody: job ${jobid} ${status}
 MIME-Version: 1.0
 Content-type: text/html; charset=UTF-8
 From: Rhapsody Webserver <dcb@pitt.edu>
@@ -39,6 +46,6 @@ to access the results page.</p>
 </body>
 </html>
 EOF
-
+fi
 
 exit 0

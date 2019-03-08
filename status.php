@@ -29,22 +29,30 @@ $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
         <h4>
           Status: <b><span style="color:red;" id="status_update"></span></b>
         </h4>
-        <p>
-          <div id="statusdiv">
-            Bookmark this page to check your job status later
-          </div>
-          <div id="resultsdiv" style="display:none">
+        <div id="infodiv">
+          <p><small class="text-muted">
+            Bookmark this page to check your job status later.
+            If you provided an email address, you'll be notified.
+          </small></p>
+        </div>
+        <div id="errordiv" style="display:none">
+          <p><small class="text-muted">
+            Please check error message below
+          </small></p>
+        </div>
+        <div id="resultsdiv" style="display:none">
+          <p><small class="text-muted">
             You will be automatically redirected to the
             <a href="results.php?id=<?php echo $jobid;?>">results</a>
             page in <span id="counter">4 seconds</span>...
-          </div>
-        </p>
-        <p>
-          <textarea class="form-control" id="log_update" cols="100" rows="10" readonly
+          </small></p>
+        </div>
+        <div id="logdiv">
+          <textarea class="form-control" id="log_update" cols="100" rows="14" readonly
                     style="font-family:monospace; font-size:12px; white-space:pre-wrap">
             ...
           </textarea>
-        </p>
+        </div>
       </div>
     </div>
   </div>
@@ -79,9 +87,13 @@ $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
         setTimeout(check_status, 1000);
       }
       else if (job_status == "completed") {
-        $("#statusdiv").hide();
+        $("#infodiv").hide();
         $("#resultsdiv").show();
         countdown();
+      }
+      else {
+        $("#infodiv").hide();
+        $("#errordiv").show();
       }
     }
 

@@ -14,7 +14,7 @@ function isProcessRunning($f) {
   return posix_kill($pid, 0);
 }
 
-function tailShell($filepath, $lines = 10) {
+function tailShell($filepath, $lines = 13) {
   ob_start();
   passthru('tail -' . $lines . ' ' . escapeshellarg($filepath));
   return trim(ob_get_clean());
@@ -43,15 +43,17 @@ $jobdir = $arr["jobdir"];
 
 chdir($jobdir);
 
-if ( file_exists($doneFile) ) {
-  exec("rm -f $pidFile");
-  returnStatus( 'completed' );
-}
-elseif ( isProcessRunning($pidFile) ) {
+if ( isProcessRunning($pidFile) ) {
   returnStatus( 'running...' );
 }
 else {
-  returnStatus( 'aborted' );
+  exec("rm -f $pidFile");
+  if ( file_exists($doneFile) ) {
+    returnStatus( 'completed' );
+  }
+  else {
+    returnStatus( 'aborted' );
+  }
 }
 
 ?>
