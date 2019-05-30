@@ -13,13 +13,14 @@
   $urls = [
     'Saturation mutagenesis' => 'sat_mutagen.php',
     'Batch query' => 'batch_query.php',
+    'Tutorials'   => 'tutorials.php',
     'Download'    => 'download.php',
     'About'       => 'about.php',
   ];
 
   foreach ($urls as $name => $url) {
     // break between left and right tabs
-    if ($name === 'Download') {
+    if ($name === 'Tutorials') {
       echo '</ul><ul class="navbar-nav navbar-right">' . "\r\n" ;
     }
     // single tab

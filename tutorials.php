@@ -8,13 +8,13 @@
 <body>
 
   <?php
-    $currentPage = 'Download';
+    $currentPage = 'Tutorials';
     include './html/navbar.php';
   ?>
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2>Download</h2>
+      <h2>Tutorials</h2>
     </div>
   </div>
 
@@ -23,20 +23,13 @@
       <div class="col-md"></div>
 
       <div class="col-md-6">
-        <p><h5>local installation</h5></p>
-        <pre><code>$ pip install -U prody-rhapsody
-        </code></pre>
+      <p><h5>View tutorials</h5></p>
+        <p><i class="fas fa-external-link-alt"></i> &nbsp;
+          <a href="https://nbviewer.jupyter.org/github/luponzo86/rhapsody-tutorials/tree/master/">
+          Jupyter NBViewer</a>
+        </p>
 
-
-        <p><h5>git repositories</h5></p>
-          <p><i class="fab fa-github"></i> &nbsp;
-            <a href="https://github.com/prody/rhapsody">
-            github.com/prody/rhapsody</a>
-          </p>
-          <p><i class="fab fa-github"></i> &nbsp;
-            <a href="https://github.com/luponzo86/rhapsody-website">
-            github.com/luponzo86/rhapsody-website</a>
-          </p>
+        <p><h5>Download all tutorials</h5></p>
           <p><i class="fab fa-github"></i> &nbsp;
             <a href="https://github.com/luponzo86/rhapsody-tutorials">
             github.com/luponzo86/rhapsody-tutorials</a>
