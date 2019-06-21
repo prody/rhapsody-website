@@ -13,14 +13,15 @@
   $urls = [
     'Saturation mutagenesis' => 'sat_mutagen.php',
     'Batch query' => 'batch_query.php',
-    'Tutorials'   => 'tutorials.php',
+    'Docs'        => 'https://rhapsody.readthedocs.io/en/latest/',
+    'Tutorials'   => 'https://nbviewer.jupyter.org/github/luponzo86/rhapsody-tutorials/tree/master/',
     'Download'    => 'download.php',
     'About'       => 'about.php',
   ];
 
   foreach ($urls as $name => $url) {
     // break between left and right tabs
-    if ($name === 'Tutorials') {
+    if ($name === 'Docs') {
       echo '</ul><ul class="navbar-nav navbar-right">' . "\r\n" ;
     }
     // single tab
