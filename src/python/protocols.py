@@ -24,7 +24,7 @@ def sat_mutagen(main_clsf, aux_clsf, EVmut_cutoff):
     # run RHAPSODY
     if isfile('pph2-full.txt'):
         rh = rhapsody('pph2-full.txt', main_clsf, aux_classifier=aux_clsf,
-                      input_type='PP2', custom_PDB=pdb, log=False)
+                      input_type='PolyPhen2', custom_PDB=pdb, log=False)
     else:
         rh = rhapsody(input_query, main_clsf, aux_classifier=aux_clsf,
                       input_type='scanning', custom_PDB=pdb, log=False)
@@ -56,7 +56,7 @@ def batch_query(main_clsf, aux_clsf):
     # run RHAPSODY
     if isfile('pph2-full.txt'):
         rh = rhapsody('pph2-full.txt', main_clsf, aux_classifier=aux_clsf,
-                      input_type='PP2', log=False)
+                      input_type='PolyPhen2', log=False)
     else:
         rh = rhapsody('input-batch_query.txt', main_clsf,
                       aux_classifier=aux_clsf, log=False)
