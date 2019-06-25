@@ -11,7 +11,7 @@ function isProcessRunning($f) {
     return False;
   }
   $pid = file_get_contents($f);
-  return posix_kill($pid, 0);
+  return posix_kill((int)$pid, 0);
 }
 
 function tailShell($filepath, $lines = 13) {
