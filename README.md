@@ -1,5 +1,10 @@
 This repo contains the RHAPSODY website.
 
+* Installation:
+  - Install rhapsody from git or pip
+  - run rhapsody.initialSetup() to configure the program
+  - run bin/config.sh to configure the right Python version
+
 * To test locally:
   $ php -S localhost:8000
   $ firefox http://localhost:8000/

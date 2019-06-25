@@ -14,32 +14,18 @@ then
   echo "Original configuration file backed up as .profile.bak"
 fi
 
+if $(python -c 'import prody, rhapsody'); then
+  PYTHON=$(which python)
+  echo 'Done.'
+else
+  PYTHON=''
+  echo "Seems like the current Python version doesn't have" \
+       "Prody/Rhapsody packages installed."
+  echo "Please set up an appropriate path to another Python version" \
+       "in your local .profile file"
+fi
+
 cat << EOF > .profile
 # At least Python 3.6 is required
-export PYTHON="python"
-
-# path to ProDy package folder
-# (leave blank to use version installed by pip)
-export PRODY_DIR=""
-
-# path to Rhapsody package folder
-export RHAPSODY_DIR="???"
-
-# path to folders where precomputed pickles and downloaded PDBs will be stored
-export PICKLES_DIR="${WWW_DIR}/workspace/pickles"
-export PDB_DIR="${WWW_DIR}/workspace/pickles"
-
-# path to classifiers used by Rhapsody for predictions
-export MAIN_CLSF="???.pkl"
-export AUX_CLSF="???.pkl"
-
-# path to EVmutation folder
-export EVMUT_DIR="???/mutation_effects"
-
-# EVmutation optimal cutoff computed on training dataset
-export EVMUT_CUTOFF="-4.551"
-
+export PYTHON='$PYTHON'
 EOF
-
-
-echo "Please set the requested paths in " ${WWW_DIR}/.profile
