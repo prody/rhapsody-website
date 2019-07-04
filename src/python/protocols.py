@@ -21,11 +21,10 @@ def sat_mutagen():
 
     # run RHAPSODY
     if os.path.isfile('pph2-full.txt'):
-        rh = rd.rhapsody('pph2-full.txt', input_type='PolyPhen2',
+        rh = rd.rhapsody('pph2-full.txt', query_type='PolyPhen2',
                          custom_PDB=pdb, log=False)
     else:
-        rh = rd.rhapsody(input_query, input_type='scanning',
-                         custom_PDB=pdb, log=False)
+        rh = rd.rhapsody(input_query, custom_PDB=pdb, log=False)
 
     # create figure(s)
     num_res = int(rh.numSAVs/19)
@@ -47,7 +46,7 @@ def batch_query():
 
     # run RHAPSODY
     if os.path.isfile('pph2-full.txt'):
-        rh = rd.rhapsody('pph2-full.txt', input_type='PolyPhen2', log=False)
+        rh = rd.rhapsody('pph2-full.txt', query_type='PolyPhen2', log=False)
     else:
         rh = rd.rhapsody('input-batch_query.txt', log=False)
 
