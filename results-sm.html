@@ -85,6 +85,42 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="SAVmodal" tabindex="-1" role="dialog"
+     aria-labelledby="SAVmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="SAVmodalTitle">SAV info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>PDB coordinates</h5>
+        <p id="SAVmodalPDBcoords">
+          ...
+        </p>
+        <h5>predictions</h5>
+        <p id="SAVmodalPreds">
+          ...
+        </p>
+        <h5>residue-averaged predictions</h5>
+        <p id="SAVmodalResAvgPreds">
+          ...
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <!-- <button type="button" class="btn btn-primary">
+          Save changes
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 
@@ -189,6 +225,29 @@
     $(map).attr('title', "");
   }
 
+  function updateModalContent(e){
+    // triggered by "click" event on map areas
+    var area_id = e.target.id;
+    var map_id = AREA_DICT[area_id]['map_id'];
+    var fig_id = map_id.split("_")[2];
+    console.log(fig_id)
+    // the target is the area, but the bounding rectangle is the map's
+    var map_rect = e.target.getBoundingClientRect();
+    // get mouse coordinates wrt area
+    var x = e.clientX - map_rect.left - AREA_DICT[area_id]['x_min'];
+    var y = e.clientY - map_rect.top  - AREA_DICT[area_id]['y_min'];
+    x = Math.floor(x / AREA_DICT[area_id]['dx']);
+    y = Math.floor(y / AREA_DICT[area_id]['dy']);
+    x = Math.max(0, x);
+    y = Math.max(0, y);
+    // update modal title
+    var msg1 = MAP_DATA[`map_figure_${fig_id}_strip`]["info_msg"][0][x];
+    var msg2 = MAP_DATA[`map_figure_${fig_id}_table`]["info_msg"][y][x];
+    var msg3 = MAP_DATA[`map_figure_${fig_id}_bplot`]["info_msg"][0][x];
+    document.getElementById("SAVmodalPDBcoords").innerHTML = msg1;
+    document.getElementById("SAVmodalPreds").innerHTML = msg2;
+    document.getElementById("SAVmodalResAvgPreds").innerHTML = msg3;
+  }
 
   $( document ).ready(function() {
     console.log( "document loaded" );
