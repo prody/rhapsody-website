@@ -196,6 +196,9 @@
     // update map title that will be displayed in tooltip
     var map = document.getElementById(map_id);
     var msg = area_dict["info_msg"][xy[1]][xy[0]];
+    if (! area_id.endsWith("strip")) {
+      msg = msg.replace(', ', ',\n');
+    }
     $(map).attr('title', msg);
   }
 
@@ -219,6 +222,8 @@
     var pdb_coords = AREA_DATA[`${map_id}_strip`]["info_msg"][0][x];
     var preds = AREA_DATA[`${map_id}_table`]["info_msg"][y][x];
     var avg_preds = AREA_DATA[`${map_id}_bplot`]["info_msg"][0][x];
+    preds = preds.replace(', ', ',<br>');
+    avg_preds = avg_preds.replace(', ', ',<br>');
     document.getElementById("SAVmodalPDBcoords").innerHTML = pdb_coords;
     document.getElementById("SAVmodalPreds").innerHTML = preds;
     document.getElementById("SAVmodalResAvgPreds").innerHTML = avg_preds;
