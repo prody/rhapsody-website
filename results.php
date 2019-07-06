@@ -40,9 +40,9 @@ elseif ( file_exists("${jobdir}/input-batch_query.txt") )
 if ( $subm_type == 'sm' ) {
   $html_snippet = "";
   $js_snippet   = "";
-  $img_template = '<div class="py-2"><img src="{{fname}}" class="img" ' .
-                  'style="max-height: 480px; max-width: 100%;" id="{{imgid}}"' .
-                  'usemap="#map_{{imgid}}"></div>' . "\n";
+  $img_template = '<div class="py-2"><img src="{{fname}}" alt="{{fname}}" ' .
+                  'class="img" style="max-height: 480px; max-width: 100%;" ' .
+                  'id="{{imgid}}" usemap="#map_{{imgid}}"></div>' . "\n";
   $img_file_list = glob("${jobdir}/rhapsody-figure*.png");
   sort($img_file_list, SORT_NATURAL);
   foreach ( $img_file_list as $fname ) {
@@ -56,7 +56,9 @@ if ( $subm_type == 'sm' ) {
     $html_map = str_replace('{{map_id}}', "map_${imgid}", $html_map);
     $map_attrs = '';
     $html_map = str_replace('{{map_attrs}}', $map_attrs, $html_map);
-    $area_attrs = 'onmousemove="updateTooltip(event)" ' .
+    $area_attrs = 'style="cursor: pointer;" ' .
+                  'onmouseover="updateAreaSize(event)" ' .
+                  'onmousemove="updateTooltip(event)" ' .
                   'onmouseout="hideTooltip(event)" ' .
                   'data-toggle="modal" data-target="#SAVmodal" ' .
                   'onclick="updateModalContent(event)"';
@@ -66,9 +68,11 @@ if ( $subm_type == 'sm' ) {
     $html_snippet .= $html_map;
     // write javascript variables
     $js_vars = file_get_contents("${jobdir}/${basename}.js");
+    $js_vars = str_replace('{{img_id}}', "${imgid}", $js_vars);
     $js_vars = str_replace('{{map_id}}', "map_${imgid}", $js_vars);
-    $js_vars = str_replace('{{map_data}}', 'MAP_DATA', $js_vars);
-    $js_snippet .= $js_vars;
+    $js_vars = str_replace('{{map_data}}', 'single_map', $js_vars);
+    $js_snippet .= "\n" . $js_vars .
+                   "AREA_DATA = Object.assign({}, AREA_DATA, single_map); \n";
   }
   $arr += ["Uniprot_acc"   => $Uniprot_acc,
            "images"        => $html_snippet,

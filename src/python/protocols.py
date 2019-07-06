@@ -29,7 +29,8 @@ def sat_mutagen():
     # create figure(s)
     num_res = int(rh.numSAVs/19)
     if num_res <= FIGURE_MAX_WIDTH:
-        rd.print_sat_mutagen_figure('rhapsody-figure.png', rh, html=True)
+        rd.print_sat_mutagen_figure('rhapsody-figure.png', rh, html=True,
+                                    main_clsf='full', aux_clsf='reduced')
     else:
         num_splits = int(num_res/FIGURE_MAX_WIDTH) + 1
         n = int(num_res/num_splits)
@@ -37,7 +38,8 @@ def sat_mutagen():
         for i in range(num_splits):
             dr = (i*n + 1, (i + 1)*n + remainder)
             fname = f'rhapsody-figure_{i + 1}.png'
-            rd.print_sat_mutagen_figure(fname, rh, res_interval=dr, html=True)
+            rd.print_sat_mutagen_figure(fname, rh, res_interval=dr, html=True,
+                                        main_clsf='full', aux_clsf='reduced')
 
     return rh
 

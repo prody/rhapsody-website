@@ -87,12 +87,13 @@
 
 <!-- Modal -->
 <div class="modal fade" id="SAVmodal" tabindex="-1" role="dialog"
-     aria-labelledby="SAVmodalLabel" aria-hidden="true">
+     aria-labelledby="SAVmodalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="SAVmodalTitle">SAV info</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h3 class="modal-title" id="SAVmodalTitle">SAV info</h3>
+        <button type="button" class="close" data-dismiss="modal"
+                aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -101,126 +102,106 @@
         <p id="SAVmodalPDBcoords">
           ...
         </p>
-        <h5>predictions</h5>
-        <p id="SAVmodalPreds">
-          ...
-        </p>
+        <div id="SAVmodalPredsDiv">
+          <h5>predictions</h5>
+          <p id="SAVmodalPreds">
+            ...
+          </p>
+        </div>
         <h5>residue-averaged predictions</h5>
         <p id="SAVmodalResAvgPreds">
           ...
         </p>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Close
         </button>
-        <!-- <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary">
           Save changes
-        </button> -->
-      </div>
+        </button>
+      </div> -->
     </div>
   </div>
 </div>
 
 <script>
-
-  var IMG_DICT  = {};
-  var AREA_DICT = {};
-  // MAP_DATA contains variables defined in \{\{images\}\}, a placeholder
-  // replaced by results.php based on image data
-  var MAP_DATA  = {};
-  // insert here look-up tables MAP_DATA with image info
+  // AREA_DATA is a dictionary containing a description of each area in
+  // all images defined in \{\{images\}\}. Its content is defined in
+  // \{\{lookup_tables\}\}, a placeholder replaced by results.php
+  var AREA_DATA  = {};
   {{lookup_tables}}
 
-  // function for creating a dictionary with images, maps and area coordinates
-  function initialize_dicts() {
-    // console.log('initialize_dicts() started');
-    const allImages = document.querySelectorAll("img");
-    for (let i=0; i<allImages.length; i++) {
-      var dict = {};
-      let img = allImages[i];
-      if (img.hasAttribute("usemap")) {
-        let mapID = img.useMap.slice(1);
-        dict["mapID"] = mapID;
-        dict["areas"] = {};
-        let map = document.getElementById(mapID);
-        for (let j=0; j<map.areas.length; ++j) {
-          let area = map.areas[j];
-          let coords = area.coords.split(",");
-          let xyxy = [];
-          for (let k=0; k<4; ++k) {
-            xyxy.push(parseFloat(coords[k]));
-          }
-          let area_id = area.id;
-          AREA_DICT[area_id] = {};
-          AREA_DICT[area_id]['coords'] = xyxy;
-          AREA_DICT[area_id]['x_min'] = Math.min(xyxy[0], xyxy[2]);
-          AREA_DICT[area_id]['y_min'] = Math.min(xyxy[1], xyxy[3]);
-          dict["areas"][area_id] = AREA_DICT[area_id];
-        }
-        IMG_DICT[img.id] = dict;
-      };
-    };
-    // console.log('initialize_dicts() completed');
+  // function for rescaling areas according to image current size
+  function rescaleArea(area){
+    var area_id = area.id;
+    var area_dict = AREA_DATA[area_id];
+    var img_id = area_dict['img_id'];
+    var img = document.getElementById(img_id);
+    // compute rescaling factor
+    var rescaling = img.naturalWidth/img.width;
+    // rescale area
+    let orig_coords = area_dict['coords'];
+    let new_coords = [0,0,0,0];
+    for (let j=0; j<4; ++j) {
+      new_coords[j] = Math.round(orig_coords[j]/rescaling);
+    }
+    area.coords = new_coords.join();
+    // store rescaled variables in area dictionary
+    area_dict['x_min']  = new_coords[0];
+    area_dict['y_min']  = new_coords[1];
+    area_dict['width']  = new_coords[2] -new_coords[0];
+    area_dict['height'] = new_coords[3] -new_coords[1];
+    area_dict['dx'] = area_dict['width'] / area_dict["num_cols"];
+    area_dict['dy'] = area_dict['height']/ area_dict["num_rows"];
+    // console.log('Area', area_id, 'resized from', orig_coords.join(),
+    // 'to', new_coords.join());
   }
 
-  // function for rescaling image maps according to their current sizes
-  // *after* CSS styling and window resizing
-  function rescale_all_maps() {
-    // iterate over all images with maps (saved at the beginning)
-    for (var imgID in IMG_DICT){
-      var mapID = IMG_DICT[imgID].mapID;
-      var areas = IMG_DICT[imgID].areas;
-      var img = document.getElementById(imgID);
-      // compute rescaling factor
-      var rescaling = img.naturalWidth/img.width;
-      // apply rescaling to all areas in image map
-      const area_ids = Object.keys(areas);
-      for (var area_id in areas) {
-        let orig_coords = areas[area_id]['coords'];
-        let new_coords = [0,0,0,0];
-        for (let j=0; j<4; ++j) {
-          new_coords[j] = Math.round(orig_coords[j]/rescaling);
-        }
-        document.getElementById(area_id).coords = new_coords.join();
-        // store info for each area
-        AREA_DICT[area_id]['map_id'] = mapID;
-        AREA_DICT[area_id]['x_min']  = Math.min(new_coords[0], new_coords[2]);
-        AREA_DICT[area_id]['y_min']  = Math.min(new_coords[1], new_coords[3]);
-        AREA_DICT[area_id]['widht']  = Math.abs(new_coords[0] -new_coords[2]);
-        AREA_DICT[area_id]['height'] = Math.abs(new_coords[1] -new_coords[3]);
-        let num_cols = MAP_DATA[area_id]["num_cols"];
-        let num_rows = MAP_DATA[area_id]["num_rows"];
-        AREA_DICT[area_id]['dx'] = AREA_DICT[area_id]['widht'] / num_cols;
-        AREA_DICT[area_id]['dy'] = AREA_DICT[area_id]['height']/ num_rows;
-        // console.log('Area', area_id, 'resized from', orig_coords.join(),
-        // 'to', new_coords.join());
-      }
+  function updateAreaSize(e){
+    var area = e.target;
+    rescaleArea(area);
+  }
+
+  function updateAllAreaSizes(){
+    for (var area_id in AREA_DATA){
+      area = document.getElementById(area_id);
+      rescaleArea(area);
     }
+    console.log('All areas resized.');
+  }
+
+  function getPositionOnArea(e, area_id){
+    var area_dict = AREA_DATA[area_id];
+    var img_id = area_dict['img_id'];
+    // only image bounding rectangle is reliable
+    var rect = document.getElementById(img_id).getBoundingClientRect();
+    // get mouse coordinates wrt area
+    var x = e.clientX - rect.left - area_dict['x_min'];
+    var y = e.clientY - rect.top  - area_dict['y_min'];
+    x = Math.floor(x / area_dict['dx']);
+    y = Math.floor(y / area_dict['dy']);
+    x = Math.max(0, x);
+    y = Math.max(0, y);
+    return [x, y];
   }
 
   function updateTooltip(e){
     // triggered by "hover" event on map areas
     var area_id = e.target.id;
-    var map_id = AREA_DICT[area_id]['map_id'];
-    // the target is the area, but the bounding rectangle is the map's
-    var map_rect = e.target.getBoundingClientRect();
-    // get mouse coordinates wrt area
-    var x = e.clientX - map_rect.left - AREA_DICT[area_id]['x_min'];
-    var y = e.clientY - map_rect.top  - AREA_DICT[area_id]['y_min'];
-    x = Math.floor(x / AREA_DICT[area_id]['dx']);
-    y = Math.floor(y / AREA_DICT[area_id]['dy']);
-    x = Math.max(0, x);
-    y = Math.max(0, y);
+    var area_dict = AREA_DATA[area_id];
+    var map_id = area_dict['map_id'];
+    // get mouse position on the area
+    var xy = getPositionOnArea(e, area_id);
     // update map title that will be displayed in tooltip
     var map = document.getElementById(map_id);
-    var msg = MAP_DATA[area_id]["info_msg"][y][x];
+    var msg = area_dict["info_msg"][xy[1]][xy[0]];
     $(map).attr('title', msg);
   }
 
   function hideTooltip(e){
     var area_id = e.target.id;
-    var map_id = AREA_DICT[area_id]['map_id'];
+    var map_id = AREA_DATA[area_id]['map_id'];
     var map = document.getElementById(map_id);
     $(map).attr('title', "");
   }
@@ -228,41 +209,38 @@
   function updateModalContent(e){
     // triggered by "click" event on map areas
     var area_id = e.target.id;
-    var map_id = AREA_DICT[area_id]['map_id'];
-    var fig_id = map_id.split("_")[2];
-    console.log(fig_id)
-    // the target is the area, but the bounding rectangle is the map's
-    var map_rect = e.target.getBoundingClientRect();
-    // get mouse coordinates wrt area
-    var x = e.clientX - map_rect.left - AREA_DICT[area_id]['x_min'];
-    var y = e.clientY - map_rect.top  - AREA_DICT[area_id]['y_min'];
-    x = Math.floor(x / AREA_DICT[area_id]['dx']);
-    y = Math.floor(y / AREA_DICT[area_id]['dy']);
-    x = Math.max(0, x);
-    y = Math.max(0, y);
-    // update modal title
-    var msg1 = MAP_DATA[`map_figure_${fig_id}_strip`]["info_msg"][0][x];
-    var msg2 = MAP_DATA[`map_figure_${fig_id}_table`]["info_msg"][y][x];
-    var msg3 = MAP_DATA[`map_figure_${fig_id}_bplot`]["info_msg"][0][x];
-    document.getElementById("SAVmodalPDBcoords").innerHTML = msg1;
-    document.getElementById("SAVmodalPreds").innerHTML = msg2;
-    document.getElementById("SAVmodalResAvgPreds").innerHTML = msg3;
+    var area_dict = AREA_DATA[area_id];
+    var map_id = area_dict['map_id'];
+    // get mouse position on the area
+    var xy = getPositionOnArea(e, area_id);
+    var x = xy[0];
+    var y = xy[1];
+    // update modal content
+    var pdb_coords = AREA_DATA[`${map_id}_strip`]["info_msg"][0][x];
+    var preds = AREA_DATA[`${map_id}_table`]["info_msg"][y][x];
+    var avg_preds = AREA_DATA[`${map_id}_bplot`]["info_msg"][0][x];
+    document.getElementById("SAVmodalPDBcoords").innerHTML = pdb_coords;
+    document.getElementById("SAVmodalPreds").innerHTML = preds;
+    document.getElementById("SAVmodalResAvgPreds").innerHTML = avg_preds;
+    if (area_id.endsWith("table")) {
+      document.getElementById("SAVmodalPredsDiv").style.display = 'initial';
+    }
+    else {
+      document.getElementById("SAVmodalPredsDiv").style.display = 'none';
+    }
   }
 
   $( document ).ready(function() {
     console.log( "document loaded" );
-    initialize_dicts();
   });
 
   // rescale maps when all images are loaded
   // and every time the window is resized
   $( window ).on( "ready load resize", function() {
-    console.log( "rescaling maps" );
-    rescale_all_maps()
+    updateAllAreaSizes();
   });
   $( window ).one( "mouseenter", function() {
-    console.log( "rescaling maps" );
-    rescale_all_maps()
+    updateAllAreaSizes();
   });
 
 </script>
