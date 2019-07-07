@@ -22,7 +22,7 @@
       <div class="col-md"></div>
 
       <div class="col-md-6">
-        <p><h5>please cite</h5><?p>
+        <p><h5>Please cite</h5><?p>
         <p>
         <a href="https://www.pnas.org/content/115/16/4164">
           <i>Structural dynamics is a determinant of the functional

@@ -24,6 +24,9 @@ $arr = check_jobid_and_jobdir($scratch_dir);
 $jobid  = $arr["jobid"];
 $jobdir = $arr["jobdir"];
 
+// update cookies
+update_cookie($scratch_dir, $jobid);
+
 if ( file_exists("${jobdir}/input-sm_query.txt") ) {
   $subm_type = 'sm';
   // get sequence Uniprot accession number

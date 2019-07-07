@@ -12,11 +12,12 @@
 
   $urls = [
     'Saturation mutagenesis' => 'sat_mutagen.php',
-    'Batch query' => 'batch_query.php',
-    'Docs'        => 'https://rhapsody.readthedocs.io/en/latest/',
-    'Tutorials'   => 'https://nbviewer.jupyter.org/github/luponzo86/rhapsody-tutorials/tree/master/',
-    'Download'    => 'download.php',
-    'About'       => 'about.php',
+    'Batch query'   => 'batch_query.php',
+    'Retrieve jobs' => 'retrieve_jobs.php',
+    'Docs'      => 'https://rhapsody.readthedocs.io/en/latest/',
+    'Tutorials' => 'https://nbviewer.jupyter.org/github/luponzo86/rhapsody-tutorials/tree/master/',
+    'Download'  => 'download.php',
+    'About'     => 'about.php',
   ];
 
   foreach ($urls as $name => $url) {
