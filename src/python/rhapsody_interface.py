@@ -11,14 +11,12 @@ import protocols
 DEBUG_MODE = False
 
 LOGGER._setprefix('')
-LOGGER.info(f'started on   {datetime.datetime.now()}')
+LOGGER.info(f'You are running Rhapsody v{rd.__version__}')
+LOGGER.info(f'Started on   {datetime.datetime.now()}')
 LOGGER.info('')
 
-# run setup
 # old_verbosity = LOGGER.verbosity
 # LOGGER._setverbosity('none')
-rd.initialSetup()
-LOGGER.info('')
 # LOGGER._setverbosity(old_verbosity)
 
 if DEBUG_MODE:
@@ -35,7 +33,7 @@ else:
         raise ValueError('Invalid protocol')
 
 LOGGER.info('')
-LOGGER.info(f'completed on {datetime.datetime.now()}')
+LOGGER.info(f'Completed on {datetime.datetime.now()}')
 
 # zip results
 files = glob.glob('rhapsody-*') + glob.glob('pph2-*txt')
