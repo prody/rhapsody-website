@@ -12,6 +12,8 @@ import protocols
 DEBUG_MODE = False
 
 LOGGER._setprefix('')
+LOGGER.info(f'Started on   {datetime.datetime.now()}')
+LOGGER.info('')
 
 # set PDB folder
 old_verbosity = LOGGER.verbosity
@@ -25,10 +27,6 @@ LOGGER._setverbosity(old_verbosity)
 
 # check Rhapsody installation
 rd.initialSetup()
-
-LOGGER.info(f'Started on   {datetime.datetime.now()}')
-LOGGER.info(f'You are running Rhapsody v{rd.__version__}')
-LOGGER.info('')
 
 if DEBUG_MODE:
     time.sleep(5)
