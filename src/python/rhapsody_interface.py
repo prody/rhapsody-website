@@ -3,6 +3,7 @@ import time
 import datetime
 import glob
 import zipfile
+import prody as pd
 from prody import LOGGER
 import rhapsody as rd
 import protocols
@@ -11,13 +12,23 @@ import protocols
 DEBUG_MODE = False
 
 LOGGER._setprefix('')
-LOGGER.info(f'You are running Rhapsody v{rd.__version__}')
-LOGGER.info(f'Started on   {datetime.datetime.now()}')
-LOGGER.info('')
 
-# old_verbosity = LOGGER.verbosity
-# LOGGER._setverbosity('none')
-# LOGGER._setverbosity(old_verbosity)
+# set PDB folder
+old_verbosity = LOGGER.verbosity
+LOGGER._setverbosity('none')
+home_dir = os.environ['HOME']
+pdb_dir = os.path.join(home_dir, 'PDBs')
+if not os.path.isdir(pdb_dir):
+    os.mkdir(pdb_dir)
+pd.pathPDBFolder(pdb_dir)
+LOGGER._setverbosity(old_verbosity)
+
+# check Rhapsody installation
+rd.initialSetup()
+
+LOGGER.info(f'Started on   {datetime.datetime.now()}')
+LOGGER.info(f'You are running Rhapsody v{rd.__version__}')
+LOGGER.info('')
 
 if DEBUG_MODE:
     time.sleep(5)

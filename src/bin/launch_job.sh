@@ -7,6 +7,7 @@ jobid=$(basename $jobdir | sed 's/job_//')
 
 # set environmental variables
 source .profile
+export HOME="$(dirname $jobdir)"
 
 cd $jobdir
 
