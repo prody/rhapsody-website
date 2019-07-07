@@ -151,9 +151,9 @@ function print_jobs_table($scratch_dir){
     $html = '
     <div class="col-md"></div>
     <div class="col-md-6">
-      <p><h5>No jobs found</h5></p>
+      <p><h5>no jobs found</h5></p>
         <small class="form-text text-muted">
-        Please make sure that cookies are enabled.
+        please make sure that cookies are enabled.
         </small>
       </div>
     <div class="col-sm"></div>

@@ -27,22 +27,22 @@ $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
     <div class="row">
       <div class="col-md">
         <h4>
-          Status: <b><span style="color:red;" id="status_update"></span></b>
+          status: <b><span style="color:red;" id="status_update"></span></b>
         </h4>
         <div id="infodiv">
           <p><small class="text-muted">
-            Bookmark this page to check your job status later.
+            bookmark this page to check your job status later.
             If you provided an email address, you'll be notified.
           </small></p>
         </div>
         <div id="errordiv" style="display:none">
           <p><small class="text-muted">
-            Please check error message below. Contact us for assistance (see footer).
+            please check error message below. Contact us for assistance (see footer).
           </small></p>
         </div>
         <div id="resultsdiv" style="display:none">
           <p><small class="text-muted">
-            You will be automatically redirected to the
+            you will be automatically redirected to the
             <a href="results.php?id=<?php echo $jobid;?>">results</a>
             page in <span id="counter">4 seconds</span>...
           </small></p>

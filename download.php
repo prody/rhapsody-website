@@ -23,8 +23,8 @@
       <div class="col-md"></div>
 
       <div class="col-md-6">
-        <p><h5>Local installation</h5></p>
-        <pre><code>$ pip install -U prody-rhapsody
+        <p><h5>local installation</h5></p>
+        <pre><code>$ pip install prody-rhapsody
         </code></pre>
 
 

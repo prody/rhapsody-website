@@ -15,7 +15,7 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h2><i>In silico</i> saturation mutagenesis</h2>
-      Scanning of all possible amino acid substitutions in a protein sequence
+      scanning of all possible amino acid substitutions in a protein sequence
     </div>
   </div>
 
@@ -164,7 +164,7 @@
 <div class="form-row py-2">
   <div class="col-md text-center">
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Submit job</button>
+      <button class="btn btn-primary" type="submit">submit job</button>
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h1>Rhapsody</h1>
-      Pathogenicity prediction of human missense variants based on sequence,
+      pathogenicity prediction of human missense variants based on sequence,
       structure and dynamics of proteins
     </div>
   </div>
@@ -52,7 +52,7 @@
             class="img-responsive border rounded" style="width:80%" alt="">
           </a>
         </div>
-        <a href="#">see example</a>
+        <!-- <a href="#">see example</a> -->
       </div>
     </div>
   </div>

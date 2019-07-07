@@ -15,7 +15,7 @@
 <div class="jumbotron">
   <div class="container text-center">
     <h2>Batch query</h2>
-    Get predictions for a list of variants from mutliple sequences
+    get predictions for a list of variants from mutliple sequences
   </div>
 </div>
 
@@ -98,7 +98,7 @@ EGFR_HUMAN 300 V A
 <div class="form-row py-2">
   <div class="col-md text-center">
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Submit job</button>
+      <button class="btn btn-primary" type="submit">submit job</button>
     </div>
   </div>
 </div>

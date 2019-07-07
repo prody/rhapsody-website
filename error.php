@@ -26,13 +26,13 @@ $back_link = filter_input(INPUT_GET, 'back_link', FILTER_SANITIZE_STRING);
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h2>something went wrong :(</h2>
+      <h2>...something went wrong :(</h2>
     </div>
   </div>
 
 
   <div class="container border rounded bg-3">
-    <h5>Error log:</h5>
+    <h5>error log:</h5>
     <p>
       <pre>
         <?php echo $err_msg;?>
