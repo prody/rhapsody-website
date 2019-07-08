@@ -15,7 +15,8 @@
     'Batch query'   => 'batch_query.php',
     'Retrieve jobs' => 'retrieve_jobs.php',
     'Docs'      => 'https://rhapsody.readthedocs.io/en/latest/',
-    'Tutorials' => 'https://nbviewer.jupyter.org/github/luponzo86/rhapsody-tutorials/tree/master/',
+    'Tutorials' => 'https://nbviewer.jupyter.org/github/'.
+                   'luponzo86/rhapsody-tutorials/tree/master/tutorials',
     'Download'  => 'download.php',
     'About'     => 'about.php',
   ];
