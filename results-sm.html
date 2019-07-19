@@ -11,8 +11,25 @@
   <div class="row">
     <div class="col-sm text-center ">
       <h4><i>In silico</i> saturation mutagenesis table for
-      sequence {{Uniprot_acc}}</h4>
+      sequence <a href="https://www.uniprot.org/uniprot/{{Uniprot_acc}}"
+                  target='_blank'>{{Uniprot_acc}}</a>
+      </h4>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm-8 py-2">
+      <div class="alert alert-danger" style="display: {{div_status}};">
+        More than 50% of residues could not be mapped to any PDB
+        structure. Please consider submitting a new job by providing a custom
+        PDB structure, e.g. from a homologous sequence or a homology model
+        (see Uniprot for available
+        <a href="https://www.uniprot.org/uniprot/{{Uniprot_acc}}#structure"
+          class="alert-link" target='_blank'>3D structure databases</a>).
+      </div>
+    </div>
+    <div class="col-sm"></div>
   </div>
 
   <div class="row">
