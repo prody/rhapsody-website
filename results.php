@@ -86,7 +86,7 @@ if ( $subm_type == 'sm' ) {
       $buffer = fgets($handle);
       if(strpos($buffer, $searchthis) !== FALSE) {
         $words = explode(" ", trim($buffer));
-        $fract_noPDB = $words[0] / $words[4];
+        $fract_noPDB = $words[0] / $words[3];
       }
     }
     fclose($handle);
