@@ -26,6 +26,9 @@ def sat_mutagen():
     else:
         rh = rd.rhapsody(input_query, custom_PDB=pdb, log=False)
 
+    # write predictions on PDB file(s)
+    rh.writePDBs()
+
     # create figure(s)
     num_res = int(rh.numSAVs/19)
     if num_res <= FIGURE_MAX_WIDTH:
