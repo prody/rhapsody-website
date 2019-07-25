@@ -56,21 +56,21 @@
       <div class="col-md py-2">
         <a href="sat_mutagen.php">
           <img src="./img/thumbnail-sm.png"
-          class="img-responsive border rounded" style="width:70%" alt="">
+          class="img-responsive border rounded" style="width:80%" alt="">
         </a>
       </div>
 
       <div class="col-md py-2">
         <a href="sat_mutagen.php">
           <img src="./img/thumbnail-customPDB.png"
-          class="img-responsive border rounded" style="width:70%" alt="">
+          class="img-responsive border rounded" style="width:80%" alt="">
         </a>
       </div>
 
       <div class="col-md py-2">
         <a href="batch_query.php">
           <img src="./img/thumbnail-bq.png"
-          class="img-responsive border rounded" style="width:70%" alt="">
+          class="img-responsive border rounded" style="width:80%" alt="">
         </a>
       </div>
 
