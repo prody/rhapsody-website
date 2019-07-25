@@ -23,12 +23,11 @@
       <div class="col-md"></div>
 
       <div class="col-md-6">
-        <p><h5>local installation</h5></p>
-        <pre><code>$ pip install prody-rhapsody
-        </code></pre>
+        <h5>local installation</h5>
+        <pre class='py-2'><code>$ pip install prody-rhapsody</code></pre>
 
-
-        <p><h5>git repositories</h5></p>
+        <h5>git repositories</h5>
+        <div class='py-2'>
           <p><i class="fab fa-github"></i> &nbsp;
             <a href="https://github.com/prody/rhapsody">
             github.com/prody/rhapsody</a>
@@ -41,6 +40,7 @@
             <a href="https://github.com/luponzo86/rhapsody-tutorials">
             github.com/luponzo86/rhapsody-tutorials</a>
           </p>
+        </div>
       </div>
       <div class="col-md"></div>
     </div>
