@@ -24,7 +24,14 @@
 
       <div class="col-md-6">
         <h5>local installation</h5>
-        <pre class='py-2'><code>$ pip install prody-rhapsody</code></pre>
+        <p>
+          <code>$ pip install prody-rhapsody</code>
+          <small class="form-text text-muted">DSSP must be already
+            installed on your computer. Please see the
+            <a href="https://github.com/prody/rhapsody/blob/master/README.md">
+            README</a> file for more information.
+          </small>
+        </p>
 
         <h5>git repositories</h5>
         <div class='py-2'>
