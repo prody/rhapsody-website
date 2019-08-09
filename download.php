@@ -27,27 +27,26 @@
         <p>
           <code>$ pip install prody-rhapsody</code>
           <small class="form-text text-muted">DSSP must be already
-            installed on your computer. Please see the
-            <a href="https://github.com/prody/rhapsody/blob/master/README.md">
-            README</a> file for more information.
+            installed on your computer, more info
+            <a href="https://pypi.org/project/prody-rhapsody/"
+              target="_blank">here</a>
           </small>
         </p>
 
         <h5>git repositories</h5>
-        <div class='py-2'>
-          <p><i class="fab fa-github"></i> &nbsp;
-            <a href="https://github.com/prody/rhapsody">
+        <p>
+          <i class="fab fa-github"></i> &nbsp;
+          <a href="https://github.com/prody/rhapsody" target="_blank">
             github.com/prody/rhapsody</a>
-          </p>
-          <p><i class="fab fa-github"></i> &nbsp;
-            <a href="https://github.com/luponzo86/rhapsody-website">
-            github.com/luponzo86/rhapsody-website</a>
-          </p>
-          <p><i class="fab fa-github"></i> &nbsp;
-            <a href="https://github.com/luponzo86/rhapsody-tutorials">
-            github.com/luponzo86/rhapsody-tutorials</a>
-          </p>
-        </div>
+          <br>
+          <i class="fab fa-github"></i> &nbsp;
+          <a href="https://github.com/luponzo86/rhapsody-website"
+            target="_blank">github.com/luponzo86/rhapsody-website</a>
+          <br>
+          <i class="fab fa-github"></i> &nbsp;
+          <a href="https://github.com/luponzo86/rhapsody-tutorials"
+            target="_blank">github.com/luponzo86/rhapsody-tutorials</a>
+        </p>
       </div>
       <div class="col-md"></div>
     </div>

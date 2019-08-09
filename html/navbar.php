@@ -11,14 +11,15 @@
 <?php
 
   $urls = [
-    'Saturation mutagenesis' => 'sat_mutagen.php',
-    'Batch query'   => 'batch_query.php',
-    'Retrieve jobs' => 'retrieve_jobs.php',
-    'Docs'      => 'https://rhapsody.readthedocs.io/en/latest/',
-    'Tutorials' => 'https://nbviewer.jupyter.org/github/'.
-                   'luponzo86/rhapsody-tutorials/tree/master/tutorials',
-    'Download'  => 'download.php',
-    'About'     => 'about.php',
+    'Saturation mutagenesis' => 'href="sat_mutagen.php"',
+    'Batch query'   => 'href="batch_query.php"',
+    'Retrieve jobs' => 'href="retrieve_jobs.php"',
+    'Docs'      => 'href="https://rhapsody.readthedocs.io/en/latest/"'.
+                   ' target="_blank"',
+    'Tutorials' => 'href="https://nbviewer.jupyter.org/github/luponzo86/'.
+                   'rhapsody-tutorials/tree/master/tutorials" target="_blank"',
+    'Download'  => 'href="download.php"',
+    'About'     => 'href="about.php"',
   ];
 
   foreach ($urls as $name => $url) {
@@ -29,12 +30,12 @@
     // single tab
     if ($currentPage === $name) {
       echo '<li class="nav-item active">' .
-           '<a class="nav-link" href="' . $url . '">' . $name .
+           '<a class="nav-link" ' . $url . '>' . $name .
            '<span class="sr-only">(current)</span></a></li>' . "\r\n";
     }
     else {
       echo '<li class="nav-item">' .
-           '<a class="nav-link" href="' . $url . '">' . $name .
+           '<a class="nav-link" ' . $url . '>' . $name .
            '</a></li>' . "\r\n";
     }
   }

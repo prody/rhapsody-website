@@ -24,7 +24,7 @@
       <div class="col-md-6">
         <h5>please cite:</h5>
         <p>
-        <a href="https://www.pnas.org/content/115/16/4164">
+        <a href="https://www.pnas.org/content/115/16/4164" target="_blank">
           <i>Structural dynamics is a determinant of the functional
           significance of missense variants </i><br>
         </a>
@@ -36,8 +36,10 @@
         <h5>other:</h5>
         <p>
           Please consider also citing
-          <a href="http://genetics.bwh.harvard.edu/pph2/">PolyPhen-2</a> and
-          <a href="https://marks.hms.harvard.edu/evmutation/">EVmutation</a>,
+          <a href="http://genetics.bwh.harvard.edu/pph2/" target="_blank">
+            PolyPhen-2</a> and
+          <a href="https://marks.hms.harvard.edu/evmutation/" target="_blank">
+            EVmutation</a>,
           if using their results
 
       </div>
