@@ -31,6 +31,12 @@
           substitutions at every position on the sequence. See example:
           <a href="./results.php?id=example-sm">human RAS</a>.
         </small>
+        <div class="p-3">
+          <a href="sat_mutagen.php">
+            <img src="./img/thumbnail-sm.png"
+            class="img-responsive border rounded" style="width:80%" alt="">
+          </a>
+        </div>
       </div>
 
       <div class="col-md py-2">
@@ -40,6 +46,12 @@
           homology model or homologous structure (in case human structure is
           not available).
         </small>
+        <div class="p-3">
+          <a href="sat_mutagen.php">
+            <img src="./img/thumbnail-customPDB.png"
+            class="img-responsive border rounded" style="width:80%" alt="">
+          </a>
+        </div>
       </div>
 
       <div class="col-md py-2">
@@ -49,32 +61,15 @@
           various protein sequences. See an example
           <a href="./results.php?id=example-bq">here</a>.
         </small>
+        <div class="p-3">
+          <a href="batch_query.php">
+            <img src="./img/thumbnail-bq.png"
+            class="img-responsive border rounded" style="width:80%" alt="">
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md py-2">
-        <a href="sat_mutagen.php">
-          <img src="./img/thumbnail-sm.png"
-          class="img-responsive border rounded" style="width:80%" alt="">
-        </a>
-      </div>
-
-      <div class="col-md py-2">
-        <a href="sat_mutagen.php">
-          <img src="./img/thumbnail-customPDB.png"
-          class="img-responsive border rounded" style="width:80%" alt="">
-        </a>
-      </div>
-
-      <div class="col-md py-2">
-        <a href="batch_query.php">
-          <img src="./img/thumbnail-bq.png"
-          class="img-responsive border rounded" style="width:80%" alt="">
-        </a>
-      </div>
-
-    </div>
   </div>
 
 
