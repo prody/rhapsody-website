@@ -15,7 +15,7 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h2><i>In silico</i> saturation mutagenesis</h2>
-      scanning of all possible amino acid substitutions in a protein sequence
+      scan of all possible amino acid substitutions in a human protein sequence
     </div>
   </div>
 
@@ -35,9 +35,9 @@
       </label>
       <input type="text" class="form-control" name="sm_query" id="sm_query"
       placeholder="P01112" value="">
-      <small id="jobIDHelp" class="form-text text-muted">type a Uniprot
+      <small id="jobIDHelp" class="form-text text-muted">type the Uniprot
         <a href="query_Uniprot.php" target='_blank'>unique accession number</a>
-        or leave blank to run test case. <br>
+        of a human sequence or leave blank to run test case. <br>
         optional: add a specific position for single-site scanning, e.g. "P01112 100"
       </small>
       <div class="invalid-feedback">

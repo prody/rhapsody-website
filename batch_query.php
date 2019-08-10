@@ -15,7 +15,7 @@
 <div class="jumbotron">
   <div class="container text-center">
     <h2>Batch query</h2>
-    get predictions for a list of variants from mutliple sequences
+    get predictions for individual variants from multiple human sequences
   </div>
 </div>
 
@@ -29,7 +29,7 @@
 
   <div class="col-md-6">
     <label for="bq_radios">
-      <h5>list of missense variants</h5>
+      <h5>list of human missense variants</h5>
     </label>
 
     <!-- radio button with text area -->

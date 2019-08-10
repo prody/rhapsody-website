@@ -16,8 +16,7 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h1>Rhapsody</h1>
-      pathogenicity prediction of human missense variants based on sequence,
-      structure and dynamics of proteins
+      computationally predicting effects of saturation mutagenesis
     </div>
   </div>
 
@@ -27,9 +26,9 @@
       <div class="col-md py-2">
         <h5><i>In silico</i> saturation mutagenesis </h5>
         <small class="form-text text-muted px-5">
-          Perform a complete scanning of all possible 19 amino acid
-          substitutions at every position on the sequence. See example:
-          <a href="./results.php?id=example-sm">human RAS</a>.
+          perform a complete scan of all possible 19 amino acid
+          substitutions at each site on a human sequence. See example:
+          <a href="./results.php?id=example-sm">H-Ras</a>.
         </small>
         <div class="p-3">
           <a href="sat_mutagen.php">
@@ -42,7 +41,7 @@
       <div class="col-md py-2">
         <h5>Variants on custom PDB structure </h5>
         <small class="form-text text-muted px-5">
-          Perform saturation mutagenesis analysis on a specific conformer,
+          perform saturation mutagenesis analysis on a specific conformer,
           homology model or homologous structure (in case human structure is
           not available).
         </small>
@@ -57,7 +56,7 @@
       <div class="col-md py-2">
         <h5>Batch query of mixed variants </h5>
         <small class="form-text text-muted px-5">
-          Obtain predictions for a list of human missense variants from
+          obtain predictions for a list of human missense variants from
           various protein sequences. See an example
           <a href="./results.php?id=example-bq">here</a>.
         </small>
