@@ -8,7 +8,7 @@
 <body>
 
   <?php
-    $currentPage = 'Download';
+    $currentPage = 'Py_package';
     include './html/navbar.php';
   ?>
 

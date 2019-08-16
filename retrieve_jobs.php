@@ -8,7 +8,7 @@
 <body>
 
   <?php
-    $currentPage = 'Retrieve jobs';
+    $currentPage = 'retrieve_jobs';
     include './html/navbar.php';
   ?>
 

@@ -8,7 +8,7 @@
 <body>
 
 <?php
-  $currentPage = 'Batch query';
+  $currentPage = 'batch_query';
   include './html/navbar.php';
 ?>
 

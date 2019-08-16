@@ -8,7 +8,7 @@
 <body>
 
   <?php
-    $currentPage = 'Saturation mutagenesis';
+    $currentPage = 'sat_mutagen';
     include './html/navbar.php';
   ?>
 

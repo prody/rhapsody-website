@@ -7,7 +7,7 @@
 
 <body>
   <?php
-    $currentPage = 'About';
+    $currentPage = 'about';
     include './html/navbar.php';
   ?>
 
@@ -29,8 +29,17 @@
           significance of missense variants </i><br>
         </a>
         Luca Ponzoni, Ivet Bahar <br>
-        <small>Proceedings of the National Academy of Sciences Apr 2018,
-        115 (16) 4164-4169; DOI: 10.1073/pnas.1715896115 </small>
+        <small>PNAS Apr 2018, 115 (16) 4164-4169;
+          DOI: 10.1073/pnas.1715896115 </small>
+        </p>
+
+        <p>
+        <a href="https://www.biorxiv.org/content/10.1101/737429v1" target="_blank">
+          <i>[preprint] Rhapsody: Pathogenicity prediction of human missense variants
+            based on protein sequence, structure and dynamics</i><br>
+        </a>
+        Luca Ponzoni, Zoltan N. Oltvai, Ivet Bahar <br>
+        <small>bioRxiv Aug 2019, 737429; DOI: 10.1101/737429 </small>
         </p>
 
         <h5>other:</h5>

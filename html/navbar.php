@@ -6,41 +6,66 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="myNavBar">
-    <ul class="navbar-nav mr-auto">
+
 <?php
-
-  $urls = [
-    'Saturation mutagenesis' => 'href="sat_mutagen.php"',
-    'Batch query'   => 'href="batch_query.php"',
-    'Retrieve jobs' => 'href="retrieve_jobs.php"',
-    'Docs'      => 'href="https://rhapsody.readthedocs.io/en/latest/"'.
-                   ' target="_blank"',
-    'Tutorials' => 'href="https://nbviewer.jupyter.org/github/luponzo86/'.
-                   'rhapsody-tutorials/tree/master/tutorials" target="_blank"',
-    'Download'  => 'href="download.php"',
-    'About'     => 'href="about.php"',
+  $a = [
+    'sat_mutagen' => ['', ''],
+    'batch_query' => ['', ''],
+    'retrieve_jobs' => ['', ''],
+    'Py_package' => ['', ''],
+    'about' => ['', ''],
   ];
-
-  foreach ($urls as $name => $url) {
-    // break between left and right tabs
-    if ($name === 'Docs') {
-      echo '</ul><ul class="navbar-nav navbar-right">' . "\r\n" ;
-    }
-    // single tab
-    if ($currentPage === $name) {
-      echo '<li class="nav-item active">' .
-           '<a class="nav-link" ' . $url . '>' . $name .
-           '<span class="sr-only">(current)</span></a></li>' . "\r\n";
-    }
-    else {
-      echo '<li class="nav-item">' .
-           '<a class="nav-link" ' . $url . '>' . $name .
-           '</a></li>' . "\r\n";
-    }
-  }
-
+  $a[$currentPage] = ['active', '<span class="sr-only">(current)</span>']
 ?>
+
+  <div class="collapse navbar-collapse" id="myNavBar">
+
+    <!-- left navbar -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <?php echo $a['sat_mutagen'][0]?>">
+        <a class="nav-link" href="sat_mutagen.php">Saturation mutagenesis
+          <?php echo $a['sat_mutagen'][1]?>
+        </a>
+      </li>
+      <li class="nav-item <?php echo $a['batch_query'][0]?>">
+        <a class="nav-link" href="batch_query.php">Batch query
+          <?php echo $a['batch_query'][1]?>
+        </a>
+      </li>
+      <li class="nav-item <?php echo $a['retrieve_jobs'][0]?>">
+        <a class="nav-link" href="retrieve_jobs.php">Retrieve jobs
+          <?php echo $a['retrieve_jobs'][1]?>
+        </a>
+      </li>
+    </ul>
+
+    <!-- right navbar -->
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item dropdown <?php echo $a['Py_package'][0]?>">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdownID"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Python package <?php echo $a['Py_package'][1]?>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownID">
+          <a class="dropdown-item" href="download.php">
+            Download
+          </a>
+          <a class="dropdown-item"
+            href="https://nbviewer.jupyter.org/github/luponzo86/rhapsody-tutorials/tree/master/tutorials"
+            target="_blank">
+            Tutorials
+          </a>
+          <a class="dropdown-item" href="https://rhapsody.readthedocs.io/en/latest/"
+            target="_blank">
+            Docs
+          </a>
+        </div>
+      </li>
+      <li class="nav-item <?php echo $a['about'][0]?>">
+        <a class="nav-link" href="about.php">About
+          <?php echo $a['about'][1]?>
+        </a>
+      </li>
     </ul>
   </div>
 </nav>
