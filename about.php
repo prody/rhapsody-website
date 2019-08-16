@@ -35,7 +35,7 @@
 
         <p>
         <a href="https://www.biorxiv.org/content/10.1101/737429v1" target="_blank">
-          <i>[preprint] Rhapsody: Pathogenicity prediction of human missense variants
+          [preprint] <i>Rhapsody: Pathogenicity prediction of human missense variants
             based on protein sequence, structure and dynamics</i><br>
         </a>
         Luca Ponzoni, Zoltan N. Oltvai, Ivet Bahar <br>
