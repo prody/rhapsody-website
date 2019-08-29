@@ -44,7 +44,7 @@ $jobdir = $arr["jobdir"];
         <div id="errordiv" style="display:none">
           <p><small class="text-muted">
             please check error message below and
-            <a href="<?php echo $jobdir;?>">output folder</a>.
+            <a href="<?php echo $jobdir;?>" target='_blank'>output folder</a>.
             Contact us for assistance (see footer).
           </small></p>
         </div>
