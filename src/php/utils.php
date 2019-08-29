@@ -32,7 +32,7 @@ function check_jobid_and_jobdir($scratch_dir) {
   if (! isset($_GET["id"]))
     $error = "missing job ID";
 
-  $jobid = $_GET["id"];
+  $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
   if ( preg_match('/[^a-z0-9\-]/', $jobid) )
     $error = "invalid job ID";
 

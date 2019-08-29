@@ -2,7 +2,13 @@
 <html lang="en">
 
 <?php
-$jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+include 'src/php/utils.php';
+
+$scratch_dir = "./workspace";
+
+$arr = check_jobid_and_jobdir($scratch_dir);
+$jobid  = $arr["jobid"];
+$jobdir = $arr["jobdir"];
 ?>
 
 <head>
@@ -37,7 +43,9 @@ $jobid = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
         </div>
         <div id="errordiv" style="display:none">
           <p><small class="text-muted">
-            please check error message below. Contact us for assistance (see footer).
+            please check error message below and
+            <a href="<?php echo $jobdir;?>">output folder</a>.
+            Contact us for assistance (see footer).
           </small></p>
         </div>
         <div id="resultsdiv" style="display:none">
