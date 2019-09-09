@@ -37,25 +37,33 @@ if ( $subm_type == 'sat_mutagen' ) {
   $query = str_replace(array(" ", "\n", "\r"), '', $_POST["sm_query"]);
   if ( empty($query) || $query=="test" )
     $subm_type = "example-sm";
-  elseif (!ctype_alnum($query))
-    $errors[] = 'Query must contain letters, numbers and spaces only';
+  else {
+    $parsed_query = explode(" ", trim($_POST["sm_query"]));
+    if (sizeof($parsed_query) > 2) {
+      $errors[] = 'Query must be a single Uniprot identifier (e.g. ' .
+        '"P01112") or a Uniprot ID plus a specific position on the ' .
+        'sequence (e.g. "P01112 100").';
+    }
+    if (!ctype_alnum($query))
+    $errors[] = 'Query must contain letters, numbers and spaces only.';
+  }
   if ( isset($_POST["customPDB_checkbox"]) ) {
     $radio_value = $_POST["customPDB_radios"];
     if ( $radio_value == "PDBID" ) {
       $PDBID = str_replace(' ', '', $_POST["customPDBID"]);
       if ( ! ctype_alnum($PDBID) || strlen($PDBID)!=4 )
-        $errors[] = 'PDB code must be a 4-letter alphanumeric code';
+        $errors[] = 'PDB code must be a 4-letter alphanumeric code.';
     }
     else if ( $radio_value == "PDBfile" ) {
       # check for correct file extensions
       $fname = $_FILES["customPDBFile"]["name"];
       if ( ! (endsWith($fname, ".pdb") || endsWith($fname, ".pdb.gz")) )
-        $errors[] = 'Only files with extensions ".pdb" or ".pdb.gz" are accepted';
+        $errors[] = 'Only files with extensions ".pdb" or ".pdb.gz" are accepted.';
       if ( $_FILES["customPDBFile"]["size"] > 2000000 )
-        $errors[] = 'PDB file is too large (>2MB)';
+        $errors[] = 'PDB file is too large (>2MB).';
     }
     else {
-      $errors[] = 'Internal error: Invalid custom PDB selection';
+      $errors[] = 'Internal error: Invalid custom PDB selection.';
     }
   }
 }
@@ -70,33 +78,33 @@ elseif ( $subm_type == 'batch_query' ) {
       $subm_type = "example-bq";
     elseif ( !ctype_alnum($text) )
       $errors[] = 'SAV coordinates can only contain ' .
-                  'alphanumeric characters and underscores';
+                  'alphanumeric characters and underscores.';
     elseif ( strlen($text) > 500 )
-      $errors[] = 'input text is too long';
+      $errors[] = 'input text is too long.';
   }
   else if ( $radio_value == "bq_file" ) {
     if ( $_FILES["bq_file"]["size"] == 0 )
       $errors[] = 'Empty file';
     elseif ( $_FILES["bq_file"]["size"] > 100000 )
-      $errors[] = 'Uploaded file is too large (>100KB)';
+      $errors[] = 'Uploaded file is too large (>100KB).';
   }
   else {
-    $errors[] = 'Internal error: Invalid batch query';
+    $errors[] = 'Internal error: Invalid batch query.';
   }
 }
 else {
-  $errors[] = 'Internal error: Invalid submission type';
+  $errors[] = 'Internal error: Invalid submission type.';
   $back_link = 'index.php';
 }
 if ( isset($_POST["email"]) && $_POST["email"]!="" &&
      !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-  $errors[] = 'Invalid email address';
+  $errors[] = 'Invalid email address.';
 }
 
 if (!empty($errors)) {
   $err_msg = "";
   foreach($errors as $err) {
-    $err_msg .= '<p>'.$err.'</p>';
+    $err_msg .= $err . '&#13;&#10;';
   }
   // // DEBUG: append info to error message
   // $err_msg .= "Set variables: <br>";

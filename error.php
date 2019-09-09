@@ -33,11 +33,7 @@ $back_link = filter_input(INPUT_GET, 'back_link', FILTER_SANITIZE_STRING);
 
   <div class="container border rounded bg-3">
     <h5>error log:</h5>
-    <p>
-      <pre>
-        <?php echo $err_msg;?>
-      </pre>
-    </p>
+    <pre><?php echo $err_msg;?></pre>
     <p><a href="<?php echo $back_link;?>">Back</a></p>
   </div>
 
