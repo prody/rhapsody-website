@@ -15,6 +15,9 @@ cd $jobdir
 if [ -e input-email.txt ]; then
   # email=$(cat input-email.txt)
   email="ponzoniluca@gmail.com, $(cat input-email.txt)"
+  # prevent other emails to be sent
+  echo | cat input-email.txt - >> sent_emails.txt
+  rm input-email.txt
 else
   # email=""
   email="ponzoniluca@gmail.com"
