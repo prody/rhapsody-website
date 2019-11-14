@@ -56,7 +56,7 @@ $jobdir = $arr["jobdir"];
           </small></p>
         </div>
         <div id="logdiv">
-          <textarea class="form-control" id="log_update" cols="100" rows="14" readonly
+          <textarea class="form-control" id="log_update" cols="100" rows="7" readonly
                     style="font-family:monospace; font-size:12px; white-space:pre-wrap">
             ...
           </textarea>
@@ -92,7 +92,7 @@ $jobdir = $arr["jobdir"];
         setTimeout(check_status, 100);
       }
       else if (job_status == "running...") {
-        setTimeout(check_status, 1000);
+        setTimeout(check_status, 300);
       }
       else if (job_status == "completed") {
         $("#infodiv").hide();

@@ -16,7 +16,8 @@
   <div class="jumbotron">
     <div class="container text-center">
       <h1>Rhapsody</h1>
-      computationally predicting effects of saturation mutagenesis
+      predicting the impact of human missense variants <br>
+      based on proteins' sequence, structure and dynamics
     </div>
   </div>
 
@@ -54,7 +55,7 @@
       </div>
 
       <div class="col-md py-2">
-        <h5>Batch query of mixed variants </h5>
+        <h5>Batch query of individual variants </h5>
         <small class="form-text text-muted px-5">
           obtain predictions for a list of human missense variants from
           various protein sequences. See an example

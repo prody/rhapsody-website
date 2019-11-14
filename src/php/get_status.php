@@ -14,16 +14,20 @@ function isProcessRunning($f) {
   return posix_kill((int)$pid, 0);
 }
 
-function tailShell($filepath, $lines = 13) {
+function tailShell($filepath, $lines = 10) {
   ob_start();
   passthru('tail -' . $lines . ' ' . escapeshellarg($filepath));
   return trim(ob_get_clean());
 }
 
 function returnStatus($status="") {
-  $logFile  = 'rhapsody-log.txt';
+  $logFile = 'rhapsody-log.txt';
+  $statusFile = 'rhapsody-status.txt';
   if ( file_exists($logFile) ) {
-    $logTail = tailShell($logFile);
+    $logTail = tailShell($logFile, 5);
+    if ( file_exists($statusFile) ) {
+      $logTail .= "\r\n\r\n" . tailShell($statusFile, 1);
+    }
   }
   else {
     $logTail = "";

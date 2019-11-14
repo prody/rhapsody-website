@@ -1,7 +1,15 @@
 import os
 import rhapsody as rd
 
+
 FIGURE_MAX_WIDTH = 100
+
+
+# define Rhapsody keyword arguments
+kwargs = {}
+for i, step in enumerate(['Uniprot', 'PDB', 'Pfam']):
+    kwargs[f'status_file_{step}'] = f'rhapsody-status.txt'
+    kwargs[f'status_prefix_{step}'] = f'STEP {i+1}: '
 
 
 def sat_mutagen():
@@ -22,9 +30,9 @@ def sat_mutagen():
     # run RHAPSODY
     if os.path.isfile('pph2-full.txt'):
         rh = rd.rhapsody('pph2-full.txt', query_type='PolyPhen2',
-                         custom_PDB=pdb, log=False)
+                         custom_PDB=pdb, log=False, **kwargs)
     else:
-        rh = rd.rhapsody(input_query, custom_PDB=pdb, log=False)
+        rh = rd.rhapsody(input_query, custom_PDB=pdb, log=False, **kwargs)
 
     # write predictions on PDB file(s)
     rh.writePDBs()
@@ -51,8 +59,9 @@ def batch_query():
 
     # run RHAPSODY
     if os.path.isfile('pph2-full.txt'):
-        rh = rd.rhapsody('pph2-full.txt', query_type='PolyPhen2', log=False)
+        rh = rd.rhapsody(
+            'pph2-full.txt', query_type='PolyPhen2', log=False, **kwargs)
     else:
-        rh = rd.rhapsody('input-batch_query.txt', log=False)
+        rh = rd.rhapsody('input-batch_query.txt', log=False, **kwargs)
 
     return rh

@@ -23,12 +23,12 @@
     <!-- left navbar -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item <?php echo $a['sat_mutagen'][0]?>">
-        <a class="nav-link" href="sat_mutagen.php">Saturation mutagenesis
+        <a class="nav-link" href="sat_mutagen.php">Run saturation mutagenesis
           <?php echo $a['sat_mutagen'][1]?>
         </a>
       </li>
       <li class="nav-item <?php echo $a['batch_query'][0]?>">
-        <a class="nav-link" href="batch_query.php">Batch query
+        <a class="nav-link" href="batch_query.php">Query single variants
           <?php echo $a['batch_query'][1]?>
         </a>
       </li>
