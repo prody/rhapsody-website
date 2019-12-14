@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-<?php readfile("./html/header.html"); ?>
+<?php
+readfile("./html/header.html");
+include 'src/php/utils.php';
+?>
 </head>
 
 <body>
@@ -25,11 +28,13 @@
   <div class="container-fluid md-3 text-center">
     <div class="row">
       <div class="col-md py-2">
-        <h5><i>In silico</i> saturation mutagenesis </h5>
+        <h5><i>In silico</i> saturation mutagenesis</h5>
         <small class="form-text text-muted px-5">
           perform a complete scan of all possible 19 amino acid
-          substitutions at each site on a human sequence. See example:
+          substitutions at each site on a human sequence.
+          See example:
           <a href="./results.php?id=example-sm">H-Ras</a>.
+          <?php faq_link('sm', 'more info...') ?>
         </small>
         <div class="p-3">
           <a href="sat_mutagen.php">
@@ -44,7 +49,7 @@
         <small class="form-text text-muted px-5">
           perform saturation mutagenesis analysis on a specific conformer,
           homology model or homologous structure (in case human structure is
-          not available).
+          not available).<?php faq_link('noPDB', 'more info...') ?>
         </small>
         <div class="p-3">
           <a href="sat_mutagen.php">
@@ -57,9 +62,11 @@
       <div class="col-md py-2">
         <h5>Batch query of individual variants </h5>
         <small class="form-text text-muted px-5">
-          obtain predictions for a list of human missense variants from
-          various protein sequences. See an example
+          obtain predictions for a batch of up to 10,000 individual
+          human missense variants from various protein sequences.
+          See an example
           <a href="./results.php?id=example-bq">here</a>.
+          <?php faq_link('bq', 'more info...') ?>
         </small>
         <div class="p-3">
           <a href="batch_query.php">

@@ -85,8 +85,8 @@ elseif ( $subm_type == 'batch_query' ) {
   else if ( $radio_value == "bq_file" ) {
     if ( $_FILES["bq_file"]["size"] == 0 )
       $errors[] = 'Empty file';
-    elseif ( $_FILES["bq_file"]["size"] > 100000 )
-      $errors[] = 'Uploaded file is too large (>100KB).';
+    elseif ( $_FILES["bq_file"]["size"] > 150000 )
+      $errors[] = 'Uploaded file is too large (>150KB).';
   }
   else {
     $errors[] = 'Internal error: Invalid batch query.';

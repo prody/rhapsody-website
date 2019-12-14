@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-<?php readfile("./html/header.html"); ?>
+<?php
+readfile("./html/header.html");
+include 'src/php/utils.php';
+?>
 </head>
 
 <body>
@@ -21,7 +24,6 @@
   <div class="container">
     <div class="form-row">
       <?php
-        include 'src/php/utils.php';
         $scratch_dir = "./workspace";
         echo print_jobs_table($scratch_dir);
       ?>

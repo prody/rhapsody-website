@@ -12,6 +12,7 @@
     'sat_mutagen' => ['', ''],
     'batch_query' => ['', ''],
     'retrieve_jobs' => ['', ''],
+    'FAQs' => ['', ''],
     'Py_package' => ['', ''],
     'about' => ['', ''],
   ];
@@ -60,6 +61,11 @@
             Docs
           </a>
         </div>
+      </li>
+      <li class="nav-item <?php echo $a['FAQs'][0]?>">
+        <a class="nav-link" href="faqs.php">FAQs
+          <?php echo $a['FAQs'][1]?>
+        </a>
       </li>
       <li class="nav-item <?php echo $a['about'][0]?>">
         <a class="nav-link" href="about.php">About

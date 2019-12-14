@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
-<?php readfile("./html/header.html"); ?>
-<?php readfile("./html/js_src.html"); ?>
+<?php
+readfile("./html/header.html");
+readfile("./html/js_src.html");
+include 'src/php/utils.php';
+?>
 </head>
 
 <body>
@@ -16,13 +19,14 @@
 <?php
 // echo body content based on submission type
 
-include 'src/php/utils.php';
-
 $scratch_dir = "./workspace";
 
 $arr = check_jobid_and_jobdir($scratch_dir);
 $jobid  = $arr["jobid"];
 $jobdir = $arr["jobdir"];
+
+$faq_link_output = faq_link('output', 'file content description...', false);
+$arr += ["faq_link_output" => $faq_link_output];
 
 // update cookies
 update_cookie($scratch_dir, $jobid);
@@ -99,10 +103,14 @@ if ( $subm_type == 'sm' ) {
     $div_status = "none";
   }
 
-  $arr += ["Uniprot_acc"   => $Uniprot_acc,
-           "div_status"    => $div_status,
-           "images"        => $html_snippet,
-           "lookup_tables" => $js_snippet];
+  $arr += [
+    "Uniprot_acc"     => $Uniprot_acc,
+    "div_status"      => $div_status,
+    "images"          => $html_snippet,
+    "lookup_tables"   => $js_snippet,
+    "faq_link_legend" => faq_link('legend', 'more info...', false),
+    "faq_link_noPDB"  => faq_link('noPDB', 'more info...', false),
+  ];
 }
 
 $body = fill_template("results-${subm_type}.html", $arr);

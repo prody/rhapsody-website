@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-<?php readfile("./html/header.html"); ?>
+<?php
+readfile("./html/header.html");
+include 'src/php/utils.php';
+?>
 </head>
 
 <body>
@@ -46,6 +49,7 @@ EGFR_HUMAN 300 V A
         <small id="bq_text" class="form-text text-muted">
           type <a href="query_Uniprot.php" target='_blank'>Uniprot coordinates</a>
           or leave blank to run test case
+          <?php faq_link('formats', 'more info...') ?>
         </small>
       </div>
     </div>
@@ -59,7 +63,7 @@ EGFR_HUMAN 300 V A
         <input type="file" name="bq_file" id="bq_file" autocomplete="off"
         onfocus="document.getElementById('bq_file_radio').checked=true" >
         <small id="bq_text" class="form-text text-muted">
-          upload the list in a text file</small>
+          upload the list in a text file (150KB max)</small>
       </div>
     </div>
 

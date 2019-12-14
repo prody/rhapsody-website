@@ -40,12 +40,12 @@
             github.com/prody/rhapsody</a>
           <br>
           <i class="fab fa-github"></i> &nbsp;
-          <a href="https://github.com/luponzo86/rhapsody-website"
-            target="_blank">github.com/luponzo86/rhapsody-website</a>
+          <a href="https://github.com/prody/rhapsody-tutorials"
+            target="_blank">github.com/prody/rhapsody-tutorials</a>
           <br>
           <i class="fab fa-github"></i> &nbsp;
-          <a href="https://github.com/luponzo86/rhapsody-tutorials"
-            target="_blank">github.com/luponzo86/rhapsody-tutorials</a>
+          <a href="https://github.com/prody/rhapsody-website"
+            target="_blank">github.com/prody/rhapsody-website</a>          
         </p>
       </div>
       <div class="col-md"></div>

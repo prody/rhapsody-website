@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-<?php readfile("./html/header.html"); ?>
+<?php
+readfile("./html/header.html");
+include 'src/php/utils.php';
+?>
 </head>
 
 <body>
@@ -35,10 +38,12 @@
       </label>
       <input type="text" class="form-control" name="sm_query" id="sm_query"
       placeholder="P01112" value="">
-      <small id="jobIDHelp" class="form-text text-muted">type the Uniprot
-        <a href="query_Uniprot.php" target='_blank'>unique accession number</a>
+      <small id="jobIDHelp" class="form-text text-muted">type the
+        <a href="query_Uniprot.php" target='_blank'>Uniprot accession number</a>
         of a human sequence or leave blank to run test case. <br>
-        optional: add a specific position for single-site scanning, e.g. "P01112 100"
+        optional: add a specific position for single-site scanning, e.g.
+        &nbsp;<code>P01112 100</code>&nbsp;
+        <?php faq_link('formats', 'more info...') ?>
       </small>
       <div class="invalid-feedback">
         Invalid query
@@ -60,7 +65,7 @@
         <input type="checkbox" class="custom-control-input"
         name="customPDB_checkbox" id="customPDB_checkbox" autocomplete="off">
         <label class="custom-control-label" for="customPDB_checkbox">
-          use custom PDB structure
+          use custom PDB structure<?php faq_link('noPDB', 'more info...') ?>
         </label>
       </div>
     </div>
