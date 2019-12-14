@@ -24,9 +24,7 @@
         More than 50% of residues could not be mapped to any PDB
         structure. Please consider submitting a new job by providing a custom
         PDB structure, e.g. from a homologous sequence or a homology model
-        (see Uniprot for available
-        <a href="https://www.uniprot.org/uniprot/{{Uniprot_acc}}#structure"
-          class="alert-link" target='_blank'>3D structure databases</a>).
+        {{faq_link_noPDB}}.
       </div>
     </div>
     <div class="col-sm"></div>
@@ -39,6 +37,7 @@
         <div class="container">
           <img src="./img/sm_legend.png" class="img" alt="legend"
           style="max-height: 70px; max-width: 100%;" id="legend">
+          {{faq_link_legend}}
         </div>
       </div>
       <!-- sat. mutagen. table(s) -->
@@ -49,7 +48,7 @@
 
   <div class="row">
     <div class="col-sm text-center pt-4">
-      <h4>output files:</h4>
+      <h4>output files {{faq_link_output}}</h4>
     </div>
   </div>
 
@@ -71,7 +70,7 @@
               <a href="{{jobdir}}/pph2-short.txt" target='_blank'>
                 PolyPhen-2 output</a><br>
               <a href="http://genetics.bwh.harvard.edu/pph2/" target='_blank'>
-                (website <i class="fas fa-external-link-alt"></i>)
+                (link to website <sup><i class="fas fa-external-link-alt"></i></sup>)
               </a>
             </td>
           </tr>

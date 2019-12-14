@@ -24,6 +24,17 @@ function fill_template($html, $arr) {
 }
 
 
+function faq_link($id, $description, $print=true) {
+  $html = "<a href=\"faqs.php#FAQ-${id}\" target=\"_blank\" " .
+          "title=\"${description}\">" .
+          "<sup><i class=\"fas fa-info-circle\"></i></sup></a>";
+  if ($print) {
+    echo $html;
+  }
+  return $html;
+}
+
+
 function check_jobid_and_jobdir($scratch_dir) {
 
   // check job ID
