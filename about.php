@@ -49,7 +49,7 @@
             PolyPhen-2</a> and
           <a href="https://marks.hms.harvard.edu/evmutation/" target="_blank">
             EVmutation</a>,
-          if using their results
+          if using their results.
 
       </div>
       <div class="col-md"></div>
