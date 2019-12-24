@@ -49,7 +49,8 @@ include 'src/php/utils.php';
         <small class="form-text text-muted px-5">
           perform saturation mutagenesis analysis on a specific conformer,
           homology model or homologous structure (in case human structure is
-          not available).<?php faq_link('noPDB', 'more info...') ?>
+          not available).
+          <?php faq_link('noPDB', 'more info...') ?>
         </small>
         <div class="p-3">
           <a href="sat_mutagen.php">

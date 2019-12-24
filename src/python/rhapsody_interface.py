@@ -46,9 +46,6 @@ LOGGER.info(f'Completed on {datetime.datetime.now()}')
 
 # zip results
 files = glob.glob('rhapsody-*') + glob.glob('pph2-*txt')
-if glob.glob('pph2-*txt'):
-    files.remove('pph2-started.txt')
-    files.remove('pph2-completed.txt')
 with zipfile.ZipFile('rhapsody-results.zip', 'w') as zip:
     for file in files:
         zip.write(file)
