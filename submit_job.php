@@ -122,24 +122,20 @@ if (!empty($errors)) {
 $orig_dir = getcwd();
 $jobid  = "";
 $jobdir = "";
-
-if ( substr($subm_type, 0, 8) == "example-") {
-  // test examples
-  $jobid  = $subm_type;
+while ( $jobid=="" || file_exists($jobdir) ) {
+  $salt = time();
+  $jobid = substr(md5($salt), 0, 10);
   $jobdir = $scratch_dir . "/job_" . $jobid;
-  if ( !file_exists($jobdir) ) {
-    mkdir($jobdir);
+}
+// store test examples in a special directory for the first time only
+if ( substr($subm_type, 0, 8) == "example-") {
+  $exdir = $scratch_dir . "/job_" . $subm_type;
+  if ( !file_exists($exdir) ) {
+    $jobid  = $subm_type;
+    $jobdir = $exdir;
   }
 }
-else {
-  // normal jobs
-  while ( $jobid=="" || file_exists($jobdir) ) {
-    $salt = time();
-    $jobid = substr(md5($salt), 0, 10);
-    $jobdir = $scratch_dir . "/job_" . $jobid;
-  }
-  mkdir($jobdir);
-}
+mkdir($jobdir);
 
 
 // // DEBUG: save info
@@ -192,26 +188,18 @@ elseif ( $subm_type == 'batch_query' ) {
 }
 elseif ( substr($subm_type, 0, 8) == "example-") {
   // try to reuse PolyPhen-2 files
-  if ( file_exists("pph2-full.txt") ) {
-    foreach( glob("./*") as $file ) {
-      $fname = basename($file);
-      $startswith = substr($fname, 0, 5);
-      if( $startswith!="pph2-" && $startswith!="input" )
-        unlink($file);
-    }
+  $pph2file = "../job_" . $subm_type . "/pph2-full.txt";
+  if ( file_exists($pph2file) ) {
+    copy($pph2file, './pph2-full.txt');
   }
-  else {
-    // delete everything
-    array_map('unlink', glob("./*"));
-    // print test query to file
-    if ( $subm_type == "example-sm" ) {
-      $test_query = "P01112";
-      save2file("input-sm_query.txt", $test_query);
-    }
-    elseif ( $subm_type == "example-bq" ) {
-      $test_query = "P01112 99 Q R\nEGFR_HUMAN 300 V A\n";
-      save2file("input-batch_query.txt", $test_query);
-    }
+  // print test query to file
+  if ( $subm_type == "example-sm" ) {
+    $test_query = "P01112";
+    save2file("input-sm_query.txt", $test_query);
+  }
+  elseif ( $subm_type == "example-bq" ) {
+    $test_query = "P01112 99 Q R\nEGFR_HUMAN 300 V A\n";
+    save2file("input-batch_query.txt", $test_query);
   }
 }
 else {

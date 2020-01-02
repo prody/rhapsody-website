@@ -65,7 +65,8 @@ include 'src/php/utils.php';
         <input type="checkbox" class="custom-control-input"
         name="customPDB_checkbox" id="customPDB_checkbox" autocomplete="off">
         <label class="custom-control-label" for="customPDB_checkbox">
-          use custom PDB structure<?php faq_link('noPDB', 'more info...') ?>
+          use custom PDB structure
+          <?php faq_link('noPDB', 'more info...') ?>
         </label>
       </div>
     </div>
