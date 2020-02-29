@@ -33,8 +33,8 @@
         Luca Ponzoni, Daniel A. Peñaherrera, Zoltán N. Oltvai, Ivet Bahar<br>
         <small>
         <b>Bioinformatics</b> (in press, 26 Feb 2020), DOI: 10.1093/bioinformatics/btaa127<br>
-        [<a href="https://www.biorxiv.org/content/10.1101/737429v1" target="_blank">
-        bioRxiv preprint</a>]
+        [<a href="https://www.biorxiv.org/content/10.1101/737429v1"
+        target="_blank">bioRxiv preprint</a>]
         </small>
         </p>
 
@@ -66,7 +66,7 @@
 
 <?php readfile("./html/footer.html"); ?>
 <?php readfile("./html/js_src.html"); ?>
-<script 
+<script
   type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js">
 </script>
 

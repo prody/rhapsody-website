@@ -26,6 +26,16 @@ include 'src/php/utils.php';
 
 
   <div class="container-fluid md-3 text-center">
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      Rhapsody paper has been accepted for publication on
+      <a href="https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btaa127/5758260"
+      target="_blank">Bioinformatics</a>!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
     <div class="row">
       <div class="col-md py-2">
         <h5><i>In silico</i> saturation mutagenesis</h5>
