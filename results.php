@@ -1,23 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
 <?php
-readfile("./html/header.html");
-readfile("./html/js_src.html");
+// determine body content based on submission type
+
 include 'src/php/utils.php';
-?>
-</head>
-
-<body>
-
-<?php
-  $currentPage = '';
-  include './html/navbar.php';
-?>
-
-<?php
-// echo body content based on submission type
 
 $scratch_dir = "./workspace";
 
@@ -114,13 +101,25 @@ if ( $subm_type == 'sm' ) {
 }
 
 $body = fill_template("results-${subm_type}.html", $arr);
-
-echo $body;
-
 ?>
 
-<?php readfile("./html/footer.html"); ?>
 
+<head>
+<?php
+readfile("./html/header.html");
+readfile("./html/js_src.html");
+?>
+</head>
+
+<body>
+<?php
+  $currentPage = '';
+  include './html/navbar.php';
+
+  echo $body;
+
+  readfile("./html/footer.html");
+?>
 </body>
 
 </html>

@@ -118,7 +118,7 @@ function update_cookie($scratch_dir, $jobid="") {
       // collect info about job
       $stat = stat($jobdir);
       $timestamp = $stat['ctime'];
-      $date = date("D F j Y g:i a", $timestamp);
+      $date = date("D. M. j Y g:i a", $timestamp);
       $file_sm = "${jobdir}/input-sm_query.txt";
       $file_bq = "${jobdir}/input-batch_query.txt";
       // store info in array
@@ -129,19 +129,27 @@ function update_cookie($scratch_dir, $jobid="") {
       ];
       if ( file_exists($file_sm) ) {
         $info += [
-          "type"    => "sat. mutagenesis",
-          "query"   => $file_sm,
+          "type"       => "sat. mutag.",
+          "query_file" => $file_sm,
         ];
       }
       else if ( file_exists($file_bq) ) {
         $info += [
-          "type"    => "batch query",
-          "query"   => $file_bq,
+          "type"       => "batch query",
+          "query_file" => $file_bq,
         ];
       }
       else {
         continue;
       }
+
+      // read first line of input file and save first word (Uniprot ID)
+      $f = fopen($info["query_file"], 'r');
+      $line = fgets($f);
+      $words = explode(" ", $line);
+      $acc = substr($words[0], 0, 6) . '...';
+      $info += ["query_acc" => $acc];
+      fclose($f);
 
       $content[] = $info;
     }
@@ -182,7 +190,7 @@ function print_jobs_table($scratch_dir){
       <th>submission date</th>
       <th>type</th>
       <th>input query</th>
-      <th>results page</th>
+      <th>results</th>
     </tr>
   </thead>';
 
@@ -193,7 +201,8 @@ function print_jobs_table($scratch_dir){
     $html .= "<td>". $job["job ID"]."</td>";
     $html .= "<td>". $job["date"]  ."</td>";
     $html .= "<td>". $job["type"]  ."</td>";
-    $html .= '<td><a href="'. $job["query"]  .'" target="_blank">link</a></td>';
+    $html .= '<td><a href="'. $job["query_file"]  .'" target="_blank">'.
+             $job["query_acc"]  .'</a></td>';
     $html .= '<td><a href="'. $job["results"].'" target="_blank">link</a></td>';
     $html .= "</tr>\n";
   }

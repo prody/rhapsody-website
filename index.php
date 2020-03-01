@@ -28,9 +28,9 @@ include 'src/php/utils.php';
   <div class="container-fluid md-3 text-center">
 
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-      Rhapsody paper has been accepted for publication on
+      <strong> update (26 Feb. 2020):</strong> Rhapsody paper accepted for publication on
       <a href="https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btaa127/5758260"
-      target="_blank">Bioinformatics</a>!
+      target="_blank">Bioinformatics</a>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -38,7 +38,9 @@ include 'src/php/utils.php';
 
     <div class="row">
       <div class="col-md py-2">
-        <h5><i>In silico</i> saturation mutagenesis</h5>
+        <a href="sat_mutagen.php" class="text-dark">
+          <h5><i>In silico</i> saturation mutagenesis</h5>
+        </a>
         <small class="form-text text-muted px-5">
           perform a complete scan of all possible 19 amino acid
           substitutions at each site on a human sequence.
@@ -55,7 +57,9 @@ include 'src/php/utils.php';
       </div>
 
       <div class="col-md py-2">
-        <h5>Variants on custom PDB structure </h5>
+        <a href="sat_mutagen.php" class="text-dark">
+          <h5>Variants on custom PDB structure </h5>
+        </a>
         <small class="form-text text-muted px-5">
           perform saturation mutagenesis analysis on a specific conformer,
           homology model or homologous structure (in case human structure is
@@ -71,7 +75,9 @@ include 'src/php/utils.php';
       </div>
 
       <div class="col-md py-2">
-        <h5>Batch query of individual variants </h5>
+        <a href="batch_query.php" class="text-dark">
+          <h5>Batch query of individual variants </h5>
+        </a>
         <small class="form-text text-muted px-5">
           obtain predictions for a batch of up to 10,000 individual
           human missense variants from various protein sequences.
