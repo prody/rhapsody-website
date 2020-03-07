@@ -1,0 +1,10 @@
+# Group 1
+User-agent: *
+Disallow: /workspace/src/
+Disallow: /workspace/rhapsody/
+Disallow: /workspace/PDBs/
+Disallow: /workspace/job_*
+Allow: /workspace/job_example-bq
+Allow: /workspace/job_example-sm
+
+Sitemap: http://rhapsody.csb.pitt.edu/sitemap.xml

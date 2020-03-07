@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/index.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/sat_mutagen.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/batch_query.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/retrieve_jobs.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/download.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/faqs.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/about.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/results.php?id=example-sm</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/results.php?id=example-bq</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>http://rhapsody.csb.pitt.edu/query_Uniprot.php</loc>
+  <lastmod>2020-03-05T02:48:30+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.6</priority>
+</url>
+
+
+</urlset>
