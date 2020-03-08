@@ -62,15 +62,11 @@ include 'src/php/utils.php';
 
   <div class="col-md-6">
     <div class="form-group">
-      <div class="custom-control custom-checkbox" data-toggle="collapse"
-      data-target="#collapse1">
-        <input type="checkbox" class="custom-control-input"
-        name="customPDB_checkbox" id="customPDB_checkbox" autocomplete="off">
-        <label class="custom-control-label" for="customPDB_checkbox">
-          use custom PDB structure
-          <?php faq_link('noPDB', 'when could it be useful?') ?>
-        </label>
-      </div>
+      <button type="button" class="btn btn-outline-info btn-sm"
+        data-toggle="collapse" data-target="#collapse1"
+        aria-expanded="false" aria-controls="collapse1">
+        advanced settings
+      </button>
     </div>
   </div>
 
@@ -79,14 +75,37 @@ include 'src/php/utils.php';
 
 <!-- collapsable row with radio buttons for typing/uploading PDB -->
 <div class="panel-collapse collapse" id="collapse1">
-  <div class="form-row">
-  <div class="col-md"></div>
 
+  <!-- "use custom PDB structure" checkbox -->
+  <div class="form-row">
+    <div class="col-md"></div>
     <div class="col-md-6">
-      <div class="form-check">
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input"
+          name="customPDB_checkbox" id="customPDB_checkbox" autocomplete="off"
+          onchange="document.getElementById('radios').disabled = !this.checked;">
+          <label class="custom-control-label" for="customPDB_checkbox">
+            use custom PDB structure
+            <?php faq_link('noPDB', 'when could it be useful?') ?>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md"></div>
+  </div>
+
+  <!-- radio buttons controled by "custom PDB" checkbox -->
+  <fieldset class="ml-4" id="radios" disabled>
+
+  <!-- "type PDB code" radio button -->
+  <div class="form-row">
+    <div class="col-md"></div>
+    <div class="col-md-6">
+      <div class="form-check pb-2">
         <input class="form-check-input" type="radio" name="customPDB_radios"
         id="customPDBID_radio" value="PDBID" checked>
-        <div class="form-group">
+        <div class="input-group input-group-sm">
           <input class="form-control" type="text" name="customPDBID" value=""
           id="customPDBID" maxlength="4" placeholder="type a PDB code..."
           onfocus="document.getElementById('customPDBID_radio').checked=true">
@@ -94,13 +113,12 @@ include 'src/php/utils.php';
         </div>
       </div>
     </div>
-
     <div class="col-md"></div>
   </div>
 
+  <!-- "upload PDB file" radio button -->
   <div class="form-row">
     <div class="col-md"></div>
-
     <div class="col-md-6">
       <div class="form-check">
         <input class="form-check-input" type="radio" name="customPDB_radios"
@@ -110,37 +128,15 @@ include 'src/php/utils.php';
           <input type="file" accept=".pdb,.pdb.gz" name="customPDBFile"
           id="customPDBFile" autocomplete="off"
           onfocus="document.getElementById('customPDBfile_radio').checked=true">
-<!-- "custom" upload button -->
-<!--
-<div class="custom-file">
-  <input type="file" class="custom-file-input" name="customPDBFile"
-  id="customPDBFile" accept=".pdb,.pdb.gz"
-  onfocus="document.getElementById('customPDBfile_radio').checked=true">
-  <label class="custom-file-label text-truncate" for="customPDBFile">
-  Upload PDB file</label>
-</div>
--->
-<!--
-<script>
-  // JS for updating label after uploading file, in case you are
-  using "custom" upload button
-  // NB: does not work...
-  // see: https://stackoverflow.com/questions/48613992/bootstrap-4-file-input-doesnt-show-the-file-name
-  $('#customPDBFile').on('change',function(){
-    // get the filename
-    var fileName = $(this).val();
-    // replace the label
-    $(this).next('.custom-file-label').html(fileName);
-  })
-</script>
--->
         </div>
       </div>
     </div>
-
     <div class="col-md"></div>
   </div>
-</div>
+
+</fieldset>
+
+</div> <!-- end of collapsable -->
 
 
 

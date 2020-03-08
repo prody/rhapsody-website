@@ -138,13 +138,6 @@ if ( substr($subm_type, 0, 8) == "example-") {
 mkdir($jobdir);
 
 
-// // DEBUG: save info
-// $output = print_r($_POST, true);
-// file_put_contents("${jobdir}/input.log", $output);
-// $output = print_r($_FILES, true);
-// file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
-
-
 // write data to file
 chdir($jobdir);
 
@@ -214,27 +207,38 @@ if (! empty($_POST["email"]) ) {
   save2file("input-email.txt", $_POST["email"]);
 }
 
+
 chdir($orig_dir);
 
 
-// launch job in the background
-$pyscript = "${orig_dir}/src/python/rhapsody_interface.py";
-$pid_file = "${jobdir}/PID.tmp";
-exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
-     ">> ${scratch_dir}/launch_job.err 2>&1 & echo $! > $pid_file");
+if (false) {
+  // DEBUG: instead of launching the job, save variables to file and exit
+  $output = print_r($_POST, true);
+  echo '<pre>'; print_r($_POST); echo '</pre>';
+  file_put_contents("${jobdir}/input.log", $output);
+  $output = print_r($_FILES, true);
+  echo '<pre>'; print_r($_FILES); echo '</pre>';
+  file_put_contents("${jobdir}/input.log", $output, FILE_APPEND);
+  }
+else {
+  // launch job in the background
+  $pyscript = "${orig_dir}/src/python/rhapsody_interface.py";
+  $pid_file = "${jobdir}/PID.tmp";
+  exec("nohup src/bin/launch_job.sh $jobdir $pyscript < /dev/null " .
+       ">> ${scratch_dir}/launch_job.err 2>&1 & echo $! > $pid_file");
 
+  // clean workspace from old jobs
+  exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
+       ">> ${scratch_dir}/old_jobs.log 2>> ${scratch_dir}/old_jobs.err &");
 
-// clean workspace from old jobs
-exec("nohup src/bin/clean_workspace.sh $scratch_dir < /dev/null " .
-     ">> ${scratch_dir}/old_jobs.log 2>> ${scratch_dir}/old_jobs.err &");
+  // go to the progress page
+  $page = "status.php?id=${jobid}";
+  echo "<script type='text/javascript'> window.location.href='$page';</script>";
 
+  // I don't understand why redirect() does not work here...
+  // redirect("status.php", ["id" => $jobid]);
+}
 
-// go to the progress page
-$page = "status.php?id=${jobid}";
-echo "<script type='text/javascript'> window.location.href='$page';</script>";
-
-// I don't understand why redirect() does not work here...
-// redirect("status.php", ["id" => $jobid]);
 
 exit();
 ?>
