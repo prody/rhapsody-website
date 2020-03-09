@@ -57,7 +57,7 @@ include 'src/php/utils.php';
       </div>
 
       <div class="col-md py-2">
-        <a href="sat_mutagen.php" class="text-dark">
+        <a href="sat_mutagen.php?showCollapsable" class="text-dark">
           <h5>Variants on custom PDB structure </h5>
         </a>
         <small class="form-text text-muted px-5">
@@ -67,7 +67,7 @@ include 'src/php/utils.php';
           <?php faq_link('noPDB', 'more info...') ?>
         </small>
         <div class="p-3">
-          <a href="sat_mutagen.php">
+          <a href="sat_mutagen.php?showCollapsable">
             <img src="./img/thumbnail-customPDB.png"
             class="img-responsive border rounded" style="width:80%" alt="">
           </a>
