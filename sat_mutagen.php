@@ -181,7 +181,19 @@ include 'src/php/utils.php';
 <?php readfile("./html/footer.html"); ?>
 <?php readfile("./html/js_src.html"); ?>
 
+
 <script>
+  // show collapsable if requested
+  if (<?php if (isset($_GET['showCollapsable'])) echo 'true';?>) {
+    setTimeout(function() {
+      $('#collapse1').collapse('show');
+      setTimeout(function() {
+        $('#customPDB_checkbox').prop('checked', true);
+        $('#radios').prop('disabled', false);
+      }, 300);
+    }, 300);
+  }
+
   // Example starter JavaScript for disabling form submissions if there are invalid fields
   (function() {
     'use strict';
